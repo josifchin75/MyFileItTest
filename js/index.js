@@ -16,34 +16,65 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 var app = {
     // Application Constructor
-    initialize: function() {
+    initialize: function () {
         this.bindEvents();
     },
     // Bind Event Listeners
     //
     // Bind any events that are required on startup. Common events are:
     // 'load', 'deviceready', 'offline', and 'online'.
-    bindEvents: function() {
+    bindEvents: function () {
         document.addEventListener('deviceready', this.onDeviceReady, false);
     },
     // deviceready Event Handler
-    //
-    // The scope of 'this' is the event. In order to call the 'receivedEvent'
-    // function, we must explicitly call 'app.receivedEvent(...);'
-    onDeviceReady: function() {
+    onDeviceReady: function () {
         app.receivedEvent('deviceready');
     },
     // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        var parentElement = document.getElementById(id);
-        var listeningElement = parentElement.querySelector('.listening');
-        var receivedElement = parentElement.querySelector('.received');
-
-        listeningElement.setAttribute('style', 'display:none;');
-        receivedElement.setAttribute('style', 'display:block;');
+    receivedEvent: function (id) {
+        switch (id) {
+            case "deviceready":
+                //pgAlert("DEVICE READY", function() {}, "ready", null);
+                this.initDevice();
+                break;
+        }
 
         console.log('Received Event: ' + id);
+    },
+    initDevice: function () {
+        debugger;
+        serviceHelper.init();
+        dbHelper.init();
+        screenHelper.changeScreen(
+            "login",
+            "LOGIN PAGE",
+            null,
+            function () {
+            }
+        );
+    },
+    writeLog: function (message, isError) {
+        //write to file?
+        console.log((isError ? "ERROR" : "LOG  "), message);
+        fileHelper.writeFile("log.txt", message, false, null);
+    },
+    getSetting: function (key) {
+        return window.localStorage.getItem(key);
+    },
+    setSetting: function (key, value) {
+
+        window.localStorage.setItem(key, value);
+        return true; //??
+    },
+    removeSetting: function (key) {
+        window.localStorage.removeItem(key);
     }
+};
+
+window.onerror = function (e, f, g) {
+    app.writeLog(e + f + g, true);
+    console.log("window.onerror ", e, f, g);
 };
