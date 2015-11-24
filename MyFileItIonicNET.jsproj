@@ -110,6 +110,12 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="img\k3IgMZ9RhWu26redhI0S_keychain-512.png" />
+    <Content Include="js\app.js" />
+    <Content Include="js\controllers.js" />
+    <Content Include="js\directives.js" />
+    <Content Include="js\routes.js" />
+    <Content Include="js\services.js" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />
@@ -172,80 +178,42 @@
     <Content Include="lib\ionic\scss\_util.scss" />
     <Content Include="lib\ionic\scss\_variables.scss" />
     <Content Include="lib\ionic\version.json" />
-    <Content Include="merges\android\scripts\android2.3-jscompat.js" />
-    <Content Include="merges\android\scripts\platformOverrides.js" />
-    <Content Include="scripts\routes.js" />
-    <Content Include="scripts\services.js" />
-    <Folder Include="merges\ios\" />
-    <Content Include="merges\windows\scripts\platformOverrides.js" />
-    <Content Include="merges\windows\scripts\winstore-jscompat.js" />
-    <Folder Include="merges\wp8\" />
-    <Folder Include="res\icons\android\" />
-    <Folder Include="res\icons\ios\" />
-    <Folder Include="res\icons\wp8\" />
-    <Folder Include="res\icons\windows\" />
-    <Folder Include="res\screens\android\" />
-    <Folder Include="res\screens\ios\" />
-    <Folder Include="res\screens\windows\" />
-    <Folder Include="res\screens\wp8\" />
+    <Content Include="templates\confirmDocument.html" />
+    <Content Include="templates\confirmDocumentShare.html" />
+    <Content Include="templates\editAccountLogin.html" />
+    <Content Include="templates\editAccountUser.html" />
+    <Content Include="templates\emergencyShare.html" />
+    <Content Include="templates\errorHasOccurred.html" />
+    <Content Include="templates\forgotPassword.html" />
+    <Content Include="templates\forgottenPasswordSent.html" />
+    <Content Include="templates\inviteAFriend.html" />
+    <Content Include="templates\login.html" />
+    <Content Include="templates\logOut.html" />
+    <Content Include="templates\main.html" />
+    <Content Include="templates\newAccount.html" />
+    <Content Include="templates\newAccountProfile.html" />
+    <Content Include="templates\scanDocuments.html" />
+    <Content Include="templates\scannerSettings.html" />
+    <Content Include="templates\settings.html" />
+    <Content Include="templates\setUpTeamAndPlayers.html" />
+    <Content Include="templates\shareDocuments.html" />
+    <Content Include="templates\shareHasBeenSent.html" />
+    <Content Include="templates\sharingKeyManagement.html" />
+    <Content Include="templates\success.html" />
+    <Content Include="templates\tabsController.html" />
+    <Content Include="templates\tabsController2.html" />
+    <Content Include="templates\uploadSuccess.html" />
+    <Content Include="templates\viewImages.html" />
+    <Content Include="templates\viewYourDocuments.html" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.xml">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="index.html" />
-    <Content Include="scripts\app.js" />
-    <Content Include="scripts\controllers.js" />
-    <Content Include="scripts\directives.js" />
-    <Content Include="scripts\platformOverrides.js" />
-    <Content Include="css\index.css" />
-    <Content Include="res\icons\android\icon-36-ldpi.png" />
-    <Content Include="res\icons\android\icon-48-mdpi.png" />
-    <Content Include="res\icons\android\icon-72-hdpi.png" />
-    <Content Include="res\icons\android\icon-96-xhdpi.png" />
-    <Content Include="res\icons\ios\icon-40.png" />
-    <Content Include="res\icons\ios\icon-40-2x.png" />
-    <Content Include="res\icons\ios\icon-50.png" />
-    <Content Include="res\icons\ios\icon-50-2x.png" />
-    <Content Include="res\icons\ios\icon-57.png" />
-    <Content Include="res\icons\ios\icon-57-2x.png" />
-    <Content Include="res\icons\ios\icon-60.png" />
-    <Content Include="res\icons\ios\icon-60-2x.png" />
-    <Content Include="res\icons\ios\icon-72.png" />
-    <Content Include="res\icons\ios\icon-72-2x.png" />
-    <Content Include="res\icons\ios\icon-76.png" />
-    <Content Include="res\icons\ios\icon-76-2x.png" />
-    <Content Include="res\icons\ios\icon-small.png" />
-    <Content Include="res\icons\ios\icon-small-2x.png" />
-    <Content Include="res\icons\windows\logo.png" />
-    <Content Include="res\icons\windows\smalllogo.png" />
-    <Content Include="res\icons\windows\Square150x150Logo.scale-240.png" />
-    <Content Include="res\icons\windows\Square44x44Logo.scale-240.png" />
-    <Content Include="res\icons\windows\Square71x71Logo.scale-240.png" />
-    <Content Include="res\icons\windows\storelogo.png" />
-    <Content Include="res\icons\windows\StoreLogo.scale-240.png" />
-    <Content Include="res\icons\windows\Wide310x150Logo.scale-240.png" />
-    <Content Include="res\icons\wp8\icon-62-tile.png" />
-    <Content Include="res\icons\wp8\icon-173-tile.png" />
-    <Content Include="res\native\android\ant.properties" />
-    <Content Include="res\screens\android\screen-hdpi-landscape.png" />
-    <Content Include="res\screens\android\screen-hdpi-portrait.png" />
-    <Content Include="res\screens\android\screen-ldpi-landscape.png" />
-    <Content Include="res\screens\android\screen-ldpi-portrait.png" />
-    <Content Include="res\screens\android\screen-mdpi-landscape.png" />
-    <Content Include="res\screens\android\screen-mdpi-portrait.png" />
-    <Content Include="res\screens\android\screen-xhdpi-landscape.png" />
-    <Content Include="res\screens\android\screen-xhdpi-portrait.png" />
-    <Content Include="res\screens\ios\screen-ipad-landscape.png" />
-    <Content Include="res\screens\ios\screen-ipad-landscape-2x.png" />
-    <Content Include="res\screens\ios\screen-ipad-portrait.png" />
-    <Content Include="res\screens\ios\screen-ipad-portrait-2x.png" />
-    <Content Include="res\screens\ios\screen-iphone-568h-2x.png" />
-    <Content Include="res\screens\ios\screen-iphone-portrait.png" />
-    <Content Include="res\screens\ios\screen-iphone-portrait-2x.png" />
-    <Content Include="res\screens\windows\splashscreen.png" />
-    <Content Include="res\screens\windows\SplashScreen.scale-240.png" />
-    <Content Include="res\screens\wp8\screen-portrait.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bld\Debug\platforms\android\" />
   </ItemGroup>
   <PropertyGroup>
     <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
