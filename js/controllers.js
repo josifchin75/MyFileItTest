@@ -41,7 +41,7 @@ angular.module('app.controllers', [])
 
 .controller('mainCtrl', function ($scope, LoginService) {
     $scope.data = {
-        currentUser: LoginService.currentUser()
+        currentUser: LoginService.currentUser(),
     };
 })
 
@@ -61,12 +61,47 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('editAccountLoginCtrl', function ($scope) {
+.controller('editAccountLoginCtrl', function ($scope, LoginService, UserService, $ionicPopup, $state) {
+    $scope.data = {
+        currentUser: LoginService.currentUser(),
+        newPassword: '',
+        confirmPassword: ''
+    };
 
+    $scope.updateLogin = function () {
+        function failCallback() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Invalid password',
+                template: 'New password doesn\'t match the confirm password.'
+            });
+        }
+
+        function failedUpdateCallback() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Update failed',
+                template: 'Update failed.'
+            });
+        }
+
+        function successCallback() {
+            $scope.data.newPassword = '';
+            $scope.data.confirmPassword = '';
+            $state.go('tabsController.settings');
+        }
+
+        if (($scope.data.newPassword != $scope.data.confirmPassword) || ($scope.data.newPassword.length == 0)) {
+            failCallback();
+        } else {
+            $scope.data.currentUser.PASSWORD = $scope.data.newPassword;
+            UserService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
+        }
+    };
 })
 
-.controller('editAccountUserCtrl', function ($scope) {
-
+.controller('editAccountUserCtrl', function ($scope, LoginService, $ionicPopup, $state) {
+    $scope.data = {
+        currentUser: LoginService.currentUser()
+    };
 })
 
 .controller('setUpTeamAndPlayersCtrl', function ($scope) {

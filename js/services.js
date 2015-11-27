@@ -8,6 +8,27 @@ angular.module('app.services', [])
 
 }])
 
+.service('UserService',function( $q, $http, LoginService){
+    return {
+        updateUser: function (appUser, successCallback, failCallback) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/UpdateAppUser';
+            //string user, string pass, AppUserDTO appUser
+            $http.post(url, { user: "admin", pass: "admin", appUser: appUser })
+                .success(function (response) {  
+                    if (response.Success) {
+                        LoginService.currentUser = appUser;
+                        successCallback(response);
+                    } else {
+                        failCallback(response);
+                    }
+                });
+            return promise;
+        }
+    }
+})
+
 .service('LoginService', function ($q, $http) {
     var currentUser;
 
