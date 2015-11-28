@@ -4,4 +4,7 @@
     <ShowAllFiles>true</ShowAllFiles>
     <ReferenceCachePath>C:\Users\josif_000\AppData\Local\Temp\MyFileItIonicNET_refcache</ReferenceCachePath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
+    <DebuggerFlavor>AndroidEmulator</DebuggerFlavor>
+  </PropertyGroup>
 </Project>

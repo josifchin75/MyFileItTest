@@ -28,7 +28,34 @@ angular.module('app.controllers', [])
 })
 
 .controller('scanDocumentsCtrl', function ($scope) {
+    $scope.data = {
+        currentImage: null,
+        currentImageSrc: null
+    };
 
+    $scope.getPicture = function (find, onSuccess) {
+        function takePicture(find) {
+            navigator.camera.getPicture(onSuccessPic, onFail, {
+                quality: 10,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: (find ? Camera.PictureSourceType.PHOTOLIBRARY : Camera.PictureSourceType.CAMERA)
+            });
+        }
+
+        function onSuccessPic(imageData) {
+            //var image = document.getElementById('myImage');
+            //image.src = "data:image/jpeg;base64," + imageData;
+            currentImage = imageData;
+            currentImageSrc = "data:image/jpeg;base64," + imageData;
+            //alert(image.src);
+        }
+
+        function onFail(message) {
+            alert('Failed because: ' + message);
+        }
+
+        takePicture(find);
+    };
 })
 
 .controller('viewYourDocumentsCtrl', function ($scope) {
@@ -158,7 +185,6 @@ angular.module('app.controllers', [])
 })
 
 .controller('viewImagesCtrl', function ($scope) {
-
 })
 
 .controller('shareDocumentsCtrl', function ($scope) {
