@@ -1,0 +1,31 @@
+<ion-view title="View Your Documents">
+    <ion-content padding="'true'" class="has-header">
+        <form class="list">
+            <div>
+                <p>
+                    Select the family member you are sharing documents for.
+                </p>
+            </div>
+            <ion-radio name="selectUser">Brother</ion-radio>
+            <ion-radio name="selectUser">Sister</ion-radio>
+        </form>
+        <form class="list">
+            <label class="item item-input" name="searchDocuments">
+                <i class="icon ion-search placeholder-icon"></i>
+                <input type="search" placeholder="Search Documents">
+            </label>
+            <label class="item item-select" name="searchDocumentBy">
+                <span class="input-label">Search By</span>
+                <select></select>
+            </label>
+        </form>
+        <ion-list>
+            <ion-item menu-close="" class="item-thumbnail-left">
+                <img>
+                <h2>Birth Certificate</h2>
+                <p>Image 1</p>
+            </ion-item>
+        </ion-list>
+        <ion-list></ion-list>
+    </ion-content>
+</ion-view>

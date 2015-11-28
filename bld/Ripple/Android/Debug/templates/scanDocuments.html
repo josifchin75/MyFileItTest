@@ -1,0 +1,40 @@
+<ion-view title="Scan Documents">
+    <ion-content padding="'true'" class="has-header">
+        <form class="list"></form>
+        <form class="list">
+            <ion-radio name="radioAppUser">Brother</ion-radio>
+            <ion-radio name="radioAppUser">Sister</ion-radio>
+        </form>
+        <form class="list">
+            <label class="item item-select" name="ddlTypeOfDocument">
+                <span class="input-label">Type of document</span>
+                <select></select>
+            </label>
+        </form>
+        <form class="list">
+            <ion-radio name="ScanEventId">Event 1</ion-radio>
+            <div class="button-bar">
+                <a menu-close="" class="button button-positive button-block  icon-left ion-android-add" ng-click="getPicture(false)">Scan New</a>
+                <a menu-close="" class="button button-positive button-block  icon-left ion-android-document" ng-click="getPicture(true)">Select Existing</a>
+            </div>
+            <label class="item item-input" name="ScanComment">
+                <span class="input-label">Comment</span><textarea placeholder=""> </textarea>
+            </label>
+            <label class="item item-input" name="OrganizationName">
+                <span class="input-label">Organization Name</span>
+                <input type="text" placeholder="">
+            </label>
+        </form>
+        <ion-list>
+            <ion-toggle toggle-class="toggle-positive" name="chkSkipOrganization">I do not have an event name</ion-toggle>
+        </ion-list>
+        <div>
+            <p>Select an event</p>
+        </div>
+        <form class="list">
+            <ion-radio name="radEventName">Event Soccer</ion-radio>
+            <ion-radio name="radEventName">Event Baseball</ion-radio>
+        </form>
+        <a menu-close="" href="#/maintab/main" class="button button-stable button-block ">Back</a>
+    </ion-content>
+</ion-view>
