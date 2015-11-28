@@ -27,7 +27,7 @@ angular.module('app.controllers', [])
     }
 })
 
-.controller('scanDocumentsCtrl', function ($scope,$cordovaCamera) {
+.controller('scanDocumentsCtrl', function ($scope,Camera, $cordovaCamera) {
     $scope.data = {
         currentImage: null,
         currentImageSrc: null
