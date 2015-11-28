@@ -22,6 +22,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     });
 });
 
+
+
 //window.onerror = function (message, url, line, col, error) {
 //    var stopPropagation = debug ? false : true;
 //    var data = {

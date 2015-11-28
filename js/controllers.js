@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-.controller('loginCtrl', function ($scope, UserService, $ionicPopup, $state) {
+.controller('loginCtrl', function ($scope, UserService, Camera, $ionicPopup, $state) {
     $scope.data = {};
 
     $scope.login = function () {
@@ -25,12 +25,28 @@ angular.module('app.controllers', [])
              });
          });*/
     }
+
+    $scope.getPhoto = function () {
+        Camera.getPicture().then(function (imageURI) {
+            console.log(imageURI);
+        }, function (err) {
+            console.err(err);
+        });
+    };
 })
 
-.controller('scanDocumentsCtrl', function ($scope) {
+.controller('scanDocumentsCtrl', function ($scope, Camera) {
     $scope.data = {
         currentImage: null,
         currentImageSrc: null
+    };
+
+    $scope.getPhoto = function () {
+        Camera.getPicture().then(function (imageURI) {
+            console.log(imageURI);
+        }, function (err) {
+            console.err(err);
+        });
     };
 
     $scope.getPicture = function (find, onSuccess) {
