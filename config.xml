@@ -22,9 +22,7 @@
   <preference name="android-installLocation" value="auto" />
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
-  <!--<vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
-  <vs:plugin name="org.apache.cordova.splashscreen" version="0.3.3" />-->
-  <vs:plugin name="org.apache.cordova.camera"/>
-  <vs:plugin name="org.apache.cordova.media-capture"/>
+
+  <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
   <vs:platformSpecificValues />
 </widget>
