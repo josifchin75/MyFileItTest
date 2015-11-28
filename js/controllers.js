@@ -27,7 +27,7 @@ angular.module('app.controllers', [])
     }
 })
 
-.controller('scanDocumentsCtrl', function ($scope,Camera, $cordovaCamera) {
+.controller('scanDocumentsCtrl', function ($scope, $cordovaCamera) {
     $scope.data = {
         currentImage: null,
         currentImageSrc: null
@@ -39,6 +39,8 @@ angular.module('app.controllers', [])
                 title: 'Update failed',
                 template: 'Update failed.'
             });*/
+			alert(navigator);
+			alert($cordovaCamera);
 			alert(navigator.camera);
             navigator.camera.getPicture(onSuccessPic, onFail, {
                 quality: 10,
