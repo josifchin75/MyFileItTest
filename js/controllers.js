@@ -27,7 +27,7 @@ angular.module('app.controllers', [])
     }
 })
 
-.controller('scanDocumentsCtrl', function ($scope) {
+.controller('scanDocumentsCtrl', function ($scope,$cordovaCamera) {
     $scope.data = {
         currentImage: null,
         currentImageSrc: null
@@ -35,7 +35,11 @@ angular.module('app.controllers', [])
 
     $scope.getPicture = function (find, onSuccess) {
         function takePicture(find) {
-            alert(navigator.camera);
+			/*var alertPopup = $ionicPopup.alert({
+                title: 'Update failed',
+                template: 'Update failed.'
+            });*/
+			alert(navigator.camera);
             navigator.camera.getPicture(onSuccessPic, onFail, {
                 quality: 10,
                 destinationType: Camera.DestinationType.DATA_URL,
