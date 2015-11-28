@@ -110,6 +110,7 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="css\myfileitmobile.css" />
     <Content Include="img\k3IgMZ9RhWu26redhI0S_keychain-512.png" />
     <Content Include="js\app.js" />
     <Content Include="js\controllers.js" />
@@ -178,6 +179,7 @@
     <Content Include="lib\ionic\scss\_util.scss" />
     <Content Include="lib\ionic\scss\_variables.scss" />
     <Content Include="lib\ionic\version.json" />
+    <Content Include="lib\jquery\jquery-2.1.4.min.js" />
     <Content Include="templates\confirmDocument.html" />
     <Content Include="templates\confirmDocumentShare.html" />
     <Content Include="templates\editAccountLogin.html" />

@@ -3,16 +3,16 @@
         <form class="list">
             <ion-list>
                 <label class="item item-input" name="NewEmail">
-                    <input type="text" placeholder="Parent / Guardian Email">
+                    <input type="text" placeholder="Parent / Guardian Email" ng-model="data.currentUser.USERNAME">
                 </label>
                 <label class="item item-input" name="NewPassword">
-                    <input type="text" placeholder="Password">
+                    <input type="password" placeholder="Password" ng-model="data.newPassword">
                 </label>
                 <label class="item item-input" name="NewPasswordConfirm">
-                    <input type="text" placeholder="Re-Enter Password">
+                    <input type="password" placeholder="Re-Enter Password" ng-model="data.confirmPassword">
                 </label>
             </ion-list>
-            <a menu-close="" href="#/newaccountsuccess" class="button button-positive button-block ">Update</a>
+            <a menu-close=""  class="button button-positive button-block" ng-click="updateLogin()">Update</a>
             <div class="spacer" style="height: 100px;"></div>
             <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
         </form>

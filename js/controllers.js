@@ -1,6 +1,6 @@
 angular.module('app.controllers', [])
 
-.controller('loginCtrl', function ($scope, LoginService, $ionicPopup, $state) {
+.controller('loginCtrl', function ($scope, UserService, $ionicPopup, $state) {
     $scope.data = {};
 
     $scope.login = function () {
@@ -16,7 +16,7 @@ angular.module('app.controllers', [])
             });
         }
 
-        LoginService.loginUser($scope.data.username, $scope.data.password, callback, failCallback);
+        UserService.loginUser($scope.data.username, $scope.data.password, callback, failCallback);
         /* .success(callback)
          .error(function (data) {
              var alertPopup = $ionicPopup.alert({
@@ -39,9 +39,9 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('mainCtrl', function ($scope, LoginService) {
+.controller('mainCtrl', function ($scope, UserService) {
     $scope.data = {
-        currentUser: LoginService.currentUser(),
+        currentUser: UserService.currentUser(),
     };
 })
 
@@ -61,9 +61,9 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('editAccountLoginCtrl', function ($scope, LoginService, UserService, $ionicPopup, $state) {
+.controller('editAccountLoginCtrl', function ($scope, UserService, $ionicPopup, $state) {
     $scope.data = {
-        currentUser: LoginService.currentUser(),
+        currentUser: UserService.currentUser(),
         newPassword: '',
         confirmPassword: ''
     };
@@ -98,9 +98,26 @@ angular.module('app.controllers', [])
     };
 })
 
-.controller('editAccountUserCtrl', function ($scope, LoginService, $ionicPopup, $state) {
+.controller('editAccountUserCtrl', function ($scope, UserService, $ionicPopup, $state) {
     $scope.data = {
-        currentUser: LoginService.currentUser()
+        currentUser: UserService.currentUser()//,
+        //primaryAccountHolder: currentUser.PRIMARYAPPUSERID == null
+        //TODO: not sure how to handle this yet
+    };
+
+    $scope.updateLogin = function () {
+        function failedUpdateCallback(result) {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Update failed',
+                template: 'Update failed.'
+            });
+        }
+
+        function successCallback(result) {
+            $state.go('tabsController.settings');
+        }
+
+        UserService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
     };
 })
 
