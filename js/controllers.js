@@ -35,6 +35,7 @@ angular.module('app.controllers', [])
 
     $scope.getPicture = function (find, onSuccess) {
         function takePicture(find) {
+			alert(navigator.camera);
             navigator.camera.getPicture(onSuccessPic, onFail, {
                 quality: 10,
                 destinationType: Camera.DestinationType.DATA_URL,
