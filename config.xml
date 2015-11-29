@@ -1,7 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.myfileit.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
+<widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="com.myfileit.app" version="1.0.0">
+
   <name>MyFileIT Documents</name>
-  <description>MyFileIT document sharing and storage u.</description>
+  <description>MyFileIT document sharing and storage. uu</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">J Osifchin</author>
   <content src="index.html" />
   <access origin="*" />
@@ -11,7 +12,6 @@
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
   
-
-  <plugin name="org.apache.cordova.camera" spec="n/a" />
-
+  <gap:plugin name="org.apache.cordova.camera"/>
+  
 </widget>
