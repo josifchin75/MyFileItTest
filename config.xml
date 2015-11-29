@@ -13,7 +13,8 @@
   <preference name="Fullscreen" value="false" />
   
   <gap:plugin name="org.apache.cordova.camera"/>
-   <access origin="*"/>
+  
+  <access origin="*"/>
    
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
@@ -25,12 +26,6 @@
   
   <allow-intent href="*" />
   <allow-navigation href="*" />
+
   
-  <platform name="android">
-    <allow-intent href="market:*"/>
-  </platform>
-  <platform name="ios">
-    <allow-intent href="itms:*"/>
-    <allow-intent href="itms-apps:*"/>
-  </platform>
 </widget>
