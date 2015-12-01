@@ -12,5 +12,15 @@
   <preference name="Fullscreen" value="false" />
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
   <vs:platformSpecificValues />
-
+  
+  <plugin name="cordova-plugin-whitelist" version="1"/>
+  <allow-intent href="http://*/*"/>
+  <allow-intent href="https://*/*"/>
+  <allow-intent href="tel:*"/>
+  <allow-intent href="sms:*"/>
+  <allow-intent href="mailto:*"/>
+  <allow-intent href="geo:*"/>
+  
+  <allow-intent href="*" />
+  <allow-navigation href="*" />
 </widget>
