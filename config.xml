@@ -17,4 +17,12 @@
     <icon src="myicon.png" />
     <splash src="myicon.png"/>
   </platform>
+  <platform name="ios">
+    <icon src="myicon.png" />
+    <splash src="myicon.png"/>
+  </platform>
+  <platform name="windows">
+    <icon src="myicon.png" />
+    <splash src="myicon.png"/>
+  </platform>
 </widget>
