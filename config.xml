@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0" xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps" id="com.myfileit.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets">
   <name>MyFileIT Documents</name>
-  <description>MyFileIT document sharing and storage. uu</description>
+  <description>MyFileIT document sharing and storage.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">J Osifchin</author>
   <content src="index.html" />
   <access origin="*" />
@@ -12,7 +12,7 @@
   <preference name="Fullscreen" value="false" />
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
   <vs:platformSpecificValues />
-  
+
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
@@ -21,6 +21,16 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
   
-  <allow-intent href="*" />
-  <allow-navigation href="*" />
+  <platform name="android">
+    <icon src="myicon.png" />
+    <splash src="myicon.png"/>
+  </platform>
+  <platform name="ios">
+    <icon src="myicon.png" />
+    <splash src="myicon.png"/>
+  </platform>
+  <platform name="winphone">
+    <icon src="myicon.png" />
+    <splash src="myicon.png"/>
+  </platform>
 </widget>

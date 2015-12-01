@@ -52,7 +52,7 @@ angular.module('app.services', [])
             var deferred = $q.defer();
             var promise = deferred.promise;
             var url = this.baseUrl() + 'LoginAppUser';
-alert(url);
+
             //string user, string pass, string appUserName, string appUserPass
             $http.post(url, { user: "admin", pass: "admin", appUserName: name, appUserPass: pw })
                 .success(function (response) {
