@@ -21,7 +21,7 @@
     <icon src="myicon.png" />
     <splash src="myicon.png"/>
   </platform>
-  <platform name="windows">
+  <platform name="winphone">
     <icon src="myicon.png" />
     <splash src="myicon.png"/>
   </platform>
