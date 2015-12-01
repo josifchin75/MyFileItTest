@@ -13,16 +13,4 @@
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
   <vs:platformSpecificValues />
 
-  <platform name="android">
-    <icon src="myicon.png" />
-    <splash src="myicon.png"/>
-  </platform>
-  <platform name="ios">
-    <icon src="myicon.png" />
-    <splash src="myicon.png"/>
-  </platform>
-  <platform name="winphone">
-    <icon src="myicon.png" />
-    <splash src="myicon.png"/>
-  </platform>
 </widget>
