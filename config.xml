@@ -21,16 +21,15 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
   
+  <splash src="splash.png"/>
+    
   <platform name="android">
     <icon src="icon.png" />
-    <splash src="splash.png"/>
   </platform>
   <platform name="ios">
     <icon src="icon.png" />
-    <splash src="splash.png"/>
   </platform>
   <platform name="winphone">
     <icon src="icon.png" />
-    <splash src="splash.png"/>
   </platform>
 </widget>
