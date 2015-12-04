@@ -1,6 +1,6 @@
 angular.module('app.services', [])
 
-.factory('BlankFactory', [function(){
+.factory('BlankFactory', [function () {
 
 }])
 
@@ -23,11 +23,11 @@ angular.module('app.services', [])
     }
 }])
 
-.service('BlankService', [function(){
+.service('BlankService', [function () {
 
 }])
 
-.service('UserService',function( $q, $http){
+.service('FileItService', function ($q, $http) {
     var currentUser;
     var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
 
@@ -37,8 +37,8 @@ angular.module('app.services', [])
             var promise = deferred.promise;
             var url = this.baseUrl() + 'UpdateAppUser';
             //string user, string pass, AppUserDTO appUser
-            $http.post(url, { user: "admin", pass: "admin", appUser: appUser })
-                .success(function (response) {  
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUser: appUser })
+                .success(function (response) {
                     if (response.Success) {
                         this.currentUser = appUser;
                         successCallback(response);
@@ -54,7 +54,7 @@ angular.module('app.services', [])
             var url = this.baseUrl() + 'LoginAppUser';
 
             //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: "admin", pass: "admin", appUserName: name, appUserPass: pw })
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUserName: name, appUserPass: pw })
                 .success(function (response) {
                     if (response.Success) {
                         currentUser = response.AppUsers[0];
@@ -65,9 +65,61 @@ angular.module('app.services', [])
                 });
             return promise;
         },
+        forgotPassword: function (email, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'ForgotPassword';
+
+            //string user, string pass, string appUserName, string appUserPass
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), emailAddress: email })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                });
+            return promise;
+        },
+        //GetInvitationToShareEmailText(string user, string pass)
+        getInvitationToShareEmailText: function (success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'GetInvitationToShareEmailText';
+
+            //string user, string pass, string appUserName, string appUserPass
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass()})
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                });
+            return promise;
+        },
+        sendInvitationEmail: function (email, message, success, fail) {
+            //SendInvitationEmail(string user, string pass, string emailAddress, string message)
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'SendInvitationEmail';
+
+            //string user, string pass, string appUserName, string appUserPass
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), emailAddress: email, message: message })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                });
+            return promise;
+        },
         currentUser: function () {
             return currentUser;
         },
+        adminUser: function () { return "admin"; },
+        adminPass: function () { return "admin"; },
         baseUrl: function () {
             return baseUrl;
         }

@@ -1,7 +1,8 @@
 angular.module('app.controllers', [])
 
-.controller('loginCtrl', function ($scope, UserService, $ionicPopup, $state, Camera) {
+.controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera) {
     $scope.data = {};
+    $scope.pageTitle = '<img src="images/MyFileIT_Icon.png" /><label>Login</label>';
 
     $scope.login = function () {
         function callback(data) {
@@ -16,7 +17,7 @@ angular.module('app.controllers', [])
             });
         }
 
-        UserService.loginUser($scope.data.username, $scope.data.password, callback, failCallback);
+        FileItService.loginUser($scope.data.username, $scope.data.password, callback, failCallback);
         /* .success(callback)
          .error(function (data) {
              var alertPopup = $ionicPopup.alert({
@@ -27,7 +28,7 @@ angular.module('app.controllers', [])
     }
 
     $scope.getPhoto = function () {
-        
+
         //function takePicture(find) {
         //    alert('in controller' + navigator.camera);
         //    //alert($scope.navigator.camera);
@@ -47,10 +48,10 @@ angular.module('app.controllers', [])
             alert('Failed because: ' + message);
         }
         var options = {
-                    quality: 10,
-                    destinationType: navigator.camera.DestinationType.DATA_URL,
-                    sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
-                };
+            quality: 10,
+            destinationType: navigator.camera.DestinationType.DATA_URL,
+            sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
+        };
 
         Camera.getPicture(options).then(function (imageURI) {
             onSuccessPic(imageURI);
@@ -98,13 +99,81 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('inviteAFriendCtrl', function ($scope) {
+.controller('inviteAFriendCtrl', function ($scope, FileItService, $ionicPopup, $state) {
+    $scope.init = function () {
+        $scope.data = {
+            currentUser: FileItService.currentUser(),
+            toName: '',
+            emailAddress: '',
+            message: '',
+            accepted: false,
+            errorTitle: 'Error',
+            errorMessage: 'An error has occurred.'
+        };
 
+        function getTextSuccess(data) {
+            $scope.data.message = data;
+        }
+        function getTextFail() {
+            $scope.data.message = "Please send me an invitation to MyFileIT.";
+        }
+
+        FileItService.getInvitationToShareEmailText(getTextSuccess, getTextFail);
+    };
+
+    $scope.validPage = function() {
+        var result = true;
+        $scope.data.errorMessage = '';
+        if ($scope.data.toName.length == 0) {
+            $scope.data.errorMessage += "\nPlease enter a name to send to.";
+            $scope.data.errorTitle = "Cannot send invitation";
+            result = false;
+        }
+        if ($scope.data.emailAddress.length == 0) {
+            $scope.data.errorMessage += "\nPlease enter an email address to send to.";
+            $scope.data.errorTitle = "Cannot send invitation";
+            result = false;
+        }
+        if (!$scope.data.accepted) {
+            $scope.data.errorMessage += "\nPlease accept the agreement.";
+            $scope.data.errorTitle = "Cannot send invitation";
+            result = false;
+        }
+
+        return result;
+    }
+
+    $scope.sendInvitationEmail = function () {
+        function callback(data) {
+            $scope.init();
+            $state.go('tabsController.main');
+            var alertPopup = $ionicPopup.alert({
+                title: 'Invitation sent!',
+                template: 'Your invitation has been sent.'
+            });
+        }
+        function failCallback(data) {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Error sending invitation!',
+                template: data.Message
+            });
+        }
+        if ($scope.validPage()) {
+            FileItService.sendInvitationEmail($scope.data.emailAddress, $scope.data.message , callback, failCallback);
+        } else {
+            var alertPopup = $ionicPopup.alert({
+                title: $scope.data.errorTitle,
+                template: $scope.data.errorMessage
+            });
+        }
+    };
+
+   $scope.init();
 })
 
-.controller('mainCtrl', function ($scope, UserService) {
+.controller('mainCtrl', function ($scope, FileItService) {
     $scope.data = {
-        currentUser: UserService.currentUser(),
+        currentUser: FileItService.currentUser(),
     };
 })
 
@@ -112,8 +181,35 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('forgotPasswordCtrl', function ($scope) {
+.controller('forgotPasswordCtrl', function ($scope, FileItService, $ionicPopup, $state) {
+    $scope.data = {
+        emailAddress: ''
+    };
 
+    $scope.callForgotPassword = function () {
+        function callback(data) {
+            $scope.data.emailAddress = '';
+            var alertPopup = $ionicPopup.alert({
+                title: 'Password sent!',
+                template: 'Your password has been sent.'
+            });
+            $state.go('login');
+        }
+        function failCallback(data) {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Invalid email!',
+                template: data.Message
+            });
+        }
+        if ($scope.data.emailAddress.length > 0) {
+            FileItService.forgotPassword($scope.data.emailAddress, callback, failCallback);
+        } else {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Invalid email!',
+                template: 'Please enter an email address.'
+            });
+        }
+    };
 })
 
 .controller('logOutCtrl', function ($scope) {
@@ -124,9 +220,9 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('editAccountLoginCtrl', function ($scope, UserService, $ionicPopup, $state) {
+.controller('editAccountLoginCtrl', function ($scope, FileItService, $ionicPopup, $state) {
     $scope.data = {
-        currentUser: UserService.currentUser(),
+        currentUser: FileItService.currentUser(),
         newPassword: '',
         confirmPassword: ''
     };
@@ -156,14 +252,14 @@ angular.module('app.controllers', [])
             failCallback();
         } else {
             $scope.data.currentUser.PASSWORD = $scope.data.newPassword;
-            UserService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
+            FileItService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
         }
     };
 })
 
-.controller('editAccountUserCtrl', function ($scope, UserService, $ionicPopup, $state) {
+.controller('editAccountUserCtrl', function ($scope, FileItService, $ionicPopup, $state) {
     $scope.data = {
-        currentUser: UserService.currentUser()//,
+        currentUser: FileItService.currentUser()//,
         //primaryAccountHolder: currentUser.PRIMARYAPPUSERID == null
         //TODO: not sure how to handle this yet
     };
@@ -180,7 +276,7 @@ angular.module('app.controllers', [])
             $state.go('tabsController.settings');
         }
 
-        UserService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
+        FileItService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
     };
 })
 

@@ -110,7 +110,10 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="myicon.png" />
+    <Content Include="icon.png" />
+    <Content Include="images\bg.png" />
+    <Content Include="images\main-bg.png" />
+    <Content Include="images\MyFileIT_Icon.png" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />
@@ -174,10 +177,41 @@
     <Content Include="lib\ionic\scss\_variables.scss" />
     <Content Include="lib\ionic\version.json" />
     <Content Include="lib\jquery\jquery-2.1.4.min.js" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\.fetch.json" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\CONTRIBUTING.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\de\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\es\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\fr\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\it\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\ja\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\ko\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\pl\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\ru\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\doc\zh\index.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\LICENSE" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\NOTICE" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\package.json" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\plugin.xml" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\README.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\RELEASENOTES.md" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\android\SplashScreen.java" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\blackberry10\index.js" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\ios\CDVSplashScreen.h" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\ios\CDVSplashScreen.m" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\tizen\SplashScreenProxy.js" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\ubuntu\splashscreen.cpp" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\ubuntu\splashscreen.h" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\src\wp\SplashScreen.cs" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\tests\plugin.xml" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\tests\tests.js" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\www\splashscreen.js" />
+    <Content Include="plugins\org.apache.cordova.splashscreen\www\windows8\SplashScreenProxy.js" />
     <Content Include="scripts\app.js" />
     <Content Include="scripts\controllers.js" />
     <Content Include="scripts\routes.js" />
     <Content Include="scripts\services.js" />
+    <Content Include="splash.png" />
     <Content Include="templates\confirmDocument.html" />
     <Content Include="templates\confirmDocumentShare.html" />
     <Content Include="templates\editAccountLogin.html" />
@@ -205,7 +239,6 @@
     <Content Include="templates\uploadSuccess.html" />
     <Content Include="templates\viewImages.html" />
     <Content Include="templates\viewYourDocuments.html" />
-    <Folder Include="images\" />
     <Content Include="merges\android\scripts\android2.3-jscompat.js" />
     <Content Include="merges\android\scripts\platformOverrides.js" />
     <Folder Include="merges\ios\" />

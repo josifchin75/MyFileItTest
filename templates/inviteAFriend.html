@@ -1,27 +1,27 @@
 <ion-view title="Invite a Friend">
     <ion-content padding="'true'" class="has-header">
         <div>
-            <p>From: &lt;user&gt;</p>
+            <p>From: {{data.currentUser.USERNAME}}</p>
         </div>
         <form class="list">
             <label class="item item-input">
                 <span class="input-label">To</span>
-                <input type="text" placeholder="Person's Name">
+                <input type="text" placeholder="Person's Name" ng-model="data.toName">
             </label>
             <label class="item item-input" name="inviteemailaddress">
-                <input type="text" placeholder="Email Address to Send">
+                <input type="text" placeholder="Email Address to Send" ng-model="data.emailAddress">
             </label>
         </form>
         <form class="list">
             <label class="item item-input" name="invitetext">
-                <span class="input-label"></span><textarea placeholder=""> </textarea>
+                <span class="input-label"></span><textarea placeholder="" ng-model="data.message"> </textarea>
             </label>
         </form>
         <form class="list">
-            <ion-checkbox name="checkinvite">I agree</ion-checkbox>
+            <ion-checkbox name="checkinvite" ng-model="data.accepted">I agree</ion-checkbox>
         </form>
         <form class="list"></form>
-        <a menu-close="" href="#/maintab/main" class="button button-positive button-block ">Send Invite Email</a>
+        <a menu-close="" href="#" ng-click="sendInvitationEmail()" class="button button-positive button-block ">Send Invite Email</a>
         <div class="spacer" style="width: 300px; height: 41px;"></div>
         <a menu-close="" href="#/maintab/main" class="button button-positive button-block ">Back</a>
     </ion-content>

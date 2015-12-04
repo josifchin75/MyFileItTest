@@ -1,2 +1,21 @@
 ﻿body {
 }
+
+
+.title img {
+    float: left;
+    height: 80%;
+    margin: 5px;
+}
+
+.title label {
+}
+
+.scroll-content {
+    background: url('../images/bg.png') no-repeat center center fixed;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;    
+}
+
