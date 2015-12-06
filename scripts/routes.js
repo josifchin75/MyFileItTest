@@ -177,7 +177,7 @@ angular.module('app.routes', [])
     .state('newAccountProfile', {
       url: '/newaccountprofile',
       templateUrl: 'templates/newAccountProfile.html',
-      controller: 'newAccountProfileCtrl'
+      controller: 'newAccountCtrl'
     })
         
       

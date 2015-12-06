@@ -121,7 +121,7 @@ angular.module('app.controllers', [])
         FileItService.getInvitationToShareEmailText(getTextSuccess, getTextFail);
     };
 
-    $scope.validPage = function() {
+    $scope.validPage = function () {
         var result = true;
         $scope.data.errorMessage = '';
         if ($scope.data.toName.length == 0) {
@@ -159,7 +159,7 @@ angular.module('app.controllers', [])
             });
         }
         if ($scope.validPage()) {
-            FileItService.sendInvitationEmail($scope.data.emailAddress, $scope.data.message , callback, failCallback);
+            FileItService.sendInvitationEmail($scope.data.emailAddress, $scope.data.message, callback, failCallback);
         } else {
             var alertPopup = $ionicPopup.alert({
                 title: $scope.data.errorTitle,
@@ -168,7 +168,7 @@ angular.module('app.controllers', [])
         }
     };
 
-   $scope.init();
+    $scope.init();
 })
 
 .controller('mainCtrl', function ($scope, FileItService) {
@@ -288,13 +288,177 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('newAccountCtrl', function ($scope) {
+.controller('newAccountCtrl', function ($scope, FileItService, $ionicPopup, $state, AppUser) {
+    $scope.init = function () {
+        //$scope.data = {
+        //    userName: '',
+        //    password: '',
+        //    confirmPassword: '',
+        //    firstName: '',
+        //    lastName: '',
+        //    primaryAccountHolder: false,
+        //    relationShipTypeId: -1,
+        //    phoneNumber: '',
+        //    appUserTypeId: -1,
+        //    emailAddress: '',
+        //    organizationId: -1,
+        //    organizations: [
+        //          { id: 1, name: "org1", radioName: "org" },
+        //          { id: 2, name: "org2", radioName: "org" }
+        //    ],
+        //    relationShipTypes: [],
+        //    appUserTypes: []
+        //};
+        $scope.data = AppUser.getObject();
 
+        function successRef(data) {
+            $scope.data.relationShipTypes = data.KeyValueData;
+            FileItService.getReferenceData('AppUserType', successUserRef, failRef);
+        }
+
+        function successUserRef(data) {
+            $scope.data.appUserTypes = data.KeyValueData;
+        }
+
+        function failRef(data) {
+        }
+
+        FileItService.getReferenceData('RelationShipType', successRef, failRef);
+    };
+
+    $scope.addAccountUserName = function () {
+        if ($scope.validUserName()) {
+            AppUser.setObject($scope.data);
+            $state.go('newAccountProfile');
+        }
+    };
+
+    $scope.addAccountUser = function () {
+        function successAdd() {
+            var alertPopup = $ionicPopup.alert(
+                {
+                    title: 'Success',
+                    template: 'Your account has been added!',
+                    buttons: [
+                      {
+                          text: '<b>Ok</b>',
+                          type: 'button-positive',
+                          onTap: function (e) {
+                              $state.go('tabsController.main');
+                          }
+                      }]
+                 });
+        }
+
+        if ($scope.validAddAccount()) {
+            var data = $scope.data;
+
+            var appUserDTO = {
+                USERNAME: data.userName,
+                PASSWORD: data.password,
+                FIRSTNAME: data.firstName,
+                LASTNAME: data.lastName,
+                ADDRESS1: '.',
+                ADDRESS2: '.',
+                CITY: '.',
+                STATECODE: 'PA',
+                ZIPCODE: '.',
+                PHONE: data.phoneNumber,
+                MOBILEPHONENUMBER: data.phoneNumber,
+                EMAILADDRESS: data.emailAddress,
+                SEX: data.sex,
+                RELATIONSHIPTYPEID: data.relationShipTypeId,
+                APPUSERTYPEID: data.appUserTypeId,
+                APPUSERSTATUSID: 2
+            };
+
+            /*
+            ID = appUserEF.ID;
+            USERNAME = appUserEF.USERNAME;
+            PASSWORD = appUserEF.PASSWORD;
+            PRIMARYAPPUSERID = appUserEF.PRIMARYAPPUSERID;
+            FIRSTNAME = appUserEF.FIRSTNAME;
+            LASTNAME = appUserEF.LASTNAME;
+            ADDRESS1 = appUserEF.ADDRESS1;
+            ADDRESS2 = appUserEF.ADDRESS2;
+            CITY = appUserEF.CITY;
+            STATECODE = appUserEF.STATECODE;
+            ZIPCODE = appUserEF.ZIPCODE;
+            PHONE = appUserEF.PHONE;
+            MOBILEPHONENUMBER = appUserEF.MOBILEPHONENUMBER;
+            EMAILADDRESS = appUserEF.EMAILADDRESS;
+            EMAILADDRESS2 = appUserEF.EMAILADDRESS2;
+            SEX = appUserEF.SEX;
+            BIRTHDATE = appUserEF.BIRTHDATE;
+            COMMENT = appUserEF.COMMENT;
+            RELATIONSHIPTYPEID = appUserEF.RELATIONSHIPTYPEID;
+            APPUSERTYPEID = appUserEF.APPUSERTYPEID;
+            SHAREKEYID = appUserEF.SHAREKEYID;
+            SHAREKEYEXPIREDATE = appUserEF.SHAREKEYEXPIREDATE;
+            APPUSERSTATUSID = appUserEF.APPUSERSTATUSID;
+            DATECREATED = appUserEF.DATECREATED;
+            */
+
+            function successAddAppUser(data) {
+                successAdd();
+            }
+
+            function failAddAppUser(data) {
+            }
+
+            FileItService.addAppUser(appUserDTO, successAddAppUser, failAddAppUser);
+        }
+    };
+
+    $scope.validUserName = function () {
+        var result = true;
+        var errorTitle = 'Invalid Entry';
+        var errorMessage = '';
+
+        if ($scope.data.userName.length == 0) {
+            result = false;
+            errorMessage += 'Invalid username / email address.\n'
+        }
+
+        if ($scope.data.password.length == 0) {
+            result = false;
+            errorMessage += 'Please enter a password.\n'
+        } else {
+            if ($scope.data.password != $scope.data.confirmPassword) {
+                result = false;
+                errorMessage += 'Passwords do not match.\n'
+            }
+        }
+
+        if (!result) {
+            var alertPopup = $ionicPopup.alert({
+                title: errorTitle,
+                template: errorMessage
+            });
+        }
+
+        return result;
+    };
+
+    $scope.validAddAccount = function () {
+        var result = true;
+
+        if (!result) {
+            var alertPopup = $ionicPopup.alert({
+                title: errorTitle,
+                template: errorMessage
+            });
+        }
+
+        return result;
+    };
+
+    $scope.init();
 })
 
-.controller('newAccountProfileCtrl', function ($scope) {
+//.controller('newAccountProfileCtrl', function ($scope) {
 
-})
+//})
 
 .controller('successCtrl', function ($scope) {
 

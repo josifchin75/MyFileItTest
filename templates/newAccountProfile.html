@@ -3,43 +3,56 @@
         <form class="list">
             <ion-list>
                 <label class="item item-input" name="firstname">
-                    <input type="text" placeholder="First Name">
+                    <input type="text" placeholder="First Name" ng-model="data.firstName">
                 </label>
                 <label class="item item-input" name="lastname">
-                    <input type="text" placeholder="Last Name">
+                    <input type="text" placeholder="Last Name" ng-model="data.lastName">
                 </label>
             </ion-list>
-            <ion-checkbox name="primaryaccountholder">Primary Account Holder</ion-checkbox>
-        </form>
-        <div>
-            Primary account holder must be over 18
-        </div>
-        <form class="list">
+            <ion-checkbox name="primaryaccountholder" ng-model="data.primaryAccountHolder">Primary Account Holder</ion-checkbox>
+            <div>
+                Primary account holder must be over 18
+            </div>
+            <label ng-repeat="relationShipType in data.relationShipTypes">
+                {{relationShipType.Value}}
+            </label>
             <label class="item item-select" name="relationship">
                 <span class="input-label">Relationship</span>
-                <select></select>
+                <select ng-model="data.relationShipTypeId">
+                    <option ng-repeat="relationShipType in data.relationShipTypes" value="{{relationShipType.Key}}">{{relationShipType.Value}}</option>
+                </select>
             </label>
             <label class="item item-input" name="phonenumber">
-                <input type="text" placeholder="Mobile Phone Number">
+                <input type="text" placeholder="Mobile Phone Number" ng-model="data.phoneNumber">
             </label>
-        </form>
-        <a menu-close="" href="#/maintab/main" class="button button-positive button-block  button-full">Save and Setup Your Account</a>
-        <div>
-            Must have a primary account holder's phone number
-        </div>
-        <form class="list">
+            <div>
+                Must have a primary account holder's phone number
+            </div>
             <label class="item item-input" name="emailaddress">
-                <input type="text" placeholder="Email Address">
+                <input type="text" placeholder="Email Address" ng-model="data.emailAddress">
             </label>
             <label class="item item-select" name="usertype">
                 <span class="input-label">Type of User</span>
-                <select></select>
+                <select ng-model="data.appUserTypeId">
+                    <option ng-repeat="appUserType in data.appUserTypes" value="{{appUserType.Key}}">{{appUserType.Value}}</option>
+                </select>
             </label>
-            <ion-checkbox>Checkbox</ion-checkbox>
+            <label class="item item-select" name="sex">
+                <span class="input-label">Sex</span>
+                <select ng-model="data.sex">
+                    <option value=""></option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </label>
             <label class="item item-input">
-                <span class="input-label">Input</span>
+                <span class="input-label">Organization Search</span>
                 <input type="text" placeholder="">
             </label>
+            <label ng-repeat="organization in data.organizations">
+                <ion-radio ng-model="choice" ng-value="organization.id">{{organization.name}}</ion-radio>
+            </label>
         </form>
+        <a menu-close="" href="#" class="button button-positive button-block  button-full" ng-click="addAccountUser()">Save and Setup Your Account</a>
     </ion-content>
 </ion-view>

@@ -27,11 +27,60 @@ angular.module('app.services', [])
 
 }])
 
+.service('AppUser', [function () {
+    var userDTO = {
+        userName: '',
+        password: '',
+        confirmPassword: '',
+        firstName: '',
+        lastName: '',
+        primaryAccountHolder: false,
+        relationShipTypeId: -1,
+        phoneNumber: '',
+        sex: '',
+        appUserTypeId: -1,
+        emailAddress: '',
+        organizationId: -1,
+        organizations: [
+              { id: 1, name: "org1", radioName: "org" },
+              { id: 2, name: "org2", radioName: "org" }
+        ],
+        relationShipTypes: [],
+        appUserTypes: []
+    };
+
+    return {
+        getObject: function () {
+            return userDTO;
+        },
+        setObject: function (obj) {
+            userDTO = obj;
+        }
+    };
+}])
+
 .service('FileItService', function ($q, $http) {
     var currentUser;
     var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
 
     return {
+        //GetReferenceData(string user, string pass, string referenceTableName)
+        getReferenceData: function (referenceTableName, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'GetReferenceData';
+
+            //string user, string pass, string appUserName, string appUserPass
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), referenceTableName: referenceTableName })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                });
+            return promise;
+        },
         updateUser: function (appUser, successCallback, failCallback) {
             var deferred = $q.defer();
             var promise = deferred.promise;
@@ -81,6 +130,26 @@ angular.module('app.services', [])
                 });
             return promise;
         },
+        //AddAppUser(string user, string pass, AppUserDTO appUser)
+        addAppUser: function (appUserDTO, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'AddAppUser';
+
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUser: appUserDTO })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                })
+                 .error(function (data, status, headers, config) {
+                     // this isn't happening:
+                     alert(data);
+                 });
+            return promise;
+        },
         //GetInvitationToShareEmailText(string user, string pass)
         getInvitationToShareEmailText: function (success, fail) {
             var deferred = $q.defer();
@@ -88,7 +157,7 @@ angular.module('app.services', [])
             var url = this.baseUrl() + 'GetInvitationToShareEmailText';
 
             //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass()})
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass() })
                 .success(function (response) {
                     if (response.Success) {
                         success(response);
