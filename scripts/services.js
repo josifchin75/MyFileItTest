@@ -40,10 +40,11 @@ angular.module('app.services', [])
         sex: '',
         appUserTypeId: -1,
         emailAddress: '',
+        organizationSearch: '',
         organizationId: -1,
         organizations: [
-              { id: 1, name: "org1", radioName: "org" },
-              { id: 2, name: "org2", radioName: "org" }
+              //{ ID: 1, NAME: "org1", radioName: "org" },
+              //{ ID: 2, NAME: "org2", radioName: "org" }
         ],
         relationShipTypes: [],
         appUserTypes: []
@@ -77,6 +78,22 @@ angular.module('app.services', [])
                         success(response);
                     } else {
                         fail(response);
+                    }
+                });
+            return promise;
+        },
+        //GetOrganizations(string user, string pass, int? organizationId, string nameLookup)
+        getOrganizations: function (organizationId, lookup, successCallback, failCallback) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'GetOrganizations';
+
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(),organizationId: organizationId, nameLookup: lookup })
+                .success(function (response) {
+                    if (response.Success) {
+                        successCallback(response);
+                    } else {
+                        failCallback(response);
                     }
                 });
             return promise;

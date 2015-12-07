@@ -410,6 +410,19 @@ angular.module('app.controllers', [])
         }
     };
 
+    $scope.searchOrganizations = function () {
+
+        function successSearch(data) {
+            $scope.data.organizations = data.Organizations;
+        }
+
+        function failSearch(data) {
+
+        }
+
+        FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch)
+    };
+
     $scope.validUserName = function () {
         var result = true;
         var errorTitle = 'Invalid Entry';
