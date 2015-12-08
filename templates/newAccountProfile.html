@@ -50,7 +50,7 @@
                 <input type="text" placeholder="" ng-model="data.organizationSearch" ng-change="searchOrganizations()">
             </label>
             <label ng-repeat="organization in data.organizations">
-                <ion-radio ng-model="choice" ng-value="organization.ID">{{organization.NAME}}</ion-radio>
+                <ion-radio ng-model="data.organizationId" ng-value="organization.ID">{{organization.NAME}}</ion-radio>
             </label>
         </form>
         <a menu-close="" href="#" class="button button-positive button-block  button-full" ng-click="addAccountUser()">Save and Setup Your Account</a>

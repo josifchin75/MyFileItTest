@@ -1,41 +1,45 @@
 <ion-view title="Scan Documents">
     <ion-content padding="'true'" class="has-header">
-   
+
         <img src="{{data.currentImageSrc}}" style="width: 75%;">
-        <form class="list"></form>
         <form class="list">
-            <ion-radio name="radioAppUser">Brother</ion-radio>
-            <ion-radio name="radioAppUser">Sister</ion-radio>
-        </form>
-        <form class="list">
-            <label class="item item-select" name="ddlTypeOfDocument">
-                <span class="input-label">Type of document</span>
-                <select></select>
+            
+            <label ng-repeat="familyUser in data.familyUsers">
+                <ion-radio ng-model="data.familyUserId" ng-value="familyUser.ID">{{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}</ion-radio>
             </label>
-        </form>
-        <form class="list">
+
+            <label class="item item-select" name="documentType">
+                <span class="input-label">Type of Document</span>
+                <select ng-model="data.documentTypeId">
+                    <option ng-repeat="documentType in data.documentTypes" value="{{documentType.Key}}">{{documentType.Value}}</option>
+                </select>
+            </label>
+
             <ion-radio name="ScanEventId">Event 1</ion-radio>
+
+            <label class="item item-input" name="ScanComment">
+                <span class="input-label">Comment</span><textarea placeholder="" ng-model="data.comment"> </textarea>
+            </label>
+            <label class="item item-input">
+                <span class="input-label">Organization Search</span>
+                <input type="text" placeholder="" ng-model="data.organizationSearch" ng-change="searchOrganizations()">
+            </label>
+            <label ng-repeat="organization in data.organizations">
+                <ion-radio ng-model="data.organizationId" ng-value="organization.ID">{{organization.NAME}}</ion-radio>
+            </label>
+            <ion-list>
+                <ion-toggle toggle-class="toggle-positive" name="chkSkipOrganization">I do not have an event name</ion-toggle>
+            </ion-list>
+            <div>
+                <p>Select an event</p>
+            </div>
+            <ion-radio name="radEventName">Event Soccer</ion-radio>
+            <ion-radio name="radEventName">Event Baseball</ion-radio>
+
             <div class="button-bar">
                 <a menu-close="" class="button button-positive button-block  icon-left ion-android-add" ng-click="getPhoto(false)">Scan New</a>
                 <a menu-close="" class="button button-positive button-block  icon-left ion-android-document" ng-click="getPhoto(true)">Select Existing</a>
             </div>
-            <label class="item item-input" name="ScanComment">
-                <span class="input-label">Comment</span><textarea placeholder=""> </textarea>
-            </label>
-            <label class="item item-input" name="OrganizationName">
-                <span class="input-label">Organization Name</span>
-                <input type="text" placeholder="">
-            </label>
-        </form>
-        <ion-list>
-            <ion-toggle toggle-class="toggle-positive" name="chkSkipOrganization">I do not have an event name</ion-toggle>
-        </ion-list>
-        <div>
-            <p>Select an event</p>
-        </div>
-        <form class="list">
-            <ion-radio name="radEventName">Event Soccer</ion-radio>
-            <ion-radio name="radEventName">Event Baseball</ion-radio>
         </form>
         <a menu-close="" href="#/maintab/main" class="button button-stable button-block ">Back</a>
     </ion-content>

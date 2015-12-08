@@ -63,7 +63,7 @@ angular.module('app.services', [])
 .service('FileItService', function ($q, $http) {
     var currentUser;
     var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
-
+    //baseUrl = 'http://localhost:37533/MyFileItAppService.svc/rest';
     return {
         //GetReferenceData(string user, string pass, string referenceTableName)
         getReferenceData: function (referenceTableName, success, fail) {
@@ -88,7 +88,7 @@ angular.module('app.services', [])
             var promise = deferred.promise;
             var url = this.baseUrl() + 'GetOrganizations';
 
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(),organizationId: organizationId, nameLookup: lookup })
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), organizationId: organizationId, nameLookup: lookup })
                 .success(function (response) {
                     if (response.Success) {
                         successCallback(response);
@@ -167,6 +167,58 @@ angular.module('app.services', [])
                  });
             return promise;
         },
+        getFamilyUsers: function (primaryAppUserId, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'GetFamilyUsers';
+
+            //GetFamilyUsers(string user, string pass, int primaryAppUserId)
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), primaryAppUserId: primaryAppUserId })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                })
+                 .error(this.serviceFailCallback);
+            return promise;
+        },
+
+        getAppUserDocuments: function (appUserId, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'GetAppUserDocuments';
+
+            //GetAppUserDocuments(string user, string pass, int appUserId)
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUserId: appUserId })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                })
+                 .error(this.serviceFailCallback);
+            return promise;
+        },
+        uploadFileCabinetDocument: function (organizationId, fileName, base64Image, documentObject, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'UploadFileCabinetDocument';
+
+            //UploadFileCabinetDocument(string user, string pass, int organizationId, string filename, string base64Image, FileCabinetDocumentDTO doc)
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), organizationId: organizationId, filename: fileName, base64Image: base64Image, doc: documentObject })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                })
+                 .error(this.serviceFailCallback);
+            return promise;
+        },
         //GetInvitationToShareEmailText(string user, string pass)
         getInvitationToShareEmailText: function (success, fail) {
             var deferred = $q.defer();
@@ -208,6 +260,9 @@ angular.module('app.services', [])
         adminPass: function () { return "admin"; },
         baseUrl: function () {
             return baseUrl;
+        },
+        serviceFailCallback: function (data, status, headers, config) {
+            alert(data);
         }
 
     }
