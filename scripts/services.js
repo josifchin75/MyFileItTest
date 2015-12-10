@@ -60,6 +60,49 @@ angular.module('app.services', [])
     };
 }])
 
+ .service('ScanDocument', [function () {
+     var documentDTO = {
+         currentImage: null,
+         currentImageSrc: 'no image',
+         organizationSearch: '',
+         organizations: [],
+         organizationId: -1,
+         documentTypes: [],
+         documentTypeId: -1,
+         familyUsers: [],
+         familyUserId: -1,
+         filename: '',
+         cabinetId: '',
+         documentTypeName: ''
+     };
+
+     return {
+         getObject: function () {
+             return documentDTO;
+         },
+         setObject: function (obj) {
+             documentDTO = obj;
+         }
+     };
+ }])
+
+.service('ViewDocument', [function () {
+    var documentDTO = {
+        images: [],
+        thumbs: []
+    };
+
+    return {
+        getObject: function () {
+            return documentDTO;
+        },
+        setObject: function (obj) {
+            documentDTO = obj;
+        }
+    };
+}])
+
+
 .service('FileItService', function ($q, $http) {
     var currentUser;
     var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
@@ -192,6 +235,24 @@ angular.module('app.services', [])
 
             //GetAppUserDocuments(string user, string pass, int appUserId)
             $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUserId: appUserId })
+                .success(function (response) {
+                    if (response.Success) {
+                        success(response);
+                    } else {
+                        fail(response);
+                    }
+                })
+                 .error(this.serviceFailCallback);
+            return promise;
+        },
+
+        getFamilyDocuments: function (appUserId, success, fail) {
+            var deferred = $q.defer();
+            var promise = deferred.promise;
+            var url = this.baseUrl() + 'GetFamilyDocuments';
+
+            //GetAppUserDocuments(string user, string pass, int appUserId)
+            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), primaryAppUserId: appUserId })
                 .success(function (response) {
                     if (response.Success) {
                         success(response);

@@ -207,6 +207,7 @@
     <Content Include="templates\success.html" />
     <Content Include="templates\tabsController.html" />
     <Content Include="templates\tabsController2.html" />
+    <Content Include="templates\UploadDocumentConfirm.html" />
     <Content Include="templates\uploadSuccess.html" />
     <Content Include="templates\viewImages.html" />
     <Content Include="templates\viewYourDocuments.html" />

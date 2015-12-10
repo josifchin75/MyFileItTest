@@ -1,7 +1,7 @@
 <ion-view title="Scan Documents">
     <ion-content padding="'true'" class="has-header">
 
-        <img src="{{data.currentImageSrc}}" style="width: 75%;">
+        <!--<img src="{{data.currentImageSrc}}" style="width: 75%;">-->
         <form class="list">
             
             <label ng-repeat="familyUser in data.familyUsers">
@@ -40,7 +40,10 @@
                 <a menu-close="" class="button button-positive button-block  icon-left ion-android-add" ng-click="getPhoto(false)">Scan New</a>
                 <a menu-close="" class="button button-positive button-block  icon-left ion-android-document" ng-click="getPhoto(true)">Select Existing</a>
             </div>
+
+
         </form>
-        <a menu-close="" href="#/maintab/main" class="button button-stable button-block ">Back</a>
+        <a menu-close="" href="#" class="button button-positive button-block " ng-click="confirm()">Confirm Upload</a>
+        <a menu-close="" href="#/maintab/main" class="button button-positive button-block ">Back</a>
     </ion-content>
 </ion-view>

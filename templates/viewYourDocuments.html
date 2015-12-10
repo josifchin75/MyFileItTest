@@ -20,10 +20,11 @@
             </label>
         </form>
         <ion-list>
-            <ion-item menu-close="" class="item-thumbnail-left">
-                <img>
-                <h2>Birth Certificate</h2>
-                <p>Image 1</p>
+
+            <ion-item ng-repeat="img in data.images" menu-close="" class="item-thumbnail-left">
+                <img src="data:image/png;base64,{{img.Base64Image}}">
+                <h2>{{img.DocumentTypeName}}</h2>
+                <p>{{img.COMMENT}}</p>
             </ion-item>
         </ion-list>
         <ion-list></ion-list>

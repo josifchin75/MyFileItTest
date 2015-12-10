@@ -27,58 +27,12 @@ angular.module('app.controllers', [])
          });*/
     }
 
-    $scope.getPhoto = function () {
-
-        //function takePicture(find) {
-        //    alert('in controller' + navigator.camera);
-        //    //alert($scope.navigator.camera);
-        //    navigator.camera.getPicture(onSuccessPic, onFail, {
-        //        quality: 10,
-        //        destinationType: navigator.camera.DestinationType.DATA_URL,
-        //        sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
-        //    });
-        //}
-
-        function onSuccessPic(imageData) {
-            $scope.data.currentImage = imageData;
-            $scope.data.currentImageSrc = "data:image/jpeg;base64," + imageData;
-        }
-
-        function onFail(message) {
-            alert('Failed because: ' + message);
-        }
-        var options = {
-            quality: 10,
-            destinationType: navigator.camera.DestinationType.DATA_URL,
-            sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
-        };
-
-        Camera.getPicture(options).then(function (imageURI) {
-            onSuccessPic(imageURI);
-        }, function (err) {
-            onFail(err);
-            console.err(err);
-        });
-        //takePicture(true);
-    };
 })
 
-.controller('scanDocumentsCtrl', function ($scope, Camera, FileItService, $ionicPopup, $state) {
+.controller('scanDocumentsCtrl', function ($scope, Camera, FileItService, ScanDocument, $ionicPopup, $state) {
     $scope.init = function () {
-        $scope.data = {
-            currentUser: FileItService.currentUser(),
-            currentImage: null,
-            currentImageSrc: 'no image',
-            organizationSearch: '',
-            organizations: [],
-            organizationId: -1,
-            documentTypes: [],
-            documentTypeId: -1,
-            familyUsers: [],
-            familyUserId: -1,
-            filename: '',
-            cabinetId: ''
-        };
+        $scope.data = ScanDocument.getObject();
+        $scope.data.currentUser = FileItService.currentUser();
 
         function successRef(data) {
             $scope.data.documentTypes = data.KeyValueData;
@@ -101,51 +55,24 @@ angular.module('app.controllers', [])
             $scope.data.currentImage = imageData;
             $scope.data.currentImageSrc = "data:image/jpeg;base64," + imageData;
             $scope.data.filename = 'test.jpg';
-            
+
+            $scope.data.cabinetId = "";
             for (var i = 0; i < $scope.data.organizations.length; i++) {
                 if ($scope.data.organizations[i].ID == $scope.data.organizationId) {
                     $scope.data.cabinetId = $scope.data.organizations[i].CABINETID;
                     break;
                 }
             }
-            //upload the image
-            function uploadSuccess() {
-                var alertPopup = $ionicPopup.alert({
-                    title: 'Success',
-                    template: 'Your file has been uploaded.'
-                });
-                $state.go('tabsController.main');
-            }
-            function getDate() {
-                var d = moment.utc();
-                var result = '\/Date(' + d + ')\/';
-                return result;
+
+            $scope.data.documentTypeName = "";
+            for (var i = 0; i < $scope.data.documentTypes.length; i++) {
+                if ($scope.data.documentTypes[i].Key == $scope.data.documentTypeId) {
+                    $scope.data.documentTypeName = $scope.data.documentTypes[i].Value;
+                    break;
+                }
             }
 
-            var documentObj = {
-                CABINETID: $scope.data.cabinetId,
-                APPUSERID: $scope.data.familyUserId,
-                SCANDATE: getDate(),
-                FIRSTNAME: $scope.data.currentUser.FIRSTNAME,
-                LASTNAME: $scope.data.currentUser.LASTNAME,
-                DOCUMENTTYPEID: $scope.data.documentTypeId,
-                COMMENT: $scope.data.comment,
-                DOCUMENTDATE: getDate(),
-                DOCUMENTSTATUSID: 0,
-                DATECREATED: getDate(),
-                VERIFIEDDATE: getDate(),
-                VERIFIEDAPPUSERID: $scope.data.failAddAppUser
-            };
-            /*
-            VERIFIEDDATE = fileCabinetDocumentEF.VERIFIEDDATE;
-            VERIFIEDAPPUSERID = fileCabinetDocumentEF.VERIFIEDAPPUSERID;
-            DOCUMENTLOCATION = fileCabinetDocumentEF.DOCUMENTLOCATION;
-            DOCUMENTSTATUSID = fileCabinetDocumentEF.DOCUMENTSTATUSID;
-            DATECREATED = fileCabinetDocumentEF.DATECREATED;
-            */
-
-            //organizationId, fileName, base64Image, documentObject, success, fail
-            FileItService.uploadFileCabinetDocument($scope.data.organizationId, $scope.data.filename, $scope.data.currentImage, documentObj, uploadSuccess, onFail);
+             
         }
 
         function onFail(message) {
@@ -155,7 +82,7 @@ angular.module('app.controllers', [])
             });
         }
         var options = {
-            quality: 10,
+            quality: 60,
             destinationType: navigator.camera.DestinationType.DATA_URL,
             sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
         };
@@ -167,6 +94,47 @@ angular.module('app.controllers', [])
             console.err(err);
         });
         //takePicture(true);
+    };
+
+    $scope.uploadPhoto = function () {
+        //upload the image
+        function uploadSuccess() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Success',
+                template: 'Your file has been uploaded.'
+            });
+            $state.go('tabsController.main');
+        }
+        function getDate() {
+            var d = moment.utc();
+            var result = '\/Date(' + d + ')\/';
+            return result;
+        }
+
+        var documentObj = {
+            CABINETID: $scope.data.cabinetId,
+            APPUSERID: $scope.data.familyUserId,
+            SCANDATE: getDate(),
+            FIRSTNAME: $scope.data.currentUser.FIRSTNAME,
+            LASTNAME: $scope.data.currentUser.LASTNAME,
+            DOCUMENTTYPEID: $scope.data.documentTypeId,
+            COMMENT: $scope.data.comment,
+            DOCUMENTDATE: getDate(),
+            DOCUMENTSTATUSID: 0,
+            DATECREATED: getDate(),
+            VERIFIEDDATE: getDate(),
+            VERIFIEDAPPUSERID: $scope.data.failAddAppUser
+        };
+        /*
+        VERIFIEDDATE = fileCabinetDocumentEF.VERIFIEDDATE;
+        VERIFIEDAPPUSERID = fileCabinetDocumentEF.VERIFIEDAPPUSERID;
+        DOCUMENTLOCATION = fileCabinetDocumentEF.DOCUMENTLOCATION;
+        DOCUMENTSTATUSID = fileCabinetDocumentEF.DOCUMENTSTATUSID;
+        DATECREATED = fileCabinetDocumentEF.DATECREATED;
+        */
+
+        //organizationId, fileName, base64Image, documentObject, success, fail
+        FileItService.uploadFileCabinetDocument($scope.data.organizationId, $scope.data.filename, $scope.data.currentImage, documentObj, uploadSuccess, onFail);
     };
 
     $scope.searchOrganizations = function () {
@@ -181,13 +149,36 @@ angular.module('app.controllers', [])
         FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch)
     };
 
-
+    $scope.confirm = function () {
+        ScanDocument.setObject($scope.data);
+        $state.go('scanDocumentsConfirm');
+    };
 
     $scope.init();
 })
 
-.controller('viewYourDocumentsCtrl', function ($scope) {
+.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state) {
+    $scope.init = function () {
+        $scope.data = ViewDocument.getObject();
+        $scope.data.currentUser = FileItService.currentUser();
+        //get the documents
+        $scope.searchDocuments();
+    }
 
+    $scope.searchDocuments = function () {
+        function successSearch(data) {
+            //data:image/png;base64,
+            $scope.data.images = data.Documents;
+            ViewDocument.setObject($scope.data);
+        }
+
+        function errorSearch(data) {
+        }
+        var id = $scope.data.currentUser.PRIMARYAPPUSERID != null ? $scope.data.currentUser.PRIMARYAPPUSERID : $scope.data.currentUser.ID;
+        FileItService.getFamilyDocuments(id, successSearch, errorSearch);     
+    };
+
+    $scope.init();
 })
 
 .controller('inviteAFriendCtrl', function ($scope, FileItService, $ionicPopup, $state) {
@@ -584,26 +575,26 @@ angular.module('app.controllers', [])
 })
 
 .controller('viewImagesCtrl', function ($scope, FileItService, $ionicPopup, $state) {
-    $scope.init = function () {
-        $scope.data = {
-            currentUser: FileItService.currentUser()
-        };
-        $scope.getDocuments();
-    };
-    //GetDocuments
+    //$scope.init = function () {
+    //    $scope.data = {
+    //        currentUser: FileItService.currentUser()
+    //    };
+    //    $scope.getDocuments();
+    //};
+    ////GetDocuments
 
-    $scope.getDocuments = function () {
-        function onSuccess(data) {
-            var i = 0;
-        }
+    //$scope.getDocuments = function () {
+    //    function onSuccess(data) {
+    //        var i = 0;
+    //    }
 
-        function onFail(data) {
-        }
+    //    function onFail(data) {
+    //    }
 
-        FileItService.getAppUserDocuments($scope.data.currentUser.ID, onSuccess, onFail);
-    }
+    //    FileItService.getAppUserDocuments($scope.data.currentUser.ID, onSuccess, onFail);
+    //}
 
-    $scope.init();
+    //$scope.init();
 })
 
 .controller('shareDocumentsCtrl', function ($scope) {
