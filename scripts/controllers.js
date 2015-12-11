@@ -29,7 +29,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('scanDocumentsCtrl', function ($scope, Camera, FileItService, ScanDocument, $ionicPopup, $state) {
+.controller('scanDocumentsCtrl', function ($scope, Camera, FileItService, ScanDocument, $ionicPopup, $state, ViewDocument) {
     $scope.init = function () {
         $scope.data = ScanDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
@@ -72,7 +72,7 @@ angular.module('app.controllers', [])
                 }
             }
 
-             
+
         }
 
         function onFail(message) {
@@ -82,7 +82,7 @@ angular.module('app.controllers', [])
             });
         }
         var options = {
-            quality: 60,
+            quality: 25,
             destinationType: navigator.camera.DestinationType.DATA_URL,
             sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
         };
@@ -99,6 +99,11 @@ angular.module('app.controllers', [])
     $scope.uploadPhoto = function () {
         //upload the image
         function uploadSuccess() {
+            //reload docs
+            function resetSearch() {
+                //ViewDocument.searchDocuments();
+            }
+            ViewDocument.loadDocuments(FileItService.currentUser(),resetSearch);
             var alertPopup = $ionicPopup.alert({
                 title: 'Success',
                 template: 'Your file has been uploaded.'
@@ -159,23 +164,62 @@ angular.module('app.controllers', [])
 
 .controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state) {
     $scope.init = function () {
+        function getFamilyRef() {
+            function successGetFamily(data) {
+                $scope.data.familyUsers = data.AppUsers;
+            }
+
+            function failRef() { }
+            $scope.data = ViewDocument.getObject();
+            //ViewDocument.searchDocuments();
+
+            var user = $scope.data.currentUser;
+            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+        }
+
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
+        ViewDocument.loadDocuments(FileItService.currentUser(), getFamilyRef);
+       
         //get the documents
-        $scope.searchDocuments();
+        //$scope.getAllDocuments();
     }
 
-    $scope.searchDocuments = function () {
-        function successSearch(data) {
+
+    $scope.getAllDocuments = function () {
+        function successGetAll(data) {
             //data:image/png;base64,
             $scope.data.images = data.Documents;
             ViewDocument.setObject($scope.data);
+            ViewDocument.searchDocuments();
         }
 
-        function errorSearch(data) {
+        function errorGetAll(data) {
         }
         var id = $scope.data.currentUser.PRIMARYAPPUSERID != null ? $scope.data.currentUser.PRIMARYAPPUSERID : $scope.data.currentUser.ID;
-        FileItService.getFamilyDocuments(id, successSearch, errorSearch);     
+        FileItService.getFamilyDocuments(id, successGetAll, errorGetAll);
+    };
+
+    $scope.searchDocuments = function () {
+        ViewDocument.searchDocuments();
+        ////filter the docs if necessary
+        //var search = $scope.data.searchString;
+        //var patt = new RegExp(search.toLowerCase());
+
+        //var foundImages = [];
+        //for (var i = 0; i < $scope.data.images.length; i++) {
+        //    var img = $scope.data.images[i];
+        //    if (search.length > 0) {
+        //        if (patt.test(img.COMMENT.toLowerCase()) || patt.test(img.DocumentTypeName.toLowerCase())) {
+        //            foundImages.push(img);
+        //        }
+        //    } else {
+        //        foundImages.push(img);
+        //    }
+        //}
+        //$scope.data.searchImages = foundImages;//$scope.data.images;
+        //ViewDocument.setObject($scope.data);
     };
 
     $scope.init();

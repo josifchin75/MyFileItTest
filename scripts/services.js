@@ -86,10 +86,14 @@ angular.module('app.services', [])
      };
  }])
 
-.service('ViewDocument', [function () {
+.service('ViewDocument', ['FileItService', function (FileItService) {
     var documentDTO = {
+        searchImages: [],
         images: [],
-        thumbs: []
+        thumbs: [],
+        familyUsers: [],
+        familyUserId: -1,
+        searchString: ''
     };
 
     return {
@@ -98,6 +102,40 @@ angular.module('app.services', [])
         },
         setObject: function (obj) {
             documentDTO = obj;
+        },
+        loadDocuments: function (currentUser, onSuccess) {
+            var viewDoc = this;
+            function successGetAll(data) {
+                //data:image/png;base64,
+                documentDTO.images = data.Documents;
+                viewDoc.searchDocuments();
+                if (typeof onSuccess == 'function') {
+                    onSuccess();
+                }
+            }
+
+            function errorGetAll(data) {
+            }
+            var id = currentUser.PRIMARYAPPUSERID != null ? currentUser.PRIMARYAPPUSERID : currentUser.ID;
+            FileItService.getFamilyDocuments(id, successGetAll, errorGetAll);
+        },
+        searchDocuments: function () {
+            //filter the docs if necessary
+            var search = documentDTO.searchString;
+            var patt = new RegExp(search.toLowerCase());
+
+            var foundImages = [];
+            for (var i = 0; i < documentDTO.images.length; i++) {
+                var img = documentDTO.images[i];
+                if (search.length > 0) {
+                    if (patt.test(img.COMMENT.toLowerCase()) || patt.test(img.DocumentTypeName.toLowerCase())) {
+                        foundImages.push(img);
+                    }
+                } else {
+                    foundImages.push(img);
+                }
+            }
+            documentDTO.searchImages = foundImages;//$scope.data.images;
         }
     };
 }])
