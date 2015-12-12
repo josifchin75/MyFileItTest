@@ -3,11 +3,12 @@
 
         <!--<img src="{{data.currentImageSrc}}" style="width: 75%;">-->
         <form class="list">
-            
+
             <label ng-repeat="familyUser in data.familyUsers">
                 <ion-radio ng-model="data.familyUserId" ng-value="familyUser.ID">{{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}</ion-radio>
             </label>
-
+        </form>
+        <form>
             <label class="item item-select" name="documentType">
                 <span class="input-label">Type of Document</span>
                 <select ng-model="data.documentTypeId">
@@ -15,12 +16,10 @@
                 </select>
             </label>
 
-            <ion-radio name="ScanEventId">Event 1</ion-radio>
-
             <label class="item item-input" name="ScanComment">
                 <span class="input-label">Comment</span><textarea placeholder="" ng-model="data.comment"> </textarea>
             </label>
-            <label class="item item-input">
+            <!--<label class="item item-input">
                 <span class="input-label">Organization Search</span>
                 <input type="text" placeholder="" ng-model="data.organizationSearch" ng-change="searchOrganizations()">
             </label>
@@ -32,15 +31,12 @@
             </ion-list>
             <div>
                 <p>Select an event</p>
-            </div>
-            <ion-radio name="radEventName">Event Soccer</ion-radio>
-            <ion-radio name="radEventName">Event Baseball</ion-radio>
+            </div>-->
 
             <div class="button-bar">
                 <a menu-close="" class="button button-positive button-block  icon-left ion-android-add" ng-click="getPhoto(false)">Scan New</a>
                 <a menu-close="" class="button button-positive button-block  icon-left ion-android-document" ng-click="getPhoto(true)">Select Existing</a>
             </div>
-
 
         </form>
         <a menu-close="" href="#" class="button button-positive button-block " ng-click="confirm()">Confirm Upload</a>

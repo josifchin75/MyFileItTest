@@ -1,0 +1,17 @@
+﻿<ion-view title="Select a Member">
+    <ion-content padding="'true'" class="has-header">
+        <div>
+            <p>
+                Select the family member you are sharing documents for.
+            </p>
+        </div>
+        <label ng-repeat="familyUser in data.familyUsers">
+            <ion-radio ng-model="data.familyUserId" ng-value="familyUser.ID">{{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}</ion-radio>
+        </label>
+        <div class="button-bar">
+            <a menu-close="" href="#/shareuserfilterselect" class="button button-positive button-block">Back</a>
+            <a menu-close="" href="#" class="button button-positive button-block" ng-click="goToDocumentSelect()">Next</a>
+        </div>
+    </ion-content>
+</ion-view>
+

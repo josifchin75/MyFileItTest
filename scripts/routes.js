@@ -301,6 +301,35 @@ angular.module('app.routes', [])
       })
 
 
+    .state('shareUserFilterSelect', {
+        url: '/shareuserfilterselect',
+        templateUrl: 'templates/shareUserFilterSelect.html',
+        controller: 'viewYourDocumentsCtrl'
+    })
+
+        .state('shareUserSelect', {
+            url: '/shareuserselect',
+            templateUrl: 'templates/shareUserSelect.html',
+            controller: 'viewYourDocumentsCtrl'
+        })
+
+        .state('shareDocumentSelect', {
+            url: '/sharedocumentselect',
+            templateUrl: 'templates/shareDocumentSelect.html',
+            controller: 'viewYourDocumentsCtrl'
+        })
+
+        .state('shareEventSelect', {
+            url: '/shareeventselect',
+            templateUrl: 'templates/shareEventSelect.html',
+            controller: 'viewYourDocumentsCtrl'
+        })
+        .state('shareAssociate', {
+            url: '/shareassociate',
+            templateUrl: 'templates/shareAssociate.html',
+            controller: 'viewYourDocumentsCtrl'
+        })
+
     ;
 
     // if none of the above states are matched, use this as the fallback

@@ -201,8 +201,13 @@
     <Content Include="templates\scannerSettings.html" />
     <Content Include="templates\settings.html" />
     <Content Include="templates\setUpTeamAndPlayers.html" />
+    <Content Include="templates\ShareAssociate.html" />
     <Content Include="templates\shareDocuments.html" />
+    <Content Include="templates\shareDocumentSelect.html" />
+    <Content Include="templates\shareEventSelect.html" />
     <Content Include="templates\shareHasBeenSent.html" />
+    <Content Include="templates\shareUserFilterSelect.html" />
+    <Content Include="templates\shareUserSelect.html" />
     <Content Include="templates\sharingKeyManagement.html" />
     <Content Include="templates\success.html" />
     <Content Include="templates\tabsController.html" />

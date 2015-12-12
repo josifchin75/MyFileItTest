@@ -51,6 +51,12 @@ angular.module('app.services', [])
     };
 
     return {
+        init: function () {
+            userDTO = {};
+        },
+        logout: function () {
+            this.init();
+        },
         getObject: function () {
             return userDTO;
         },
@@ -73,7 +79,8 @@ angular.module('app.services', [])
          familyUserId: -1,
          filename: '',
          cabinetId: '',
-         documentTypeName: ''
+         documentTypeName: '',
+         confirmed: false
      };
 
      return {
@@ -89,11 +96,22 @@ angular.module('app.services', [])
 .service('ViewDocument', ['FileItService', function (FileItService) {
     var documentDTO = {
         searchImages: [],
-        images: [],
-        thumbs: [],
+
         familyUsers: [],
         familyUserId: -1,
-        searchString: ''
+        searchString: '',
+        userIdFilterType: '',
+        images: [],
+        thumbs: [],
+        selectedDocumentIds: [],
+        organizationId: -1,
+        organizationSearch: '',
+        eventId: -1,
+        events: [],
+        eventDocuments: [],
+        comment: [],
+        selectedImages: []
+        //need to retain associations?
     };
 
     return {
@@ -140,168 +158,187 @@ angular.module('app.services', [])
     };
 }])
 
+.service('EmailHelper', function () {
+    return {
+        validEmail: function (emailAddress) {
+            if (emailAddress == 'jo') { return true;}
+            var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(emailAddress);
+        }
+    };
+})
 
-.service('FileItService', function ($q, $http) {
+.service('PasswordHelper', function () {
+    return {
+        validPassword: function (password) {
+            //password is 4-8 chars and contain at least one digit
+            var re = /^(?=.*\d).{4,8}$/;
+            return re.test(password);
+        },
+        getPasswordFormatError: function () {
+            return 'Password must be 4 to 8 characters and contain a numeric digit.';
+        }
+    };
+})
+
+.service('FileItService', function ($q, $http, loadingService) {
     var currentUser;
     var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
     //baseUrl = 'http://localhost:37533/MyFileItAppService.svc/rest';
     return {
-        //GetReferenceData(string user, string pass, string referenceTableName)
-        getReferenceData: function (referenceTableName, success, fail) {
+        basePost: function (routeUrl, obj, successCallback, failCallback) {
             var deferred = $q.defer();
             var promise = deferred.promise;
-            var url = this.baseUrl() + 'GetReferenceData';
+            var url = this.baseUrl() + routeUrl;
 
-            //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), referenceTableName: referenceTableName })
+            loadingService.show();
+            $http.post(url, obj)
                 .success(function (response) {
-                    if (response.Success) {
-                        success(response);
+                    if (response.success != undefined) {
+                        if (response.Success) {
+                            successCallback(response);
+                        } else {
+                            failCallback(response);
+                        }
                     } else {
-                        fail(response);
+                        successCallback(response);
                     }
+                    loadingService.hide();
+                })
+                .error(function(response){
+                    loadingService.hide();
                 });
             return promise;
+        },
+        //GetReferenceData(string user, string pass, string referenceTableName)
+        getReferenceData: function (referenceTableName, success, fail) {
+            var routeUrl = 'GetReferenceData';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                referenceTableName: referenceTableName
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
         },
         //GetOrganizations(string user, string pass, int? organizationId, string nameLookup)
         getOrganizations: function (organizationId, lookup, successCallback, failCallback) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'GetOrganizations';
+            var routeUrl = 'GetOrganizations';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                organizationId: organizationId,
+                nameLookup: lookup
+            };
 
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), organizationId: organizationId, nameLookup: lookup })
-                .success(function (response) {
-                    if (response.Success) {
-                        successCallback(response);
-                    } else {
-                        failCallback(response);
-                    }
-                });
-            return promise;
+            return this.basePost(routeUrl, data, successCallback, failCallback);
+        },
+        checkUserExists: function (appUserName, successCallback, failCallback) {
+            //CheckAppUserExists(string user, string pass, string appUserName)
+            var routeUrl = 'CheckAppUserExists';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserName: appUserName
+            };
+            //this is a weird scenario
+            function callback(val) {
+                if (!val) {
+                    successCallback();
+                } else {
+                    failCallback();
+                }
+            }
+
+            return this.basePost(routeUrl, data, callback, failCallback);
         },
         updateUser: function (appUser, successCallback, failCallback) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'UpdateAppUser';
-            //string user, string pass, AppUserDTO appUser
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUser: appUser })
-                .success(function (response) {
-                    if (response.Success) {
-                        this.currentUser = appUser;
-                        successCallback(response);
-                    } else {
-                        failCallback(response);
-                    }
-                });
-            return promise;
+            var routeUrl = 'UpdateAppUser';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUser: appUser
+            };
+
+            return this.basePost(routeUrl, data, successCallback, failCallback);
         },
         loginUser: function (name, pw, loginCallback, failCallback) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'LoginAppUser';
-
-            //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUserName: name, appUserPass: pw })
-                .success(function (response) {
-                    if (response.Success) {
-                        currentUser = response.AppUsers[0];
-                        loginCallback(response);
-                    } else {
-                        failCallback(response);
-                    }
-                });
-            return promise;
+            var routeUrl = 'LoginAppUser';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserName: name,
+                appUserPass: pw
+            };
+            
+            return this.basePost(routeUrl, data, loginCallback, failCallback);
         },
         forgotPassword: function (email, success, fail) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'ForgotPassword';
+            var routeUrl = 'ForgotPassword';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                emailAddress: email
+            };
 
-            //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), emailAddress: email })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                });
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
         //AddAppUser(string user, string pass, AppUserDTO appUser)
         addAppUser: function (appUserDTO, success, fail) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'AddAppUser';
+            var routeUrl = 'AddAppUser';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUser: appUserDTO
+            };
 
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUser: appUserDTO })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                })
-                 .error(function (data, status, headers, config) {
-                     // this isn't happening:
-                     alert(data);
-                 });
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
         getFamilyUsers: function (primaryAppUserId, success, fail) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'GetFamilyUsers';
+            var routeUrl = 'GetFamilyUsers';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                primaryAppUserId: primaryAppUserId
+            };
 
-            //GetFamilyUsers(string user, string pass, int primaryAppUserId)
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), primaryAppUserId: primaryAppUserId })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                })
-                 .error(this.serviceFailCallback);
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
 
         getAppUserDocuments: function (appUserId, success, fail) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'GetAppUserDocuments';
+            var routeUrl = 'GetAppUserDocuments';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId
+            };
 
-            //GetAppUserDocuments(string user, string pass, int appUserId)
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), appUserId: appUserId })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                })
-                 .error(this.serviceFailCallback);
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
 
         getFamilyDocuments: function (appUserId, success, fail) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'GetFamilyDocuments';
+            var routeUrl = 'GetFamilyDocuments';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                primaryAppUserId: appUserId
+            };
 
-            //GetAppUserDocuments(string user, string pass, int appUserId)
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), primaryAppUserId: appUserId })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                })
-                 .error(this.serviceFailCallback);
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
-        uploadFileCabinetDocument: function (organizationId, fileName, base64Image, documentObject, success, fail) {
+        uploadFileCabinetDocument: function (appUserId, fileName, base64Image, documentObject, success, fail) {
+            var routeUrl = 'UploadFileCabinetDocument';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                filename: fileName,
+                base64Image: base64Image,
+                doc: documentObject
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+            /*
             var deferred = $q.defer();
             var promise = deferred.promise;
             var url = this.baseUrl() + 'UploadFileCabinetDocument';
@@ -316,44 +353,34 @@ angular.module('app.services', [])
                     }
                 })
                  .error(this.serviceFailCallback);
-            return promise;
+            return promise;*/
         },
         //GetInvitationToShareEmailText(string user, string pass)
         getInvitationToShareEmailText: function (success, fail) {
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'GetInvitationToShareEmailText';
+            var routeUrl = 'GetInvitationToShareEmailText';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass()
+            };
 
-            //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass() })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                });
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
         sendInvitationEmail: function (email, message, success, fail) {
-            //SendInvitationEmail(string user, string pass, string emailAddress, string message)
-            var deferred = $q.defer();
-            var promise = deferred.promise;
-            var url = this.baseUrl() + 'SendInvitationEmail';
+            var routeUrl = 'SendInvitationEmail';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                emailAddress: email,
+                message: message
+            };
 
-            //string user, string pass, string appUserName, string appUserPass
-            $http.post(url, { user: this.adminUser(), pass: this.adminPass(), emailAddress: email, message: message })
-                .success(function (response) {
-                    if (response.Success) {
-                        success(response);
-                    } else {
-                        fail(response);
-                    }
-                });
-            return promise;
+            return this.basePost(routeUrl, data, success, fail);
         },
         currentUser: function () {
             return currentUser;
+        },
+        setCurrentUser: function (val) {
+            currentUser = val;
         },
         adminUser: function () { return "admin"; },
         adminPass: function () { return "admin"; },
@@ -366,6 +393,19 @@ angular.module('app.services', [])
 
     }
 })
+
+.service('loadingService', function ($ionicLoading) {
+    return {
+        show : function () {
+            $ionicLoading.show({
+                template: '<ion-spinner icon="bubbles"></ion-spinner><div>Loading...</div>'
+            });
+        },
+        hide: function () {
+            $ionicLoading.hide();
+        }
+}
+});
 
 //.service('LoginService', function ($q, $http) {
 //    var currentUser;

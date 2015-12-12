@@ -1,6 +1,9 @@
 ﻿body {
 }
 
+.clear {
+    clear: both;
+}
 
 .title img {
     float: left;
@@ -19,7 +22,13 @@
     background-size: cover;    
 }
 
-.confirm-box {
+/*.confirm-box {
     width: 30%;
     height: 2em;
+}*/
+
+.image-list img {
+    width: 6em;
+    float: left;
+    margin-right: .2em;
 }

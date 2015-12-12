@@ -1,17 +1,17 @@
 ﻿<ion-view title="Confirm Upload Document">
     <ion-content padding="'true'" class="has-header">
-        <h2>{{data.currentUser.USERNAME}}</h2>
-        <h3>Document Type:{{data.documentTypeName}}</h3>
+        <h2>{{data.currentUser.FIRSTNAME}} {{data.currentUser.LASTNAME}}</h2>
+        <h3>{{data.documentTypeName}}</h3>
         <img src="{{data.currentImageSrc}}" style="width: 75%;">
-        <div class="confirm-box">
-            <ion-toggle toggle-class="toggle-positive" name="chkConfirm">
 
-            </ion-toggle>
-            
+        <div class="confirm-box clear">
+            <ion-checkbox ng-model="data.confirmed"></ion-checkbox>
+            <!--<input type="checkbox" ng-model="data.confirmed" />-->
+            <div>
+                By checking this box You over 18 and authorization to allow this document to be upload and you agree by terms and conditions of 123File-it
+            </div>
         </div>
-        <div>
-            By checking this box You over 18 and authorization to allow this document to be upload and you agree by terms and conditions of 123File-it
-        </div>
+        
         <a menu-close="" href="#" class="button button-positive button-block " ng-click="uploadPhoto()">Upload</a>
         <a menu-close="" href="#/scandocuments" class="button button-positive button-block ">Back</a>
     </ion-content>
