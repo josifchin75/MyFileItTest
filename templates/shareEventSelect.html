@@ -1,5 +1,33 @@
 ﻿<ion-view title="Select an Event">
     <ion-content padding="'true'" class="has-header">
+        <form class="list">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <span class="input-label">Organization Search</span>
+                <input type="text" placeholder="" ng-model="data.organizationSearch" ng-change="searchOrganizations()">
+            </label>
+        </form>
+        <form class="list">
+            <ion-list>
+                <label ng-repeat="organization in data.organizations">
+                    <ion-radio ng-model="data.organizationId" ng-value="organization.ID" ng-change="searchEvents()">{{organization.NAME}}</ion-radio>
+                </label>
+            </ion-list>
+        </form>
+        <form class="list">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <span class="input-label">Event Search</span>
+                <input type="text" placeholder="" ng-model="data.eventSearch" ng-change="searchEvents()">
+            </label>
+        </form>
+        <form class="list">
+            <ion-list>
+                <label ng-repeat="event in data.events">
+                    <ion-radio ng-model="data.eventId" ng-value="event.ID">{{event.NAME}}</ion-radio>
+                </label>
+            </ion-list>
+        </form>
         <div class="button-bar">
             <a menu-close="" href="#/sharedocumentselect" class="button button-positive button-block">Back</a>
             <a menu-close="" href="#" class="button button-positive button-block" ng-click="goToAssociate()">Next</a>

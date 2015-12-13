@@ -56,6 +56,7 @@ angular.module('app.services', [])
         },
         logout: function () {
             this.init();
+            userDTO = {}; //really kill it make sure they are logged out
         },
         getObject: function () {
             return userDTO;
@@ -107,10 +108,11 @@ angular.module('app.services', [])
         organizationId: -1,
         organizationSearch: '',
         eventId: -1,
+        eventSearch: '',
         events: [],
-        eventDocuments: [],
-        comment: [],
-        selectedImages: []
+        eventDocumentId: -1,
+        comment: []//,
+       // selectedImages: []
         //need to retain associations?
     };
 
@@ -134,8 +136,28 @@ angular.module('app.services', [])
 
             function errorGetAll(data) {
             }
-            var id = currentUser.PRIMARYAPPUSERID != null ? currentUser.PRIMARYAPPUSERID : currentUser.ID;
-            FileItService.getFamilyDocuments(id, successGetAll, errorGetAll);
+
+            if (documentDTO.images == undefined || documentDTO.images.length == 0) {
+                var id = currentUser.PRIMARYAPPUSERID != null ? currentUser.PRIMARYAPPUSERID : currentUser.ID;
+                FileItService.getFamilyDocuments(id, successGetAll, errorGetAll);
+            } else {
+                onSuccess();
+            }
+        },
+        loadUserDocuments: function (appUserId, onSuccess) {
+            var viewDoc = this;
+            function successGetAll(data) {
+                //data:image/png;base64,
+                documentDTO.images = data.Documents;
+                viewDoc.searchDocuments();
+                if (typeof onSuccess == 'function') {
+                    onSuccess();
+                }
+            }
+
+            function errorGetAll(data) {
+            }
+            FileItService.getAppUserDocuments(appUserId, successGetAll, errorGetAll);
         },
         searchDocuments: function () {
             //filter the docs if necessary
@@ -177,6 +199,17 @@ angular.module('app.services', [])
         },
         getPasswordFormatError: function () {
             return 'Password must be 4 to 8 characters and contain a numeric digit.';
+        }
+    };
+})
+
+.service('DateHelper', function () {
+    return {
+        serializeDate: function (val) {
+            var d = moment(val);
+            var utc = d.utc();
+            var result = '\/Date(' + utc + ')\/';
+            return result;
         }
     };
 })
@@ -372,6 +405,37 @@ angular.module('app.services', [])
                 pass: this.adminPass(),
                 emailAddress: email,
                 message: message
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //GetTeamEventsByAppUser(string user, string pass, int appUserId, int? organizationId, int? teamEventId, string name)
+        getTeamEventsByAppUser: function (appUserId, organizationId, teamEventId, searchName, success, fail) {
+            var routeUrl = 'GetTeamEventsByAppUser';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                organizationId: organizationId,
+                teamEventId: teamEventId,
+                name: searchName
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
+        associateAppUserToOrganization: function (appUserId, appUserTypeId, organizationId, startDate, expiresDate, yearCode, sportTypeId, success, fail) {
+            var routeUrl = 'AssociateAppUserToOrganization';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                appUserTypeId: appUserTypeId,
+                organizationId: organizationId,
+                startDate: startDate,
+                expiresDate: expiresDate,
+                yearCode: yearCode,
+                sportTypeId: sportTypeId
             };
 
             return this.basePost(routeUrl, data, success, fail);

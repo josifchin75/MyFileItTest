@@ -9,8 +9,12 @@
         <ion-list>
             <ion-item class="item-icon-right" ng-repeat="img in data.searchImages">
                 <div class="item-checkbox image-list">
-                    <label class="checkbox">
-                        <input type="checkbox" checklist-model="data.selectedImages" checklist-value="img.ID">
+
+                    <label class="checkbox" >
+                        <input type="checkbox" 
+                               name="selectedImages[]"
+                               value="{{img.ID}}"
+                               ng-model="img.selected">
                     </label>
                     <span>
                         <img src="data:image/png;base64,{{img.Base64Image}}"/>
@@ -20,7 +24,8 @@
                 </div>
             </ion-item>
 
-                        <!--<ion-item ng-repeat="img in data.searchImages" menu-close="" class="item-thumbnail-left">
+           
+            <!--<ion-item ng-repeat="img in data.searchImages" menu-close="" class="item-thumbnail-left">
                            
                             <img src="data:image/png;base64,{{img.Base64Image}}">
                             <h2>{{img.DocumentTypeName}}</h2>
@@ -28,6 +33,8 @@
                         </ion-item>-->
 
         </ion-list>
+
+
         <div class="button-bar">
             <a menu-close="" href="#/shareuserselect" class="button button-positive button-block">Back</a>
             <a menu-close="" href="#" class="button button-positive button-block" ng-click="goToEventSelect()">Next</a>

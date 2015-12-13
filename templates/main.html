@@ -1,14 +1,24 @@
 <ion-view title="Main">
     <ion-content padding="'true'" class="has-header">
-        <div class="button-bar">
-            <a menu-close="" href="#/scandocuments" class="button button-stable button-block button-small">Scan Documents</a>
-            <a menu-close="" href="#/shareuserfilterselect" class="button button-stable button-block button-small">Share Documents</a>
+        <div class="logo">
+            <img src="../images/MyFileIT_Icon.png" />
         </div>
-        <ion-list>
-            <ion-item menu-close="">Item 1</ion-item>
-            <ion-item menu-close="">Item 2</ion-item>
-            <ion-item menu-close="">Item 3</ion-item>
-        </ion-list>
+        <div class="button-bar">
+            <a menu-close="" href="#/scandocuments" class="button button-stable button-block">
+                <div class="ion-android-add-circle large-icon blue"></div>
+                Scan Documents
+            </a>
+            <a menu-close="" href="#/shareuserfilterselect" class="button button-stable button-block">
+                <div class="ion-android-share-alt large-icon green"></div>
+                Share Documents
+            </a>
+        </div>
+        <form class="list">
+            <ion-item ng-repeat="familyUser in data.familyUsers">
+                <i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>
+                {{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}
+            </ion-item>
+        </form>
         <a menu-close="" href="#/invitefriend" class="button button-positive button-block  icon-left ion-android-add">Invite a Friend</a>
     </ion-content>
 </ion-view>

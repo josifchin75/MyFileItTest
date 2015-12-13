@@ -220,30 +220,48 @@ angular.module('app.controllers', [])
     $scope.init();
 })
 
-.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state) {
+.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter) {
     $scope.init = function () {
-        function getFamilyRef() {
+        /*function getFamilyRef() {
             function successGetFamily(data) {
                 $scope.data.familyUsers = data.AppUsers;
             }
 
             function failRef() { }
+
             $scope.data = ViewDocument.getObject();
             //ViewDocument.searchDocuments();
+            if ($scope.data.selectedImages == undefined) {
+                $scope.data.selectedImages = { list: [$scope.data.searchImages[0]] };
+            }
 
             var user = $scope.data.currentUser;
             var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
             FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
-        }
+        }*/
 
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
-        ViewDocument.loadDocuments(FileItService.currentUser(), getFamilyRef);
-        $scope.data.selectedImages = [$scope.data.searchImages[0]];
-        //get the documents
-        //$scope.getAllDocuments();
+
+        //getFamilyRef();
     }
 
+    /********************/
+    // selected images
+    $scope.selection = [];
+
+    // helper method to get selected fruits
+    $scope.selectedImages = function selectedImages() {
+        return $filter('filter')($scope.data.searchImages, { selected: true });
+    };
+
+    // watch fruits for changes
+    $scope.$watch('searchImages|filter:{selected:true}', function (nv) {
+        $scope.selection = nv.map(function (img) {
+            return img.ID;
+        });
+    }, true);
+    /*****************************/
 
     $scope.getAllDocuments = function () {
         function successGetAll(data) {
@@ -263,8 +281,56 @@ angular.module('app.controllers', [])
         ViewDocument.searchDocuments();
     };
 
+    $scope.searchOrganizations = function () {
+        function successSearch(data) {
+            $scope.data.organizations = data.Organizations;
+            $scope.searchEvents();
+        }
+
+        function failSearch(data) {
+
+        }
+
+        FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch)
+    };
+
+    $scope.searchEvents = function () {
+        function successSearch(data) {
+            $scope.data.events = data.TeamEvents;
+        }
+
+        function failSearch(data) {
+
+        }
+        //appUserId, organizationId, teamEventId, searchName,
+        FileItService.getTeamEventsByAppUser($scope.data.familyUserId, $scope.data.organizationId == -1 ? null : $scope.data.organizationId, null, $scope.data.eventSearch, successSearch, failSearch)
+    };
+
     $scope.goToSelectUser = function () {
-        $scope.navigateAndSave('shareUserSelect');
+        function getFamilyRef() {
+            function successGetFamily(data) {
+                $scope.data.familyUsers = data.AppUsers;
+                $scope.navigateAndSave('shareUserSelect');
+            }
+
+            function failRef() { }
+
+            $scope.data = ViewDocument.getObject();
+            //ViewDocument.searchDocuments();
+            if ($scope.data.selectedImages == undefined) {
+                $scope.data.selectedImages = { list: [$scope.data.searchImages[0]] };
+            }
+
+            var user = $scope.data.currentUser;
+            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+        }
+
+        $scope.data = ViewDocument.getObject();
+        $scope.data.currentUser = FileItService.currentUser();
+        //  ViewDocument.loadDocuments(FileItService.currentUser(), getFamilyRef);
+
+        getFamilyRef();
     };
 
     $scope.goToDocumentSelect = function () {
@@ -274,20 +340,35 @@ angular.module('app.controllers', [])
             $scope.showError('Incomplete', 'Please select a member.');
         }
         if (valid) {
-            $scope.navigateAndSave('shareDocumentSelect');
+            function nav() {
+                $scope.navigateAndSave('shareDocumentSelect');
+            }
+
+            ViewDocument.loadUserDocuments($scope.data.familyUserId, nav);
         }
     }
 
     $scope.goToEventSelect = function () {
         var valid = true;
+        if ($scope.selectedImages().length == 0) {
+            valid = false;
+            $scope.showError("Incomplete", "Please select the documents you would like to share.");
+        }
 
         if (valid) {
             $scope.navigateAndSave('shareEventSelect');
+            //this could be an async issue!!
+            $scope.searchEvents();
         }
     };
 
     $scope.goToAssociate = function () {
         var valid = true;
+
+        if ($scope.data.eventId == undefined || $scope.data.eventId == -1) {
+            valid = false;
+            $scope.showError("Incomplete", "Please select an event to associate your documents to.");
+        }
 
         if (valid) {
             $scope.navigateAndSave('shareAssociate');
@@ -305,10 +386,10 @@ angular.module('app.controllers', [])
 
     $scope.navigateAndSave = function (screen) {
         ViewDocument.setObject($scope.data);
-        $state.go(screen);  
+        $state.go(screen);
     };
 
-    $scope.showError = function(title, message){
+    $scope.showError = function (title, message) {
         var alertPopup = $ionicPopup.alert({
             title: title,
             template: message
@@ -391,9 +472,24 @@ angular.module('app.controllers', [])
 })
 
 .controller('mainCtrl', function ($scope, FileItService) {
-    $scope.data = {
-        currentUser: FileItService.currentUser()
-    };
+    $scope.init = function () {
+        $scope.data = {
+            currentUser: FileItService.currentUser(),
+            familyUsers: []
+        };
+
+        function successGetFamily(data) {
+            $scope.data.familyUsers = data.AppUsers;
+        }
+
+        function failRef() { }
+
+        var user = $scope.data.currentUser;
+        var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+        FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+    }
+
+    $scope.init();
 })
 
 .controller('settingsCtrl', function ($scope) {
@@ -533,7 +629,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('newAccountCtrl', function ($scope, FileItService, $ionicPopup, $state, AppUser, EmailHelper, PasswordHelper) {
+.controller('newAccountCtrl', function ($scope, FileItService, $ionicPopup, $state, AppUser, EmailHelper, PasswordHelper, DateHelper) {
     $scope.init = function () {
 
         $scope.data = AppUser.getObject();
@@ -581,6 +677,10 @@ angular.module('app.controllers', [])
                 });
         }
 
+        function successAddThenAssociate() {
+            //AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
+        }
+
         if ($scope.validAddAccount()) {
             var data = $scope.data;
 
@@ -605,7 +705,16 @@ angular.module('app.controllers', [])
 
 
             function successAddAppUser(data) {
-                successAdd();
+                FileItService.setCurrentUser(data.AppUsers[0]);
+
+                //todo: this may be important!!! it needs to be fixed.
+                var appUserTypeId = 5;
+                var startDate = DateHelper.serializeDate(new Date());
+                var expiresDate = DateHelper.serializeDate(new Date());
+                var yearCode = '2015';
+                var sportTypeId = 1;
+                //AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
+                FileItService.associateAppUserToOrganization(data.AppUsers[0].ID, appUserTypeId, $scope.data.organizationId, startDate, expiresDate, yearCode, sportTypeId, successAdd);
             }
 
             function failAddAppUser(data) {

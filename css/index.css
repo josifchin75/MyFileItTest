@@ -32,3 +32,31 @@
     float: left;
     margin-right: .2em;
 }
+
+.large-icon {
+    font-size: 4em !important;
+}
+
+.medium-icon {
+    font-size: 2em;
+}
+
+.blue {
+    color: blue;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.logo {
+    text-align: center;
+}
+
+    .logo img {
+        width: 4em;
+    }

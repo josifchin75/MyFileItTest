@@ -113,7 +113,10 @@
     <Content Include="icon.png" />
     <Content Include="images\bg.png" />
     <Content Include="images\main-bg.png" />
-    <Content Include="images\MyFileIT_Icon.png" />
+    <Content Include="images\MyFileIT_Icon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="lib\checklist\checklist-model.js" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />
@@ -201,7 +204,7 @@
     <Content Include="templates\scannerSettings.html" />
     <Content Include="templates\settings.html" />
     <Content Include="templates\setUpTeamAndPlayers.html" />
-    <Content Include="templates\ShareAssociate.html" />
+    <Content Include="templates\shareAssociate.html" />
     <Content Include="templates\shareDocuments.html" />
     <Content Include="templates\shareDocumentSelect.html" />
     <Content Include="templates\shareEventSelect.html" />
