@@ -329,6 +329,11 @@ angular.module('app.routes', [])
             templateUrl: 'templates/shareAssociate.html',
             controller: 'viewYourDocumentsCtrl'
         })
+     .state('documentSlider', {
+         url: '/documentslider',
+         templateUrl: 'templates/documentSlider.html',
+         controller: 'viewYourDocumentsCtrl'
+     })
 
     ;
 

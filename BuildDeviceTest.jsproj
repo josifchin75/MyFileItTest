@@ -116,6 +116,8 @@
     <Content Include="images\MyFileIT_Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="lib\bootstrap\bootstrap.min.css" />
+    <Content Include="lib\bootstrap\ui-bootstrap-tpls-0.14.3.min.js" />
     <Content Include="lib\checklist\checklist-model.js" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
@@ -188,6 +190,7 @@
     <Content Include="splash.png" />
     <Content Include="templates\confirmDocument.html" />
     <Content Include="templates\confirmDocumentShare.html" />
+    <Content Include="templates\documentSlider.html" />
     <Content Include="templates\editAccountLogin.html" />
     <Content Include="templates\editAccountUser.html" />
     <Content Include="templates\emergencyShare.html" />

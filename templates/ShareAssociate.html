@@ -2,9 +2,25 @@
     <ion-content padding="'true'" class="has-header">
 
         <form class="list">
+           <p>Please associate your selected documents with the event requirements.</p>
             <ion-item ng-repeat="document in data.eventDocuments">
                 <!--<i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>-->
-                {{document.DOCUMENTNAME}}
+                <div class="image-list">
+                    <!--<img src="" />-->
+                <a href="#" ng-click="associateImage({{document.ID}})" ng-hide="document.associated">
+                    <i class="icon ion-share large-icon"></i>
+                    <div>Match</div>
+                </a>
+                    <img src="data:image/png;base64,{{document.Base64Image}}" ng-show="document.associated" />
+                </div>
+                <div class="left">
+                    <h2>{{document.DOCUMENTNAME}}</h2>
+                    <a class="button button-stable button-block " ng-click="undoAssociate({{document.ID}})" ng-show="document.associated">
+                        Undo
+                    </a>
+                    </div>
+                 <div class="clear"></div>
+                <h1 ng-show="document.show">VISIBLE</h1>
             </ion-item>
         </form>
 

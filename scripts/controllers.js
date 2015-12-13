@@ -242,7 +242,8 @@ angular.module('app.controllers', [])
 
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
-
+        $scope.data.associatedImageId = -1;
+        $scope.data.selectedEventDocumentId = -1;
         //getFamilyRef();
     }
 
@@ -297,6 +298,9 @@ angular.module('app.controllers', [])
     $scope.searchEvents = function () {
         function successSearch(data) {
             $scope.data.events = data.TeamEvents;
+            for (var i = 0; i < $scope.data.events.length; i++) {
+                $scope.data.events[i].show = false;
+            }
         }
 
         function failSearch(data) {
@@ -304,6 +308,95 @@ angular.module('app.controllers', [])
         }
         //appUserId, organizationId, teamEventId, searchName,
         FileItService.getTeamEventsByAppUser($scope.data.familyUserId, $scope.data.organizationId == -1 ? null : $scope.data.organizationId, null, $scope.data.eventSearch, successSearch, failSearch)
+    };
+
+    $scope.slideHasChanged = function (index) {
+        $scope.data.associatedImageId = $scope.data.associatedImages[index].ID;
+    };
+
+    $scope.associateImage = function (eventDocumentId) {
+        //alert(eventDocumentId);
+        //$scope.getEventDocument(eventDocumentId).show = true;
+        //$scope.navigateAndSave('documentSlider');
+        $scope.data.associatedImages = $scope.selectedImages();
+        $scope.data.associatedImageId = $scope.data.associatedImages[0].ID;
+        $scope.data.selectedEventDocumentId = eventDocumentId
+        var title = 'Select an Image';
+        var message = eventDocumentId;
+        var alertPopup = $ionicPopup.show({
+            title: title,
+            templateUrl: 'templates/documentSlider.html',
+            cssClass: 'document-slider',
+            scope: $scope,
+            buttons: [
+                 {
+                     text: 'Cancel',
+                     onTap: function (e) {
+                         $scope.data.associatedImageId = -1;
+                         return $scope.data.associatedImageId;
+                     }
+                 },
+                 {
+                     text: '<b>Associate</b>',
+                     type: 'button-positive',
+                     onTap: function(e) {
+                         if (0==1) {
+                             //don't allow the user to close unless he enters wifi password
+                             e.preventDefault();
+                         } else {
+                             //alert($scope.data.associatedImageId);
+                             return $scope.data.associatedImageId;
+                         }
+                     }
+                 }]
+        });
+        alertPopup.then(function (res) {
+            var eventDoc = $scope.getEventDocument(eventDocumentId);
+            eventDoc.associatedId = res;
+            eventDoc.associated = res > -1;
+            eventDoc.Base64Image = $scope.getSelectedImageBase64(res);
+        });
+
+
+        // $scope.navigateAndSave('documentSlider');
+    };
+
+    $scope.undoAssociate = function (eventDocumentId) {
+        var obj = $scope.getEventDocument(eventDocumentId);
+        obj.associated = false;
+        obj.associatedId = -1;
+        obj.Base64Image = null;
+
+    };
+
+    $scope.getEventDocument = function (eventDocumentId) {
+        var docs = $scope.data.eventDocuments;
+        var result = null;
+
+        for (var i = 0; i < docs.length; i++) {
+            if (docs[i].ID == eventDocumentId) {
+                result = docs[i];
+                break;
+            }
+        }
+
+        return result;
+    };
+
+    $scope.getSelectedImageBase64 = function (selectedImageId) {
+        var result = null;
+        
+        if (selectedImageId > -1) {
+            var images = $scope.data.associatedImages;
+            for (var i = 0; i < images.length; i++) {
+                if (images[i].ID == selectedImageId) {
+                    result = images[i].Base64Image;
+                    break;
+                }
+            }
+        }
+
+        return result;
     };
 
     $scope.goToSelectUser = function () {

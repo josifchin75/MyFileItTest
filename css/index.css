@@ -33,6 +33,15 @@
     margin-right: .2em;
 }
 
+.image-list a {
+    float: left;
+    margin-right: .2em;
+}
+
+.left {
+    float: left;
+}
+
 .large-icon {
     font-size: 4em !important;
 }
@@ -59,4 +68,27 @@
 
     .logo img {
         width: 4em;
+    }
+
+    /*this was for angular bootstrap*/
+    /*.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }*/
+
+.document-slider {
+    /*width: 90%;
+    height: 60%;
+    background-color: red;*/
+}
+
+.document-slider .popup-body {
+    height: 90%;
+    width: 90%;
+}
+
+.document-slider .popup {
+    height: 65%;
+    width: 70%;
+}
+
+    .document-slider img {
+        width: 100%;
     }

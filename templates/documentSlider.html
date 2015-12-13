@@ -1,0 +1,14 @@
+﻿
+    <ion-content padding="'true'" class="has-header">
+        Select a document by sliding the images left and right. Then click "Associate".
+        data.associatedImages
+        <ion-slide-box on-slide-changed="slideHasChanged($index)">
+            <ion-slide ng-repeat="associateImage in data.associatedImages">
+                <div>
+                    <a href="#">
+                        <img src="data:image/png;base64,{{associateImage.Base64Image}}" />
+                    </a>
+                </div>
+            </ion-slide>
+        </ion-slide-box>
+    </ion-content>
