@@ -111,8 +111,9 @@ angular.module('app.services', [])
         eventSearch: '',
         events: [],
         eventDocumentId: -1,
-        comment: []//,
-       // selectedImages: []
+        comment: [],
+        eventDocuments: []
+        // selectedImages: []
         //need to retain associations?
     };
 
@@ -183,7 +184,7 @@ angular.module('app.services', [])
 .service('EmailHelper', function () {
     return {
         validEmail: function (emailAddress) {
-            if (emailAddress == 'jo') { return true;}
+            if (emailAddress == 'jo') { return true; }
             var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
             return re.test(emailAddress);
         }
@@ -238,7 +239,7 @@ angular.module('app.services', [])
                     }
                     loadingService.hide();
                 })
-                .error(function(response){
+                .error(function (response) {
                     loadingService.hide();
                 });
             return promise;
@@ -303,7 +304,7 @@ angular.module('app.services', [])
                 appUserName: name,
                 appUserPass: pw
             };
-            
+
             return this.basePost(routeUrl, data, loginCallback, failCallback);
         },
         forgotPassword: function (email, success, fail) {
@@ -423,6 +424,18 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //GetAppUserTeamEventDocumentsByTeamEvent(string user, string pass, int appUserId, int teamEventId)
+        getAppUserTeamEventDocumentsByTeamEvent: function (appUserId, teamEventId, success, fail) {
+            var routeUrl = 'GetAppUserTeamEventDocumentsByTeamEvent';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                teamEventId: teamEventId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         //AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
         associateAppUserToOrganization: function (appUserId, appUserTypeId, organizationId, startDate, expiresDate, yearCode, sportTypeId, success, fail) {
             var routeUrl = 'AssociateAppUserToOrganization';
@@ -460,7 +473,7 @@ angular.module('app.services', [])
 
 .service('loadingService', function ($ionicLoading) {
     return {
-        show : function () {
+        show: function () {
             $ionicLoading.show({
                 template: '<ion-spinner icon="bubbles"></ion-spinner><div>Loading...</div>'
             });
@@ -468,7 +481,7 @@ angular.module('app.services', [])
         hide: function () {
             $ionicLoading.hide();
         }
-}
+    }
 });
 
 //.service('LoginService', function ($q, $http) {

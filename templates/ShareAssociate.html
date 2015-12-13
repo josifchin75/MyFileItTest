@@ -1,5 +1,13 @@
 ﻿<ion-view title="Associate Your Documents">
     <ion-content padding="'true'" class="has-header">
+
+        <form class="list">
+            <ion-item ng-repeat="document in data.eventDocuments">
+                <!--<i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>-->
+                {{document.DOCUMENTNAME}}
+            </ion-item>
+        </form>
+
         <div class="button-bar">
             <a menu-close="" href="#/shareeventselect" class="button button-positive button-block">Back</a>
             <a menu-close="" href="#/confirmdocumentshare" class="button button-positive button-block">Next</a>

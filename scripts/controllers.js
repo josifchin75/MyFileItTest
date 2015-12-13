@@ -371,7 +371,12 @@ angular.module('app.controllers', [])
         }
 
         if (valid) {
-            $scope.navigateAndSave('shareAssociate');
+            function loadEventDocuments(data) {
+                $scope.data.eventDocuments = data.TeamEventDocuments;
+                $scope.navigateAndSave('shareAssociate');
+            }
+
+            FileItService.getAppUserTeamEventDocumentsByTeamEvent($scope.data.familyUserId, $scope.data.eventId, loadEventDocuments);
         }
     };
 
