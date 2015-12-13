@@ -117,7 +117,9 @@ angular.module('app.controllers', [])
             function resetSearch() {
                 //ViewDocument.searchDocuments();
             }
-            ViewDocument.loadDocuments(FileItService.currentUser(), resetSearch);
+            // ViewDocument.loadDocuments(FileItService.currentUser(), resetSearch);
+            $scope.init();
+
             var alertPopup = $ionicPopup.alert({
                 title: 'Success',
                 template: 'Your file has been uploaded.'
@@ -222,30 +224,17 @@ angular.module('app.controllers', [])
 
 .controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter) {
     $scope.init = function () {
-        /*function getFamilyRef() {
-            function successGetFamily(data) {
-                $scope.data.familyUsers = data.AppUsers;
-            }
-
-            function failRef() { }
-
-            $scope.data = ViewDocument.getObject();
-            //ViewDocument.searchDocuments();
-            if ($scope.data.selectedImages == undefined) {
-                $scope.data.selectedImages = { list: [$scope.data.searchImages[0]] };
-            }
-
-            var user = $scope.data.currentUser;
-            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
-            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
-        }*/
-
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
         $scope.data.associatedImageId = -1;
-        $scope.data.selectedEventDocumentId = -1;
+        $scope.data.selectedEventDocumentId = -1; 
         //getFamilyRef();
     }
+
+    $scope.initFull = function () {
+        $scope.data.associatedCount = 0;
+        $scope.data.organizationName = '';
+    };
 
     /********************/
     // selected images
@@ -254,6 +243,10 @@ angular.module('app.controllers', [])
     // helper method to get selected fruits
     $scope.selectedImages = function selectedImages() {
         return $filter('filter')($scope.data.searchImages, { selected: true });
+    };
+
+    $scope.associatedDocuments = function associatedDocuments() {
+        return $filter('filter')($scope.data.eventDocuments, { associated: true });
     };
 
     // watch fruits for changes
@@ -370,14 +363,34 @@ angular.module('app.controllers', [])
     };
 
     $scope.getEventDocument = function (eventDocumentId) {
-        var docs = $scope.data.eventDocuments;
         var result = null;
+        if (eventDocumentId > -1) {
+            var docs = $scope.data.eventDocuments;
 
-        for (var i = 0; i < docs.length; i++) {
-            if (docs[i].ID == eventDocumentId) {
-                result = docs[i];
-                break;
+            for (var i = 0; i < docs.length; i++) {
+                if (docs[i].ID == eventDocumentId) {
+                    result = docs[i];
+                    break;
+                }
             }
+        } 
+
+        return result;
+    };
+
+    $scope.getOrganization = function (organizationId) {
+        var result = null;
+        if (organizationId > -1) {
+            var orgs = $scope.data.organizations;
+
+            for (var i = 0; i < orgs.length; i++) {
+                if (orgs[i].ID == organizationId) {
+                    result = orgs[i];
+                    break;
+                }
+            }
+        } else {
+            result = { NAME: "Unknown" };
         }
 
         return result;
@@ -462,10 +475,11 @@ angular.module('app.controllers', [])
             valid = false;
             $scope.showError("Incomplete", "Please select an event to associate your documents to.");
         }
-
+        
         if (valid) {
             function loadEventDocuments(data) {
                 $scope.data.eventDocuments = data.TeamEventDocuments;
+                $scope.data.organizationName = $scope.getOrganization($scope.data.organizationId).NAME;
                 $scope.navigateAndSave('shareAssociate');
             }
 
@@ -477,9 +491,65 @@ angular.module('app.controllers', [])
     $scope.goToConfirm = function () {
         var valid = true;
 
+        if ($scope.associatedDocuments().length == 0) {
+            valid = false;
+            $scope.showError("Incomplete", "Please associate some documents to share.");
+        }
+
         if (valid) {
+            $scope.data.associatedCount = $scope.associatedDocuments().length;
             $scope.navigateAndSave('confirmDocumentShare');
         }
+    };
+
+    $scope.shareDocuments = function () {
+        //share the documents
+        function shareSuccess() {
+            $scope.init();
+            $scope.initFull();
+            $scope.navigateAndSave('shareHasBeenSent');
+        };
+
+        function shareFail(data) {
+            $scope.showError("Error", "We're sorry. There was an error sharing your documents. Please try again later." + data.Message);
+        }
+        //confirmDocumentShare
+        var data = [];
+        var associated = $scope.associatedDocuments();
+        for (var i = 0; i < associated.length; i++) {
+            data.push($scope.generateAssociateDocumentDTO(associated[i]))
+        }
+        //shareSuccess();
+        FileItService.associateDocumentsToTeamEventDocuments(data, shareSuccess);
+    };
+
+    $scope.generateAssociateDocumentDTO = function (obj) {
+        var result = {
+            appUserId: $scope.data.familyUserId,
+            organizationId: $scope.data.organizationId,
+            fileCabinetDocumentId: obj.associatedId,
+            teamEventDocumentId: obj.ID,
+            comment: $scope.data.comment + '',
+            emergency: false,
+            remove: false
+        };
+
+        return result;
+        /*
+        [DataMember]
+        public int appUserId { get; set; }
+        [DataMember]
+        public int organizationId { get; set; }
+        [DataMember]
+        public int fileCabinetDocumentId { get; set; }
+        [DataMember]
+        public int teamEventDocumentId { get; set; }
+        [DataMember]
+        public string comment { get; set; }
+        [DataMember]
+        public bool emergency { get; set; }
+        [DataMember]
+        public bool remove { get; set; }*/
     };
 
     $scope.navigateAndSave = function (screen) {

@@ -1,14 +1,20 @@
 <ion-view title="Confirm Document Share">
     <ion-content padding="'true'" class="has-header">
-        <h4>You are going share ## Documents with organization&gt;, team/event&gt;</h4>
+        <h4>You are going share {{data.associatedCount}} Documents with organization {{data.organizationName}}</h4>
         <div>
             <p>*Unless you declare Document emergency you only may share with user that are register.</p>
         </div>
-        <ion-list>
-            <ion-item menu-close="">Item 1</ion-item>
-            <ion-item menu-close="">Item 2</ion-item>
-            <ion-item menu-close="">Item 3</ion-item>
-        </ion-list>
+        <ion-item ng-repeat="document in data.eventDocuments" ng-show="document.associated">
+            <div ng-show="document.associated">
+                <div class="image-list">
+                    <img src="data:image/png;base64,{{document.Base64Image}}" />
+                </div>
+                <div class="left">
+                    <h2>{{document.DOCUMENTNAME}}</h2>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </ion-item>
         <div>
             <p>
                 Message with the share
@@ -16,10 +22,12 @@
         </div>
         <form class="list">
             <label class="item item-input" name="shareComment">
-                <span class="input-label">Text</span><textarea placeholder="enter text..."> </textarea>
+                <span class="input-label">Text</span>
+                <textarea placeholder="enter text..." ng-model="data.comment"> </textarea>
             </label>
         </form>
-        <a menu-close="" href="#/shareSent" class="button button-positive button-block ">Confirm</a>
+        <a menu-close="" href="#" class="button button-positive button-block " ng-click="shareDocuments()">Confirm</a>    
         <a menu-close="" href="#/shareassociate" class="button button-positive button-block ">Back</a>
+        
     </ion-content>
 </ion-view>

@@ -271,34 +271,12 @@ angular.module('app.routes', [])
       })
 
 
-
-
-
-      .state('confirmDocumentShare', {
-          url: '/confirmdocumentshare',
-          templateUrl: 'templates/confirmDocumentShare.html',
-          controller: 'confirmDocumentShareCtrl'
-      })
-
-
-
-
-
       .state('emergencyShare', {
           url: '/emergencyShare',
           templateUrl: 'templates/emergencyShare.html',
           controller: 'emergencyShareCtrl'
       })
 
-
-
-
-
-      .state('shareHasBeenSent', {
-          url: '/shareSent',
-          templateUrl: 'templates/shareHasBeenSent.html',
-          controller: 'shareHasBeenSentCtrl'
-      })
 
 
     .state('shareUserFilterSelect', {
@@ -335,6 +313,16 @@ angular.module('app.routes', [])
          controller: 'viewYourDocumentsCtrl'
      })
 
+          .state('confirmDocumentShare', {
+              url: '/confirmdocumentshare',
+              templateUrl: 'templates/confirmDocumentShare.html',
+              controller: 'viewYourDocumentsCtrl'
+          })
+          .state('shareHasBeenSent', {
+              url: '/shareSent',
+              templateUrl: 'templates/shareHasBeenSent.html',
+              controller: 'shareHasBeenSentCtrl'
+          })
     ;
 
     // if none of the above states are matched, use this as the fallback

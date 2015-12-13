@@ -228,7 +228,8 @@ angular.module('app.services', [])
             loadingService.show();
             $http.post(url, obj)
                 .success(function (response) {
-                    if (response.success != undefined) {
+                    loadingService.hide();
+                    if (response.Success != undefined) {
                         if (response.Success) {
                             successCallback(response);
                         } else {
@@ -237,7 +238,6 @@ angular.module('app.services', [])
                     } else {
                         successCallback(response);
                     }
-                    loadingService.hide();
                 })
                 .error(function (response) {
                     loadingService.hide();
@@ -449,6 +449,17 @@ angular.module('app.services', [])
                 expiresDate: expiresDate,
                 yearCode: yearCode,
                 sportTypeId: sportTypeId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //AssociateDocumentsToTeamEventDocuments(string user, string pass, List<AssociateDocumentDTO> associations)
+        associateDocumentsToTeamEventDocuments: function (associations, success, fail) {
+            var routeUrl = 'AssociateDocumentsToTeamEventDocuments';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                associations: associations
             };
 
             return this.basePost(routeUrl, data, success, fail);

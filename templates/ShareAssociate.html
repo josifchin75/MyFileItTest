@@ -2,11 +2,9 @@
     <ion-content padding="'true'" class="has-header">
 
         <form class="list">
-           <p>Please associate your selected documents with the event requirements.</p>
+           <p>Please associate your selected documents with the event requirements. Click on "Match" to select the correct image.</p>
             <ion-item ng-repeat="document in data.eventDocuments">
-                <!--<i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>-->
                 <div class="image-list">
-                    <!--<img src="" />-->
                 <a href="#" ng-click="associateImage({{document.ID}})" ng-hide="document.associated">
                     <i class="icon ion-share large-icon"></i>
                     <div>Match</div>
@@ -20,13 +18,12 @@
                     </a>
                     </div>
                  <div class="clear"></div>
-                <h1 ng-show="document.show">VISIBLE</h1>
             </ion-item>
         </form>
 
         <div class="button-bar">
             <a menu-close="" href="#/shareeventselect" class="button button-positive button-block">Back</a>
-            <a menu-close="" href="#/confirmdocumentshare" class="button button-positive button-block">Next</a>
+            <a menu-close="" href="#" class="button button-positive button-block" ng-click="goToConfirm()">Next</a>
         </div>
     </ion-content>
 </ion-view>

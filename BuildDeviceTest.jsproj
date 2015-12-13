@@ -116,9 +116,6 @@
     <Content Include="images\MyFileIT_Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="lib\bootstrap\bootstrap.min.css" />
-    <Content Include="lib\bootstrap\ui-bootstrap-tpls-0.14.3.min.js" />
-    <Content Include="lib\checklist\checklist-model.js" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />
