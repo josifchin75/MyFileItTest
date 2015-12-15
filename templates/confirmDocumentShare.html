@@ -7,7 +7,7 @@
         <ion-item ng-repeat="document in data.eventDocuments" ng-show="document.associated">
             <div ng-show="document.associated">
                 <div class="image-list">
-                    <img src="data:image/png;base64,{{document.Base64Image}}" />
+                    <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
                 </div>
                 <div class="left">
                     <h2>{{document.DOCUMENTNAME}}</h2>
