@@ -323,6 +323,12 @@ angular.module('app.routes', [])
               templateUrl: 'templates/shareHasBeenSent.html',
               controller: 'shareHasBeenSentCtrl'
           })
+
+     .state('addFamilyMembers', {
+         url: '/addfamilymembers',
+         templateUrl: 'templates/addFamilyMembers.html',
+         controller: 'addFamilyMembersCtrl'
+     })
     ;
 
     // if none of the above states are matched, use this as the fallback

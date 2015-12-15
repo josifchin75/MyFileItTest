@@ -64,6 +64,18 @@ angular.module('app.controllers', [])
         FileItService.getReferenceData('DocumentType', successRef, failRef);
     };
 
+    $scope.getFamilyUserName = function () {
+        var result = '';
+        for (var i = 0; i < $scope.data.familyUsers.length; i++) {
+            if ($scope.data.familyUsers[i].ID == $scope.data.familyUserId) {
+                result = $scope.data.familyUsers[i].FIRSTNAME + ' ' + $scope.data.familyUsers[i].LASTNAME;
+                break;
+            }
+        }
+
+        return result;
+    };
+
     $scope.getPhoto = function (find) {
         function onSuccessPic(imageData) {
             $scope.data.currentImage = imageData;
@@ -178,6 +190,7 @@ angular.module('app.controllers', [])
 
     $scope.confirm = function () {
         if ($scope.validUpload()) {
+            $scope.data.familyUserName = $scope.getFamilyUserName();
             ScanDocument.setObject($scope.data);
             $state.go('scanDocumentsConfirm');
         }
@@ -227,7 +240,7 @@ angular.module('app.controllers', [])
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
         $scope.data.associatedImageId = -1;
-        $scope.data.selectedEventDocumentId = -1; 
+        $scope.data.selectedEventDocumentId = -1;
         //getFamilyRef();
     }
 
@@ -332,8 +345,8 @@ angular.module('app.controllers', [])
                  {
                      text: '<b>Associate</b>',
                      type: 'button-positive',
-                     onTap: function(e) {
-                         if (0==1) {
+                     onTap: function (e) {
+                         if (0 == 1) {
                              //don't allow the user to close unless he enters wifi password
                              e.preventDefault();
                          } else {
@@ -347,7 +360,8 @@ angular.module('app.controllers', [])
             var eventDoc = $scope.getEventDocument(eventDocumentId);
             eventDoc.associatedId = res;
             eventDoc.associated = res > -1;
-            eventDoc.Base64Image = $scope.getSelectedImageBase64(res);
+            eventDoc.associatedAllowUndo = res > -1;
+            eventDoc.Base64ImageThumb = $scope.getSelectedImageBase64Thumb(res);
         });
 
 
@@ -357,9 +371,10 @@ angular.module('app.controllers', [])
     $scope.undoAssociate = function (eventDocumentId) {
         var obj = $scope.getEventDocument(eventDocumentId);
         obj.associated = false;
+        obj.associatedAllowUndo = false;
         obj.associatedId = -1;
         obj.Base64Image = null;
-
+        obj.Base64ImageThumb = null;
     };
 
     $scope.getEventDocument = function (eventDocumentId) {
@@ -373,7 +388,7 @@ angular.module('app.controllers', [])
                     break;
                 }
             }
-        } 
+        }
 
         return result;
     };
@@ -398,7 +413,7 @@ angular.module('app.controllers', [])
 
     $scope.getSelectedImageBase64 = function (selectedImageId) {
         var result = null;
-        
+
         if (selectedImageId > -1) {
             var images = $scope.data.associatedImages;
             for (var i = 0; i < images.length; i++) {
@@ -406,6 +421,36 @@ angular.module('app.controllers', [])
                     result = images[i].Base64Image;
                     break;
                 }
+            }
+        }
+
+        return result;
+    };
+
+    $scope.getSelectedImageBase64Thumb = function (selectedImageId) {
+        var result = null;
+
+        if (selectedImageId > -1) {
+            var images = $scope.data.associatedImages;
+            for (var i = 0; i < images.length; i++) {
+                if (images[i].ID == selectedImageId) {
+                    result = images[i].Base64ImageThumb;
+                    break;
+                }
+            }
+        }
+
+        return result;
+    };
+
+    $scope.getImageById = function (id) {
+        var result = null;
+
+        var images = $scope.data.images;
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].ID == id) {
+                result = images[i];
+                break;
             }
         }
 
@@ -475,9 +520,20 @@ angular.module('app.controllers', [])
             valid = false;
             $scope.showError("Incomplete", "Please select an event to associate your documents to.");
         }
-        
+
         if (valid) {
             function loadEventDocuments(data) {
+                $scope.data.eventDocuments = [];
+                for (var i = 0; i < data.TeamEventDocuments.length; i++) {
+                    var obj = data.TeamEventDocuments[i];
+                    if (obj.DocumentId != null) {
+                        //get the set up data
+                        obj.associated = true;
+                        obj.associatedAllowUndo = false;
+                        obj.Base64ImageThumb = $scope.getImageById(obj.DocumentId).Base64ImageThumb;
+                    }
+                    $scope.data.eventDocuments.push(obj);
+                }
                 $scope.data.eventDocuments = data.TeamEventDocuments;
                 $scope.data.organizationName = $scope.getOrganization($scope.data.organizationId).NAME;
                 $scope.navigateAndSave('shareAssociate');
@@ -1012,6 +1068,158 @@ angular.module('app.controllers', [])
 //.controller('newAccountProfileCtrl', function ($scope) {
 
 //})
+    .controller('addFamilyMembersCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper) {
+        $scope.init = function () {
+
+            $scope.data = {
+                currentUser: FileItService.currentUser(),
+                familyUsers: [],
+                appUserTypes: [],
+                relationShipTypes: [],
+                userName: '',
+                firstName: '',
+                lastName: '',
+                relationShipTypeId: -1,
+                phoneNumber: '',
+                emailAddress: '',
+                appUserTypeId: -1,
+                sex: ''
+            };
+
+            function successGetFamily(data) {
+                $scope.data.familyUsers = data.AppUsers;
+                FileItService.getReferenceData('RelationShipType', successRef, failRef);
+            }
+
+            function successRef(data) {
+                $scope.data.relationShipTypes = data.KeyValueData;
+                FileItService.getReferenceData('AppUserType', successUserRef, failRef);
+            }
+
+            function successUserRef(data) {
+                var lookup = 'User/Player';
+                for (var i = 0; i < data.KeyValueData.length; i++) {
+                    if (data.KeyValueData[i].Value == lookup) {
+                        // $scope.data.appUserTypes = data.KeyValueData[i];
+                        $scope.data.appUserTypeId = data.KeyValueData[i].Key;
+                        break;
+                    }
+                }
+
+            }
+
+            function failRef() { }
+
+            var user = $scope.data.currentUser;
+            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+        };
+
+        $scope.validAddFamilyMember = function () {
+            var result = true;
+            var errorTitle = "Incomplete";
+            var errorMessage = "";
+
+            var data = $scope.data;
+            function hasValue(key) {
+                return data[key] != undefined && data[key].length > 0;
+            }
+
+            if (!hasValue('userName')) {
+                result = false;
+                errorMessage += 'No username entered.';
+            }
+            if (!hasValue('password')) {
+                result = false;
+                errorMessage += 'No password entered.';
+            }
+            if (!hasValue('firstName') || !hasValue('lastName')) {
+                result = false;
+                errorMessage += '<br/>Please enter a name.';
+            }
+            if (data.relationShipTypeId == undefined || data.relationShipTypeId == -1) {
+                result = false;
+                errorMessage += '<br/>Please select a relationship type.';
+            }
+            if (!hasValue('phoneNumber')) {
+                result = false;
+                errorMessage += '<br/>Please enter a phone number';
+            }
+            if (data.sex == '') {
+                result = false;
+                errorMessage += '<br/>Please specify a sex.';
+            }
+
+            if (!hasValue('emailAddress')) {
+                result = false;
+                errorMessage += '<br/>Please enter an email address';
+            }
+            if (!EmailHelper.validEmail(data.emailAddress) && data.emailAddress.length > 0) {
+                result = false;
+                errorMessage += '<br/>Please enter a valid email address';
+            }
+
+            if (!result) {
+                var alertPopup = $ionicPopup.alert({
+                    title: errorTitle,
+                    template: errorMessage
+                });
+            }
+
+            return result;
+        };
+
+        $scope.addFamilyMember = function () {
+            function successAdd() {
+                var alertPopup = $ionicPopup.alert(
+                    {
+                        title: 'Success',
+                        template: 'Your family member has been added!',
+                        buttons: [
+                          {
+                              text: '<b>Ok</b>',
+                              type: 'button-positive',
+                              onTap: function (e) {
+                                  //$state.go('tabsController.main');
+                              }
+                          }]
+                    });
+                $scope.init();
+            }
+
+            if ($scope.validAddFamilyMember()) {
+                var data = $scope.data;
+
+                var appUserDTO = {
+                    USERNAME: data.userName,
+                    PASSWORD: data.password,
+                    FIRSTNAME: data.firstName,
+                    LASTNAME: data.lastName,
+                    ADDRESS1: '.',
+                    ADDRESS2: '.',
+                    CITY: '.',
+                    STATECODE: 'PA',
+                    ZIPCODE: '.',
+                    PHONE: data.phoneNumber,
+                    MOBILEPHONENUMBER: data.phoneNumber,
+                    EMAILADDRESS: data.emailAddress,
+                    SEX: data.sex,
+                    RELATIONSHIPTYPEID: data.relationShipTypeId,
+                    APPUSERTYPEID: data.appUserTypeId,
+                    APPUSERSTATUSID: 2,
+                    PRIMARYAPPUSERID: $scope.data.currentUser.ID
+                };
+
+
+                function failAddAppUser(data) {
+                }
+
+                FileItService.addAppUser(appUserDTO, successAdd, failAddAppUser);
+            }
+        }
+
+        $scope.init();
+    })
 
 .controller('successCtrl', function ($scope) {
 

@@ -17,21 +17,12 @@
                                ng-model="img.selected">
                     </label>
                     <span>
-                        <img src="data:image/png;base64,{{img.Base64Image}}"/>
+                        <img src="data:image/png;base64,{{img.Base64ImageThumb}}"/>
                         <h2>{{img.DocumentTypeName}}</h2>
                         <p>{{img.COMMENT}}</p>
                     </span>
                 </div>
             </ion-item>
-
-           
-            <!--<ion-item ng-repeat="img in data.searchImages" menu-close="" class="item-thumbnail-left">
-                           
-                            <img src="data:image/png;base64,{{img.Base64Image}}">
-                            <h2>{{img.DocumentTypeName}}</h2>
-                            <p>{{img.COMMENT}}</p>
-                        </ion-item>-->
-
         </ion-list>
 
 

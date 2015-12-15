@@ -79,6 +79,7 @@ angular.module('app.services', [])
          familyUsers: [],
          familyUserId: -1,
          filename: '',
+         familyUserName: '',
          cabinetId: '',
          documentTypeName: '',
          confirmed: false

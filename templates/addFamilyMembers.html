@@ -1,0 +1,53 @@
+﻿<ion-view title="Add Family Members">
+    <ion-content padding="'true'" class="has-header">
+        <form class="list">
+            <ion-list>
+                <label class="item item-input" name="username">
+                    <input type="text" placeholder="User Name" ng-model="data.userName">
+                </label>
+                <label class="item item-input" name="NewPassword">
+                    <input type="password" placeholder="Password" ng-model="data.password">
+                </label>
+                <label class="item item-input" name="firstname">
+                    <input type="text" placeholder="First Name" ng-model="data.firstName">
+                </label>
+                <label class="item item-input" name="lastname">
+                    <input type="text" placeholder="Last Name" ng-model="data.lastName">
+                </label>
+            </ion-list>
+            
+            <label class="item item-select" name="relationship">
+                <span class="input-label">Relationship</span>
+                <select ng-model="data.relationShipTypeId">
+                    <option ng-repeat="relationShipType in data.relationShipTypes" value="{{relationShipType.Key}}">{{relationShipType.Value}}</option>
+                </select>
+            </label>
+            <label class="item item-input" name="phonenumber">
+                <input type="text" placeholder="Mobile Phone Number" ng-model="data.phoneNumber">
+            </label>
+            <label class="item item-input" name="emailaddress">
+                <input type="text" placeholder="Email Address" ng-model="data.emailAddress">
+            </label>
+            <label class="item item-select" name="sex">
+                <span class="input-label">Sex</span>
+                <select ng-model="data.sex">
+                    <option value=""></option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+            </label>
+        </form>
+
+        <a menu-close="" href="#" class="button button-positive button-block  button-full" ng-click="addFamilyMember()">Add new family member</a>
+        <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
+
+        <form class="list">
+            <h3>Current Members</h3>
+            <ion-item ng-repeat="familyUser in data.familyUsers">
+                <i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>
+                {{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}
+            </ion-item>
+        </form>
+
+    </ion-content>
+</ion-view>
