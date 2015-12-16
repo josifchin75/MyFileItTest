@@ -1,27 +1,41 @@
 <ion-view title="Sharing Key Management">
-    <ion-content padding="'true'" scroll="false" class="has-header">
+    <ion-content padding="'true'" scroll="true" class="has-header">
         <form class="list">
             <ion-list></ion-list>
             <label class="item item-input" name="sharekeyCoupon">
                 <span class="input-label">Share Key Coupon</span>
-                <input type="text" placeholder="">
+                <input type="text" placeholder="" ng-model="data.promocode" ng-change="searchKeys()">
             </label>
-            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block  icon-left ion-key">Use Coupon</a>
-            <div class="spacer" style="width: 300px; height: 62px;"></div>
+        </form>
+        <form class="list">
             <div>
-                <p>
+                <h3>
                     Share keys not used
-                </p>
+                </h3>
             </div>
-            <ion-item menu-close="" class="item-thumbnail-left">
-                <img src="img/k3IgMZ9RhWu26redhI0S_keychain-512.png">
-                <h2>Key #111111</h2>
-                <p>--dropdownlist of users</p>
+            <ion-item ng-repeat="sharekey in data.shareKeys">
+                <div class="left">
+                    <i class="medium-icon icon-left ion-key left">&nbsp;</i>
+                </div>
+                <div class="left">
+                    {{sharekey.AppUserName}}
+                    <a class="button button-stable button-block" ng-click="selectShareKeyUser({{sharekey.ID}})">
+                        Select a Family Member
+                    </a>
+                </div>
             </ion-item>
+        </form>
+        <form class="list">
             <div>
                 <p>Some organization particular in MyFile-It programs where your organization would provide you with a Share Key Coupon if not you must purchase one if you want to share your documents.</p>
             </div>
-            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block  icon-left ion-checkmark">Apply Changes</a>
+            <a menu-close="" href="#" class="button button-positive button-block  icon-left ion-checkmark" ng-click="updateShareKeys()">Apply Changes</a>
+            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
+            <h3>Members with keys</h3>
+            <ion-item ng-repeat="familyUser in data.familyUsers" ng-show="familyUser.show">
+                <i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>
+                {{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}
+            </ion-item>
         </form>
     </ion-content>
 </ion-view>

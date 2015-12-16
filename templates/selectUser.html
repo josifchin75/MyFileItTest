@@ -1,0 +1,13 @@
+﻿
+<ion-content padding="'true'" class="has-header">
+    <p>Please select a user.</p>
+    <label class="item item-select left" name="relationship">
+        <span class="input-label">Family Member</span>
+        <select ng-model="data.shareKeyAppUserId">
+            <option ng-repeat="familyuser in data.availableFamilyUsers"
+                    value="{{familyuser.ID}}">
+                {{familyuser.FIRSTNAME}} &nbsp; {{familyuser.LASTNAME}}
+            </option>
+        </select>
+    </label>
+</ion-content>

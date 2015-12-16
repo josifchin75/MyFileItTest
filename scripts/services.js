@@ -465,6 +465,30 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        // GetAvailableShareKeysByPromoCodeAndPrimaryUser(string user, string pass, int primaryAppUserId, string promocode)
+        getAvailableShareKeysByPromoCodeAndPrimaryUser: function (primaryAppUserId, promocode, success, fail) {
+            var routeUrl = 'GetAvailableShareKeysByPromoCodeAndPrimaryUser';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                primaryAppUserId: primaryAppUserId,
+                promocode: promocode
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        // AssociateShareKeyToUser(string user, string pass, int appUserId, int shareKeyId)
+        associateShareKeyToUser: function (appUserId, shareKeyId, success, fail) {
+            var routeUrl = 'AssociateShareKeyToUser';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                shareKeyId: shareKeyId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         currentUser: function () {
             return currentUser;
         },
