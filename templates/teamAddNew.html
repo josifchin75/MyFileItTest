@@ -1,0 +1,44 @@
+﻿<ion-view title="Add Player To Team">
+    <ion-content padding="'true'" class="has-header">
+        <h3>{{data.organization.NAME}}</h3>
+        <h4>{{data.teamEvent.NAME}}</h4>
+        <h5>{{data.teamEvent.STARTDATE}} - {{data.teamEvent.EXPIRESDATE}}</h5>
+        <form class="list">
+            <p>Search for a player to add to the team.</p>
+            <ion-list>
+                <label class="item item-input" name="FirstName">
+                    <input type="text" placeholder="First Name" ng-model="data.firstNameSearch" ng-change="searchMembers()">
+                </label>
+                <label class="item item-input" name="LastName">
+                    <input type="text" placeholder="Last Name" ng-model="data.lastNameSearch" ng-change="searchMembers()">
+                </label>
+                <label class="item item-select" name="sex">
+                    <span class="input-label">Sex</span>
+                    <select ng-model="data.sex" ng-change="searchMembers()">
+                        <option value=""></option>
+                        <option value="M">Male</option>
+                        <option value="F">Female</option>
+                    </select>
+                </label>
+                <label class="item item-input" name="ParentEmailAddress'">
+                    <input type="text" placeholder="Parent's Email Address'" ng-model="data.emailSearch" ng-change="searchMembers()">
+                </label>
+                <h3>Search Results</h3>
+                <form class="list">
+                    <ion-item ng-repeat="player in data.searchedMembers">
+                        <i class="medium-icon icon-left ion-man" ng-show="player.sex=='M'">&nbsp;</i>
+                        <i class="medium-icon icon-left ion-woman" ng-show="player.sex=='F'">&nbsp;</i>
+                        {{player.FIRSTNAME}}&nbsp;{{player.LASTNAME}}
+                        <button ng-click="addPlayerNew(player)">Add</button>
+                    </ion-item>
+                </form>
+            </ion-list>
+
+
+        </form>
+        <div class="button-bar">
+            <a menu-close="" href="#/teamviewplayers" class="button button-positive button-block ">Back</a>
+            <a menu-close="" href="#" class="button button-positive button-block " ng-click="addAccountUserName()">Continue</a>
+        </div>
+    </ion-content>
+</ion-view>

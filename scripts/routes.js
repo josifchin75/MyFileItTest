@@ -329,6 +329,32 @@ angular.module('app.routes', [])
          templateUrl: 'templates/addFamilyMembers.html',
          controller: 'addFamilyMembersCtrl'
      })
+
+    .state('teamSelectOrganization', {
+        url: '/teamselectorganization',
+        templateUrl: 'templates/teamSelectOrganization.html',
+        controller: 'teamCtrl'
+    })
+     .state('teamSelectEvent', {
+         url: '/teamselectevent',
+         templateUrl: 'templates/teamSelectEvent.html',
+         controller: 'teamCtrl'
+     })
+     .state('teamViewPlayers', {
+         url: '/teamviewplayers',
+         templateUrl: 'templates/teamViewPlayers.html',
+         controller: 'teamCtrl'
+     })
+     .state('teamAddPending', {
+         url: '/teamaddpending',
+         templateUrl: 'templates/teamAddPending.html',
+         controller: 'teamCtrl'
+     })
+     .state('teamAddNew',{
+         url: '/teamaddnew',
+         templateUrl: 'templates/teamAddNew.html',
+         controller: 'teamCtrl'
+     })
     ;
 
     // if none of the above states are matched, use this as the fallback

@@ -1,0 +1,18 @@
+﻿<ion-view title="Select a Player">
+    <ion-content padding="'true'" class="has-header">
+        <p>
+            These users have uploaded documents to your selected event.
+        </p>
+        <form class="list">
+            <ion-item ng-repeat="player in data.uploadPlayers">
+                <i class="medium-icon icon-left ion-man" ng-show="player.sex=='M'">&nbsp;</i>
+                <i class="medium-icon icon-left ion-woman" ng-show="player.sex=='F'">&nbsp;</i>
+                {{player.FIRSTNAME}}&nbsp;{{player.LASTNAME}}
+                <button ng-click="addPlayerUpload(player)">Add</button>
+            </ion-item>
+        </form>
+        <div class="button-bar">
+            <a menu-close="" href="#/teamviewplayers" class="button button-positive button-block ">Back</a>
+        </div>
+    </ion-content>
+</ion-view>

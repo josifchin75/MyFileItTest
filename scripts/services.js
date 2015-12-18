@@ -182,6 +182,45 @@ angular.module('app.services', [])
     };
 }])
 
+     .service('TeamPlayer', [function () {
+         var data = {
+             organization: null,
+             organizations: [],
+             organizationSearch: '',
+             teamEvent: null,
+             teamEvents: [],
+             teamEventSearch: '',
+             players: [],
+             uploadPlayers: [],
+             newPlayer: {
+                 firstName: '',
+                 lastName: '',
+                 sex: '',
+                 emailAddress: ''
+             },
+             firstNameSearch: '',
+             lastNameSearch: '',
+             emailSearch: '',
+             sex: '',
+             searchedMembers: []
+         };
+
+         return {
+             clear: function () {
+                 data.organization = null;
+                 data.teamEvent = null;
+                 data.organizationSearch = '';
+                 data.teamEventSearch = '';
+             },
+             getObject: function () {
+                 return data;
+             },
+             setObject: function (obj) {
+                 data = obj;
+             }
+         };
+     }])
+
 .service('EmailHelper', function () {
     return {
         validEmail: function (emailAddress) {
@@ -339,6 +378,22 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //GetAppUsersByNameSexEmail(string user, string pass, int appUserId, string firstName, string lastName, string parentEmailAddress, string sex
+        getAppUsersByNameSexEmail: function (appUserId, teamEventId, firstName, lastName, parentEmailAddress, sex, success, fail) {
+            var routeUrl = 'GetAppUsersByNameSexEmail';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                teamEventId: teamEventId,
+                firstName: firstName,
+                lastName: lastName,
+                parentEmailAddress: parentEmailAddress,
+                sex: sex
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
 
         getAppUserDocuments: function (appUserId, success, fail) {
             var routeUrl = 'GetAppUserDocuments';
@@ -485,6 +540,51 @@ angular.module('app.services', [])
                 pass: this.adminPass(),
                 appUserId: appUserId,
                 shareKeyId: shareKeyId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //GetTeamEventPlayerRosters(string user, string pass, int? teamEventPlayerRosterId, int? teamEventId)
+        getTeamEventPlayerRosters: function (rosterId, teamEventId, success, fail) {
+            var routeUrl = 'GetTeamEventPlayerRosters';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                teamEventPlayerRosterId: rosterId,
+                teamEventId: teamEventId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //MyFileItResult GetTeamEventPlayersWithUploads(string user, string pass, int teamEventId)
+        getTeamEventPlayersWithUploads: function (teamEventId, success, fail) {
+            var routeUrl = 'GetTeamEventPlayersWithUploads';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                teamEventId: teamEventId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //AddTeamEventPlayerRoster(string user, string pass, TeamEventPlayerRosterDTO teamEventPlayerRoster)
+        addTeamEventPlayerRoster: function (teamEventPlayerRoster, success, fail) {
+            var routeUrl = 'AddTeamEventPlayerRoster';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                teamEventPlayerRoster: teamEventPlayerRoster
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //RemoveTeamEventPlayerRoster(string user, string pass, int teamEventPlayerRosterId)
+        removeTeamEventPlayerRoster: function (teamEventPlayerRosterId, success, fail) {
+            var routeUrl = 'RemoveTeamEventPlayerRoster';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                teamEventPlayerRosterId: teamEventPlayerRosterId
             };
 
             return this.basePost(routeUrl, data, success, fail);

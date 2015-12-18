@@ -217,6 +217,11 @@
     <Content Include="templates\success.html" />
     <Content Include="templates\tabsController.html" />
     <Content Include="templates\tabsController2.html" />
+    <Content Include="templates\teamAddNew.html" />
+    <Content Include="templates\teamAddPending.html" />
+    <Content Include="templates\teamSelectEvent.html" />
+    <Content Include="templates\teamSelectOrganization.html" />
+    <Content Include="templates\teamViewPlayers.html" />
     <Content Include="templates\UploadDocumentConfirm.html" />
     <Content Include="templates\uploadSuccess.html" />
     <Content Include="templates\viewImages.html" />

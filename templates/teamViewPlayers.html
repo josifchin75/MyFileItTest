@@ -1,0 +1,31 @@
+﻿<ion-view title="Team Players">
+    <ion-content padding="'true'" class="has-header">
+        <div class="button-bar">
+            <a menu-close="" href="#" class="button button-stable button-block" ng-click="goUploadPlayers()">
+                <div class="ion-android-add-circle large-icon"></div>
+                <h5>Add Player</h5> 
+                <h5>Already Uploaded</h5>
+            </a>
+            <a menu-close="" href="#/teamaddnew" class="button button-stable button-block">
+                <div class="ion-android-search large-icon"></div>
+                <h5>Find Player</h5>
+            </a>
+        </div>
+        <h3>{{data.organization.NAME}}</h3>
+        <h4>{{data.teamEvent.NAME}}</h4>
+        <h5>{{data.teamEvent.STARTDATE}} - {{data.teamEvent.EXPIRESDATE}}</h5>
+
+        <form class="list">
+            <ion-item ng-repeat="player in data.players">
+                <i class="medium-icon icon-left ion-man" ng-show="player.sex='M'">&nbsp;</i>
+                <i class="medium-icon icon-left ion-woman" ng-show="player.sex='F'">&nbsp;</i>
+                {{player.PlayerName}}
+                <button ng-click="removePlayer(player.ID)">Remove</button>
+            </ion-item>
+        </form>
+
+        <div class="button-bar">
+            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,23 @@
+﻿<ion-view title="Select an Event">
+    <ion-content padding="'true'" class="has-header">
+        <h3>Please Select a Team Event</h3>
+        <form class="list">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <span class="input-label">Event Search</span>
+                <input type="text" placeholder="" ng-model="data.eventSearch" ng-change="searchEvents()">
+            </label>
+        </form>
+        <form class="list">
+            <ion-list>
+                <label ng-repeat="event in data.teamEvents">
+                    <ion-radio ng-model="data.teamEvent" ng-value="event">{{event.NAME}}</ion-radio>
+                </label>
+            </ion-list>
+        </form>
+        <div class="button-bar">
+            <a menu-close="" href="#/teamselectorganization" class="button button-positive button-block ">Back</a>
+            <a menu-close="" href="#" class="button button-positive button-block " ng-click="viewPlayers()">Continue</a>
+        </div>
+    </ion-content>
+</ion-view>

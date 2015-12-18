@@ -1,0 +1,24 @@
+﻿<ion-view title="Select An Organization" elem-ready="">
+    <ion-content padding="'true'" class="has-header">
+        <h3>Select an organization</h3>
+        <form class="list">
+            <label class="item item-input">
+                <i class="icon ion-search placeholder-icon"></i>
+                <span class="input-label">Organization Search</span>
+                <input type="text" placeholder="" ng-model="data.organizationSearch" ng-change="searchOrganizations()">
+            </label>
+        </form>
+        <form class="list">
+            <ion-list>
+                <label ng-repeat="organization in data.organizations">
+                    <ion-radio ng-model="data.organization" ng-value="organization" ng-change="searchEvents()">{{organization.NAME}}</ion-radio>
+                </label>
+            </ion-list>
+        </form>
+
+        <div class="button-bar">
+            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
+            <a menu-close="" href="#" class="button button-positive button-block " ng-click="selectEvent()">Continue</a>
+        </div>
+    </ion-content>
+</ion-view>
