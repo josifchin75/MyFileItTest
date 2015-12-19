@@ -30,11 +30,11 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-		<vs:splash src="splash.png" vs:platform="android" vs:density="ldpi" />
-		<vs:splash src="splash.png" vs:platform="android" vs:density="mdpi" />
-		<vs:splash src="splash.png" vs:platform="android" vs:density="hdpi" />
-		<vs:splash src="splash.png" vs:platform="android" vs:density="xhdpi" />
-		<vs:splash src="splash.png" vs:platform="android" vs:density="xxhdpi" />
+		<splash src="splash.png" platform="android" qualifier="ldpi" />
+		<splash src="splash.png" platform="android" qualifier="mdpi" />
+		<splash src="splash.png" platform="android" qualifier="hdpi" />
+		<splash src="splash.png" platform="android" qualifier="xhdpi" />
+		<splash src="splash.png" platform="android" qualifier="xxhdpi" />
 
 
   <platform name="android">
