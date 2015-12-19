@@ -1,6 +1,20 @@
 ﻿body {
 }
 
+.splash {
+    background: url('../images/splash.png') center center;
+    background-size: cover;
+    background-attachment: fixed;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    min-height: 360px;
+    z-index: 999;
+    text-align: center;
+}
+
 .clear {
     clear: both;
 }

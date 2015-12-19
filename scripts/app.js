@@ -18,9 +18,27 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
-        //setTimeout(function () { $('.splash').hide();}, 1000);
     });
 });
+
+var app = {
+    // Application Constructor
+    initialize: function () {
+        this.bindEvents();
+    },
+    bindEvents: function () {
+        document.addEventListener('deviceready', this.onDeviceReady, false);
+    },
+    onDeviceReady: function () {
+        app.receivedEvent('deviceready');
+    },
+    // Update DOM on a Received Event
+    receivedEvent: function (id) {
+       // alert('load');
+        //$('.splash').slideUp('slow');
+        console.log('Received Event: ' + id);
+    }
+};
 
 
 

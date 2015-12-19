@@ -3,6 +3,7 @@
   <PropertyGroup>
     <ReferenceCachePath>C:\Users\josif_000\AppData\Local\Temp\BuildDeviceTest_refcache</ReferenceCachePath>
     <ShowAllFiles>true</ShowAllFiles>
+    <AutoRefresh>true</AutoRefresh>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Android'">
     <DebuggerFlavor>AndroidDevice</DebuggerFlavor>

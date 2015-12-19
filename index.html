@@ -16,7 +16,7 @@
     <!-- TestIonicTemplate references -->
     <link href="lib/ionic/css/ionic.css" rel="stylesheet" />
     <link href="css/index.css" rel="stylesheet" />
-    <link href="css/myfileitmobile.css" rel="stylesheet" />
+    <!--<link href="css/myfileitmobile.css" rel="stylesheet" />-->
     <link href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" rel="stylesheet">
 
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -24,6 +24,9 @@
 
     <script src="lib/moment/moment.js"></script>
     <!--<script src="lib/jquery/jquery-2.1.4.min.js"></script>-->
+
+    <script src="lib/jquery/jquery-2.1.4.min.js"></script>
+
  
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
@@ -43,20 +46,10 @@
                 <ion-nav-view></ion-nav-view>
             </div>
         </div>
-        <!--<div class="splash">
-            <h1>
-                SPLASH SCREEN!!
-            </h1>
-        </div>-->
+ 
     </div>
-    <!--<input type="button" onclick="test()" value="Call Pics www23" />-->
-
-    <!-- Cordova reference, this is added to your app when it's built. -->
-    <!--<script src="cordova.js"></script>-->
-    <!--<script src="scripts/platformOverrides.js"></script>-->
-    <!--<script src="scripts/index.js"></script>-->
+   <!--<div class="splash"></div>-->
     
-
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers.js"></script>
     <script src="scripts/routes.js"></script>
@@ -64,33 +57,7 @@
     <script src="scripts/directives.js"></script>
 
     <script type="text/javascript">
-        function test() {
-            takePicture(true);
-        }
-
-        function takePicture(find) {
-            alert(navigator.camera);
-            //alert($scope.navigator.camera);
-            navigator.camera.getPicture(onSuccessPic, onFail, {
-                quality: 10,
-                destinationType: navigator.camera.DestinationType.DATA_URL,
-                sourceType: (find ? navigator.camera.PictureSourceType.PHOTOLIBRARY : navigator.camera.PictureSourceType.CAMERA)
-            });
-        }
-
-        function onSuccessPic(imageData) {
-            //var image = document.getElementById('myImage');
-            //image.src = "data:image/jpeg;base64," + imageData;
-            currentImage = imageData;
-            currentImageSrc = "data:image/jpeg;base64," + imageData;
-            //alert(image.src);
-        }
-
-        function onFail(message) {
-            alert('Failed because: ' + message);
-        }
-
-        
+        app.initialize();
     </script>
 </body>
 </html>

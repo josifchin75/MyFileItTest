@@ -116,6 +116,7 @@
     <Content Include="images\MyFileIT_Icon.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="images\splash.png" />
     <Content Include="lib\ionic\css\ionic.css" />
     <Content Include="lib\ionic\css\ionic.min.css" />
     <Content Include="lib\ionic\fonts\ionicons.eot" />
@@ -180,6 +181,28 @@
     <Content Include="lib\ionic\version.json" />
     <Content Include="lib\jquery\jquery-2.1.4.min.js" />
     <Content Include="lib\moment\moment.js" />
+    <Content Include="res\screens\android\screen-hdpi-landscape.png" />
+    <Content Include="res\screens\android\screen-hdpi-portrait.png" />
+    <Content Include="res\screens\android\screen-ldpi-landscape.png" />
+    <Content Include="res\screens\android\screen-ldpi-portrait.png" />
+    <Content Include="res\screens\android\screen-mdpi-landscape.png" />
+    <Content Include="res\screens\android\screen-mdpi-portrait.png" />
+    <Content Include="res\screens\android\screen-xhdpi-landscape.png" />
+    <Content Include="res\screens\android\screen-xhdpi-portrait.png" />
+    <Content Include="res\screens\ios\screen-ipad-landscape-2x.png" />
+    <Content Include="res\screens\ios\screen-ipad-landscape.png" />
+    <Content Include="res\screens\ios\screen-ipad-portrait-2x.png" />
+    <Content Include="res\screens\ios\screen-ipad-portrait.png" />
+    <Content Include="res\screens\ios\screen-iphone-568h-2x.png" />
+    <Content Include="res\screens\ios\screen-iphone-landscape-736h.png" />
+    <Content Include="res\screens\ios\screen-iphone-portrait-2x.png" />
+    <Content Include="res\screens\ios\screen-iphone-portrait-667h.png" />
+    <Content Include="res\screens\ios\screen-iphone-portrait-736h.png" />
+    <Content Include="res\screens\ios\screen-iphone-portrait.png" />
+    <Content Include="res\screens\windows\SplashScreen.scale-100.png" />
+    <Content Include="res\screens\windows\SplashScreen.scale-240.png" />
+    <Content Include="res\screens\windows\SplashScreenPhone.scale-240.png" />
+    <Content Include="res\screens\wp8\SplashScreenImage.jpg" />
     <Content Include="scripts\app.js" />
     <Content Include="scripts\controllers.js" />
     <Content Include="scripts\routes.js" />
@@ -232,14 +255,6 @@
     <Content Include="merges\windows\scripts\platformOverrides.js" />
     <Content Include="merges\windows\scripts\winstore-jscompat.js" />
     <Folder Include="merges\wp8\" />
-    <Folder Include="res\icons\android\" />
-    <Folder Include="res\icons\ios\" />
-    <Folder Include="res\icons\wp8\" />
-    <Folder Include="res\icons\windows\" />
-    <Folder Include="res\screens\android\" />
-    <Folder Include="res\screens\ios\" />
-    <Folder Include="res\screens\windows\" />
-    <Folder Include="res\screens\wp8\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="config.xml">
@@ -331,28 +346,6 @@
     <Content Include="res\icons\wp8\ApplicationIcon.png" />
     <Content Include="res\icons\wp8\Background.png" />
     <Content Include="res\native\android\ant.properties" />
-    <Content Include="res\screens\android\screen-hdpi-landscape.png" />
-    <Content Include="res\screens\android\screen-hdpi-portrait.png" />
-    <Content Include="res\screens\android\screen-ldpi-landscape.png" />
-    <Content Include="res\screens\android\screen-ldpi-portrait.png" />
-    <Content Include="res\screens\android\screen-mdpi-landscape.png" />
-    <Content Include="res\screens\android\screen-mdpi-portrait.png" />
-    <Content Include="res\screens\android\screen-xhdpi-landscape.png" />
-    <Content Include="res\screens\android\screen-xhdpi-portrait.png" />
-    <Content Include="res\screens\ios\screen-ipad-landscape.png" />
-    <Content Include="res\screens\ios\screen-ipad-landscape-2x.png" />
-    <Content Include="res\screens\ios\screen-ipad-portrait.png" />
-    <Content Include="res\screens\ios\screen-ipad-portrait-2x.png" />
-    <Content Include="res\screens\ios\screen-iphone-568h-2x.png" />
-    <Content Include="res\screens\ios\screen-iphone-landscape-736h.png" />
-    <Content Include="res\screens\ios\screen-iphone-portrait.png" />
-    <Content Include="res\screens\ios\screen-iphone-portrait-2x.png" />
-    <Content Include="res\screens\ios\screen-iphone-portrait-667h.png" />
-    <Content Include="res\screens\ios\screen-iphone-portrait-736h.png" />
-    <Content Include="res\screens\windows\SplashScreen.scale-100.png" />
-    <Content Include="res\screens\windows\SplashScreen.scale-240.png" />
-    <Content Include="res\screens\windows\SplashScreenPhone.scale-240.png" />
-    <Content Include="res\screens\wp8\SplashScreenImage.jpg" />
   </ItemGroup>
   <PropertyGroup>
     <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
