@@ -32,6 +32,14 @@
 
   <!--<splash src="splash.png" />-->
   <vs:splash src="splash.png" />
+  <vs:splash vs:density="ldpi" vs:platform="android" src="res/screen/android/screen-ldpi-portrait.png" />
+  <vs:splash vs:density="mdpi" vs:platform="android" src="res/screen/android/screen-mdpi-portrait.png" />
+  <vs:splash vs:density="hdpi" vs:platform="android" src="res/screen/android/screen-hdpi-portrait.png" />
+  <vs:splash vs:density="xhdpi" vs:platform="android" src="res/screen/android/screen-xhdpi-portrait.png" />
+  <!--<vs:splash vs:platform="ios" height="480" src="res/screen/ios/screen-iphone-portrait.png" width="320" />
+  <vs:splash vs:platform="ios" height="960" src="res/screen/ios/screen-iphone-portrait-2x.png" width="640" />
+  <vs:splash vs:platform="ios" height="1024" src="res/screen/ios/screen-ipad-portrait.png" width="768" />
+  <vs:splash vs:platform="ios" height="768" src="res/screen/ios/screen-ipad-landscape.png" width="1024" />-->
 
 
   <platform name="android">
