@@ -30,13 +30,12 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
+		<vs:splash src="splash.png" vs:platform="android" vs:density="ldpi" />
+		<vs:splash src="splash.png" vs:platform="android" vs:density="mdpi" />
+		<vs:splash src="splash.png" vs:platform="android" vs:density="hdpi" />
+		<vs:splash src="splash.png" vs:platform="android" vs:density="xhdpi" />
+		<vs:splash src="splash.png" vs:platform="android" vs:density="xxhdpi" />
 
-		<vs:splash src="splash.png" gap:platform="android" gap:density="ldpi" />
-		<vs:splash src="splash.png" gap:platform="android" gap:density="mdpi" />
-		<vs:splash src="splash.png" gap:platform="android" gap:density="hdpi" />
-		<vs:splash src="splash.png" gap:platform="android" gap:density="xhdpi" />
-		<vs:splash src="splash.png" gap:platform="android" gap:density="xxhdpi" />
-  
 
   <platform name="android">
     <icon src="icon.png" />
@@ -47,14 +46,5 @@
   <platform name="winphone">
     <icon src="icon.png" />
   </platform>
-  
-  <!-- 
-  <gap:splash src="splash.png" gap:platform="android" gap:density="ldpi" />
-		<gap:splash src="splash.png" gap:platform="android" gap:density="mdpi" />
-		<gap:splash src="splash.png" gap:platform="android" gap:density="hdpi" />
-		<gap:splash src="splash.png" gap:platform="android" gap:density="xhdpi" />
-		<gap:splash src="splash.png" gap:platform="android" gap:density="xxhdpi" />
-  
-  -->
 
 </widget>
