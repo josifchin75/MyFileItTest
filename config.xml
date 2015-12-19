@@ -30,7 +30,8 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-  <splash src="splash.png" />
+  <!--<splash src="splash.png" />-->
+  <vs:splash src="splash.png" />
 
 
   <platform name="android">
