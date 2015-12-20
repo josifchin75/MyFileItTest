@@ -514,7 +514,6 @@ angular.module('app.controllers', [])
     };
 
     $scope.goToAssociate = function () {
-        alert('going to associate');
         var valid = true;
 
         if ($scope.data.eventId == undefined || $scope.data.eventId == -1) {
@@ -524,7 +523,6 @@ angular.module('app.controllers', [])
 
         if (valid) {
             function loadEventDocuments(data) {
-                alert('loading team event docs');
                 $scope.data.eventDocuments = [];
                 for (var i = 0; i < data.TeamEventDocuments.length; i++) {
                     var obj = data.TeamEventDocuments[i];
@@ -538,14 +536,11 @@ angular.module('app.controllers', [])
                 }
                 
                 $scope.data.eventDocuments = data.TeamEventDocuments;
-                alert('org id =' + $scope.data.organizationId);
                 var org = $scope.getOrganization($scope.data.organizationId);
-                alert(JSON.stringify(org));
                 $scope.data.organizationName = $scope.data.organizationId > -1 ? org.NAME : '-';
                 alert('about to nav');
                 $scope.navigateAndSave('shareAssociate');
             }
-            alert('get team event documents byu team event');
             FileItService.getAppUserTeamEventDocumentsByTeamEvent($scope.data.familyUserId, $scope.data.eventId, loadEventDocuments);
         }
     };
@@ -616,7 +611,13 @@ angular.module('app.controllers', [])
     };
 
     $scope.navigateAndSave = function (screen) {
+        if (screen == 'shareAssociate') {
+            alert('about to save');
+        } 
         ViewDocument.setObject($scope.data);
+        if (screen == 'shareAssociate') {
+            alert('about to nav in method' + screen);
+        }
         $state.go(screen);
     };
 
