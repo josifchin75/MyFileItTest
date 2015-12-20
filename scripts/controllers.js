@@ -541,7 +541,7 @@ angular.module('app.controllers', [])
                 $scope.data.eventDocuments = data.TeamEventDocuments;
                 var org = $scope.getOrganization($scope.data.organizationId);
                 $scope.data.organizationName = $scope.data.organizationId > -1 ? org.NAME : '-';
-                $scope.navigateAndSave('shareAssociate');
+                $scope.navigateAndSave('shareAssociateTest');
             }
             FileItService.getAppUserTeamEventDocumentsByTeamEvent($scope.data.familyUserId, $scope.data.eventId, loadEventDocuments);
         }
