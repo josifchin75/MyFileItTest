@@ -31,10 +31,10 @@
   <allow-intent href="geo:*"/>
 
   <splash src="splash.png" />
-  <splash qualifier="ldpi" platform="android" src="res/screens/android/screen-ldpi-portrait.png" />
+  <!--<splash qualifier="ldpi" platform="android" src="res/screens/android/screen-ldpi-portrait.png" />
   <splash qualifier="mdpi" platform="android" src="res/screens/android/screen-mdpi-portrait.png" />
   <splash qualifier="hdpi" platform="android" src="res/screens/android/screen-hdpi-portrait.png" />
-  <splash qualifier="xhdpi" platform="android" src="res/screens/android/screen-xhdpi-portrait.png" />
+  <splash qualifier="xhdpi" platform="android" src="res/screens/android/screen-xhdpi-portrait.png" />-->
 
 
 

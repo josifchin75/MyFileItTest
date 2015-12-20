@@ -1,22 +1,33 @@
-<ion-view title='Login' view-title="{{pageTitle}}" name="login-view">
+<ion-view title='Login' view-title="Login" name="login-view">
+    <ion-nav-title>
+        <fileit-login-header fileit-title="Login" hide-logout="true"></fileit-login-header>
+    </ion-nav-title>
     <ion-content padding=" 'true' " scroll="false" class="has-header">
-    <form class="list">
-        <ion-list>
-            <label class="item item-input" name="username">
-                <span class="input-label">Username</span>
-                <input type="text" placeholder=""  ng-model="data.username" />
-            </label>
-            <label class="item item-input" name="password">
-                <span class="input-label">Password</span>
-                <input type="password" placeholder="" ng-model="data.password" />
-            </label>
-        </ion-list>
-        <div class="spacer" style="height: 40px;"></div>
-        <a menu-close="" ng-click="login()" class="button button-positive button-block ">Log in</a>
-        <a menu-close="" href="#/newacount" class="button button-positive button-block ">Or create an account</a>
-        <div class="spacer" style="width: 300px; height: 52px;"></div>
-        <a menu-close="" href="#/forgotpassword" class="button button-positive button-clear button-block ">Forgot Password</a>
-    </form>
+        <form class="list full-height">
+            <div class="login-form">
+                <img src="images/main-bg.png" />
+            </div>
+            <div class="clear"></div>
+            <ion-list>
+                <label class="item item-input" name="username">
+                    <span class="input-label">Username</span>
+                    <input type="text" placeholder="" ng-model="data.username" />
+                </label>
+                <label class="item item-input" name="password">
+                    <span class="input-label">Password</span>
+                    <input type="password" placeholder="" ng-model="data.password" />
+                </label>
+            </ion-list>
+            <div class="spacer" style="width: 300px; height: 1em;"></div>
+            <a menu-close="" href="#/forgotpassword" class="button button-positive button-clear button-block ">Forgot Password</a>
+           
+            <div class="view-bottom">
+                <a menu-close="" ng-click="login()" class="button button-positive button-block ">Log in</a>
+                <a menu-close="" href="#/newacount" class="button button-positive button-block ">Or create an account</a>
+            </div>
+
+
+        </form>
 
     </ion-content>
 </ion-view>

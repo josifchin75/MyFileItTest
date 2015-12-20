@@ -1,4 +1,7 @@
 ﻿<ion-view title="Team Players">
+    <ion-nav-title>
+        <fileit-header fileit-title="Team Players" hide-logout="false"></fileit-header>
+    </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <div class="button-bar">
             <a menu-close="" href="#" class="button button-stable button-block" ng-click="goUploadPlayers()">
@@ -17,8 +20,8 @@
 
         <form class="list">
             <ion-item ng-repeat="player in data.players">
-                <i class="medium-icon icon-left ion-man" ng-show="player.sex='M'">&nbsp;</i>
-                <i class="medium-icon icon-left ion-woman" ng-show="player.sex='F'">&nbsp;</i>
+                <i class="medium-icon icon-left ion-man" ng-show="showSex(player,'M')">&nbsp;</i>
+                <i class="medium-icon icon-left ion-woman" ng-show="showSex(player, 'F')">&nbsp;</i>
                 {{player.PlayerName}}
                 <button ng-click="removePlayer(player.ID)">Remove</button>
             </ion-item>

@@ -15,9 +15,56 @@
     text-align: center;
 }
 
+/*.bar-header {
+    background-image: url('../images/MyFileIT_Icon.png');
+}*/
+.bar-header {
+    background-image: url('../images/title-bg.png') !important;
+    background-repeat: repeat-x;
+    border-bottom: 1px solid #0c60ee;
+}
+
+.nav-bar-title a.left-icon {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+}
+
+.nav-bar-title a.right-icon {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.nav-bar-title a > img {
+    height: 2em;
+}
+
+.nav-bar-title div {
+    text-align: center;
+}
+
 .clear {
     clear: both;
 }
+
+.login-form {
+
+    /*background-image: url('../images/main-bg.png') !important;
+    background-repeat: no-repeat;*/
+    /*background: url('../images/main-bg.png') no-repeat center center fixed !important;*/
+    /*background-size: 100%;*/
+}
+
+    .login-form img {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+    }
 
 .title img {
     float: left;
@@ -26,6 +73,16 @@
 }
 
 .title label {
+}
+
+.view-bottom {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+
+.full-height {
+    height: 100%;
 }
 
 .scroll-content {
@@ -105,4 +162,18 @@
 
     .document-slider img {
         width: 100%;
+    }
+
+.family-card {
+    width: 1em;
+    float: left;
+    margin: .5em !important;
+    border: 1px solid #808080;
+    padding: .5em !important;
+    text-align: center;
+    width: 42%;
+}
+
+    .family-card a {
+        text-decoration: none;
     }

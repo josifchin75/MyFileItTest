@@ -3,7 +3,7 @@ angular.module('app.controllers', [])
 .controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera, AppUser) {
     $scope.init = function () {
         $scope.data = {};
-        $scope.pageTitle = '<img src="images/MyFileIT_Icon.png" /><label>Login</label>';
+       // $scope.pageTitle = '<img src="images/MyFileIT_Icon.png" /><label>Login</label>';
         AppUser.logout();
         //debug
         $scope.data.username = 'josifchin75@gmail.com';
@@ -695,7 +695,7 @@ angular.module('app.controllers', [])
     $scope.init();
 })
 
-.controller('mainCtrl', function ($scope, FileItService) {
+.controller('mainCtrl', function ($scope, FileItService, $ionicPopup, $state) {
     $scope.init = function () {
         $scope.data = {
             currentUser: FileItService.currentUser(),
@@ -715,6 +715,35 @@ angular.module('app.controllers', [])
 
     $scope.init();
 })
+
+    .controller('mainCardsCtrl', function ($scope, FileItService) {
+        $scope.init = function () {
+            $scope.data = {
+                currentUser: FileItService.currentUser(),
+                familyUsers: []
+            };
+
+            function successGetFamily(data) {
+                $scope.data.familyUsers = data.AppUsers;
+            }
+
+            function failRef() { }
+
+            var user = $scope.data.currentUser;
+            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+        };
+
+        $scope.showSex = function (obj, sex) {
+            return obj.SEX == sex;
+        };
+
+        $scope.selectUser = function (obj) {
+            alert(obj.ID);
+        };
+
+        $scope.init();
+    })
 
 .controller('settingsCtrl', function ($scope) {
 
@@ -1431,7 +1460,7 @@ angular.module('app.controllers', [])
 
             }
             //appUserId, organizationId, teamEventId, searchName,
-            FileItService.getTeamEventsByAppUser($scope.data.currentUser.ID, $scope.data.organization == null ? null : $scope.data.organization.ID, null, $scope.data.eventSearch, successSearch, failSearch);
+            FileItService.getTeamEventsByAppUser($scope.data.currentUser.ID, $scope.data.organization == null ? null : $scope.data.organization.ID, null, $scope.data.eventSearch, successSearch, successSearch);
         };
 
         $scope.getPlayers = function (callback) {
@@ -1528,6 +1557,10 @@ angular.module('app.controllers', [])
         $scope.start = function () {
             //TeamPlayer.clear();
             $scope.init();
+        };
+
+        $scope.showSex = function (obj, sex) {
+            return obj.Sex == sex;
         };
 
         $scope.selectEvent = function () {
