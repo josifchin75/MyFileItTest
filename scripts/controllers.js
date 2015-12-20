@@ -237,10 +237,12 @@ angular.module('app.controllers', [])
 
 .controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter) {
     $scope.init = function () {
+        alert('init view controller')
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
         $scope.data.associatedImageId = -1;
         $scope.data.selectedEventDocumentId = -1;
+        alert('initdone');
         //getFamilyRef();
     }
 
