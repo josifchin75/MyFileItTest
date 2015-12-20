@@ -165,6 +165,9 @@ angular.module('app.controllers', [])
         DOCUMENTSTATUSID = fileCabinetDocumentEF.DOCUMENTSTATUSID;
         DATECREATED = fileCabinetDocumentEF.DATECREATED;
         */
+        function onFail() {
+        }
+
         if ($scope.data.confirmed) {
             //organizationId, fileName, base64Image, documentObject, success, fail
             FileItService.uploadFileCabinetDocument($scope.data.familyUserId, $scope.data.filename, $scope.data.currentImage, documentObj, uploadSuccess, onFail);
