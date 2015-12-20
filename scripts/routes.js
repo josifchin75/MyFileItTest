@@ -366,6 +366,12 @@ angular.module('app.routes', [])
              templateUrl: 'templates/mainCards.html',
              controller: 'mainCardsCtrl'
          })
+
+        .state('memberCard', {
+            url: '/membercard',
+            templateUrl: 'templates/memberCard.html',
+            controller: 'memberCardCtrl'
+        })
     ;
 
     // if none of the above states are matched, use this as the fallback

@@ -725,7 +725,7 @@ angular.module('app.controllers', [])
     $scope.init();
 })
 
-    .controller('mainCardsCtrl', function ($scope, FileItService) {
+    .controller('mainCardsCtrl', function ($scope, FileItService, FamilyUser, $state, Documents) {
         $scope.init = function () {
             $scope.data = {
                 currentUser: FileItService.currentUser(),
@@ -748,7 +748,69 @@ angular.module('app.controllers', [])
         };
 
         $scope.selectUser = function (obj) {
-            alert(obj.ID);
+            //alert(obj.ID);
+            FamilyUser.setObject(obj);
+            function onSuccess() {
+                $state.go('memberCard');
+            }
+            Documents.loadUserDocuments(obj.ID, onSuccess);  
+        };
+
+
+        $scope.init();
+    })
+
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal) {
+        $scope.init = function () {
+            $scope.data = {
+                familyUser: FamilyUser.getObject(),
+                documents: Documents.getObject()
+            };
+            if ($scope.data.documents.length == 0) {
+                Documents.loadUserDocuments();
+            }
+        };
+
+        $scope.showSex = function (obj, sex) {
+            return obj.SEX == sex;
+        };
+
+        $scope.showModal = function (image) {
+            var templateUrl = 'templates/image-popover.html';
+            $scope.imageSrc = "data:image/png;base64," + image.Base64Image;
+            $ionicModal.fromTemplateUrl(templateUrl, {
+                scope: $scope,
+                animation: 'slide-in-up'
+            }).then(function (modal) {
+                $scope.modal = modal;
+                $scope.modal.show();
+            });
+        }
+
+        // Close the modal
+        $scope.closeModal = function () {
+            $scope.modal.hide();
+            $scope.modal.remove()
+        };
+
+        //$scope.loadUserDocuments = function (onSuccess) {
+        //    var viewDoc = this;
+        //    function successGetAll(data) {
+        //        //data:image/png;base64,
+        //        $scope.data.documents = data.Documents;
+        //        Documents.setObject($scope.data.documents);
+        //    }
+
+        //    function errorGetAll(data) {
+        //    }
+        //    FileItService.getAppUserDocuments($scope.data.familyUser.ID, successGetAll, errorGetAll);
+        //},
+
+        $scope.getDocument = function () {
+            var obj = ScanDocument.getObject();
+            obj.familyUserId = $scope.data.familyUser.ID;
+            
+            $state.go('scanDocuments');
         };
 
         $scope.init();
@@ -1436,13 +1498,17 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-    .controller('teamCtrl', function ($scope, TeamPlayer, FileItService, $ionicPopup, $state, EmailHelper) {
+    .controller('teamCtrl', function ($scope, TeamPlayer, FileItService, $ionicPopup, $state, EmailHelper, DateHelper) {
         $scope.init = function () {
             $scope.data = TeamPlayer.getObject();
             $scope.data.currentUser = FileItService.currentUser();
             if ($scope.data.organizations.length == 0) {
                 $scope.searchOrganizations();
             }
+        };
+
+        $scope.displayDate = function(val){
+            return DateHelper.displayDate(val);
         };
 
         $scope.searchOrganizations = function () {

@@ -67,6 +67,71 @@ angular.module('app.services', [])
     };
 }])
 
+    .service('FamilyUser', [function () {
+        var userDTO = {
+            userName: '',
+            password: '',
+            confirmPassword: '',
+            firstName: '',
+            lastName: '',
+            primaryAccountHolder: false,
+            relationShipTypeId: -1,
+            phoneNumber: '',
+            sex: '',
+            appUserTypeId: -1,
+            emailAddress: '',
+            organizationSearch: '',
+            organizationId: -1,
+            organizations: [
+                  //{ ID: 1, NAME: "org1", radioName: "org" },
+                  //{ ID: 2, NAME: "org2", radioName: "org" }
+            ],
+            relationShipTypes: [],
+            appUserTypes: []
+        };
+
+        return {
+            init: function () {
+                userDTO = {};
+            },
+            getObject: function () {
+                return userDTO;
+            },
+            setObject: function (obj) {
+                userDTO = obj;
+            }
+        };
+    }])
+
+        .service('Documents', ['FileItService', function (FileItService) {
+            var docs = [];
+
+            return {
+                loadUserDocuments: function (appUserId, onSuccess) {
+                    var viewDoc = this;
+                    function successGetAll(data) {
+                        docs = data.Documents;
+                        if (typeof onSuccess == 'function') {
+                            onSuccess();
+                        }
+                    }
+
+                    function errorGetAll(data) {
+                    }
+                    FileItService.getAppUserDocuments(appUserId, successGetAll, errorGetAll);
+                },
+                init: function () {
+                    docs = [];
+                },
+                getObject: function () {
+                    return docs;
+                },
+                setObject: function (obj) {
+                    docs = obj;
+                }
+            };
+        }])
+
  .service('ScanDocument', [function () {
      var documentDTO = {
          currentImage: null,
@@ -251,6 +316,10 @@ angular.module('app.services', [])
             var utc = d.utc();
             var result = '\/Date(' + utc + ')\/';
             return result;
+        },
+        displayDate: function (val) {
+            val = 'new ' + val.replace(/\//g, '');
+            return moment(eval(val)).format('MMM DD, YYYY');
         }
     };
 })

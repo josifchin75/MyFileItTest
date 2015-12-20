@@ -1,0 +1,39 @@
+﻿<ion-view title="Main">
+    <ion-nav-title>
+        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}}" hide-logout="false"></fileit-header>
+    </ion-nav-title>
+    <ion-content padding="'true'" class="has-header">
+        <form class="list">
+            <div class="member-card">
+                <div class="header">
+                    <h3>{{data.familyUser.FIRSTNAME}}&nbsp;{{data.familyUser.LASTNAME}}</h3>
+                    <h4>{{data.familyUser.USERNAME}}</h4>
+                    <h5>{{data.familyUser.RelationShipType}} ({{data.familyUser.AppUserStatus}})</h5>
+                </div>
+                <i class="large-icon ion-man sex" ng-show="showSex(data.familyUser, 'M')"></i>
+                <i class="large-icon ion-woman sex" ng-show="showSex(data.familyUser, 'F')"></i>
+                <div class="member-thumbs">
+                    <ion-item ng-repeat="document in data.documents" class="member-thumb">
+                        <a href="#" ng-click="showModal(document)">
+                            <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
+                        </a>
+                        <ion-checkbox> </ion-checkbox>
+                    </ion-item>
+                    <div class="member-thumb add">
+                        <a href="#" ng-click="getDocument()">
+                            <i class="large-icon ion-android-add-circle"></i>
+                            <h5>Add Document</h5>
+                        </a>
+                        <a href="#" ng-click="getDocument()">
+                            <i class="large-icon ion-android-share-alt"></i>
+                            <h5>Share Selected</h5>
+                        </a>
+                    </div>
+                </div>
+                <div class="clear"></div>
+
+            </div>
+        </form>
+        <a menu-close="" href="#/maincards" class="button button-positive button-block  icon-left ion-android-add">Back to Members</a>
+    </ion-content>
+</ion-view>

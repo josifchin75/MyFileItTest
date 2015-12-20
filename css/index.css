@@ -49,7 +49,6 @@
 }
 
 .login-form {
-
     /*background-image: url('../images/main-bg.png') !important;
     background-repeat: no-repeat;*/
     /*background: url('../images/main-bg.png') no-repeat center center fixed !important;*/
@@ -172,8 +171,86 @@
     padding: .5em !important;
     text-align: center;
     width: 42%;
+    background-color: #ffffff;
 }
 
     .family-card a {
         text-decoration: none;
     }
+
+.member-card {
+    border: solid 1px #808080;
+    padding: .5em;
+    background-color: #ffffff;
+}
+
+    .member-card i.sex {
+        position: absolute;
+        left: .5em;
+        top: .5em;
+    }
+
+    .member-card div.header {
+        margin-left: 5em;
+        padding-top: .5em;
+    }
+
+.member-thumbs {
+}
+
+.member-thumb {
+    float: left;
+    width: 5.5em;
+    padding: 0em;
+    min-height: 5.5em;
+    /*border: solid 1px #808080;*/
+}
+
+    .member-thumb img {
+        width: 100%;
+    }
+
+    .member-thumb.add {
+        padding-top: .3em;
+        text-align: center;
+        width: 100%;
+    }
+
+        .member-thumb.add a {
+            float: left;
+            width: 45%;
+        }
+
+/*************POPUP FOR IMAGE     *******/
+.image-list-thumb {
+    padding: 2px 2px 2px 2px;
+    height: 100px;
+}
+
+.image-modal {
+    width: 100% !important;
+    height: 100%;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+.transparent {
+    background: transparent !important;
+}
+
+.fullscreen-image {
+    max-width: 100%;
+    max-height: 100%;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+
+.slider {
+    width: 100%;
+    height: 100%;
+}

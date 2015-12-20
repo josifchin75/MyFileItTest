@@ -254,11 +254,13 @@
     <Content Include="templates\fileit-login-header.html" />
     <Content Include="templates\forgotPassword.html" />
     <Content Include="templates\forgottenPasswordSent.html" />
+    <Content Include="templates\image-popover.html" />
     <Content Include="templates\inviteAFriend.html" />
     <Content Include="templates\login.html" />
     <Content Include="templates\logOut.html" />
     <Content Include="templates\main.html" />
     <Content Include="templates\mainCards.html" />
+    <Content Include="templates\memberCard.html" />
     <Content Include="templates\newAccount.html" />
     <Content Include="templates\newAccountProfile.html" />
     <Content Include="templates\scanDocuments.html" />
