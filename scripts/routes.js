@@ -296,17 +296,23 @@ angular.module('app.routes', [])
             templateUrl: 'templates/shareDocumentSelect.html',
             controller: 'viewYourDocumentsCtrl'
         })
-
-        .state('shareEventSelect', {
-            url: '/shareeventselect',
-            templateUrl: 'templates/shareEventSelect.html',
-            controller: 'viewYourDocumentsCtrl'
-        })
         .state('shareAssociate', {
             url: '/shareassociate',
             templateUrl: 'templates/shareAssociate.html',
             controller: 'viewYourDocumentsCtrl'
         })
+        .state('shareEventSelect', {
+            url: '/shareeventselect',
+            templateUrl: 'templates/shareEventSelect.html',
+            controller: 'viewYourDocumentsCtrl'
+        })
+
+        .state('shareAssociateTest', {
+            url: '/shareassociatetest',
+            templateUrl: 'templates/shareAssociateTest.html',
+            controller: 'viewYourDocumentsCtrl'
+        })
+        
      .state('documentSlider', {
          url: '/documentslider',
          templateUrl: 'templates/documentSlider.html',
