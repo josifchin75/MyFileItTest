@@ -536,9 +536,13 @@ angular.module('app.controllers', [])
                     }
                     $scope.data.eventDocuments.push(obj);
                 }
-                alert('setting scope vars');
+                
                 $scope.data.eventDocuments = data.TeamEventDocuments;
-                $scope.data.organizationName = $scope.getOrganization($scope.data.organizationId).NAME;
+                alert('org id =' + $scope.data.organizationId);
+                var org = $scope.getOrganization($scope.data.organizationId);
+                alert(JSON.stringify(org));
+                $scope.data.organizationName = $scope.data.organizationId > -1 ? org.NAME : '-';
+                alert('about to nav');
                 $scope.navigateAndSave('shareAssociate');
             }
             alert('get team event documents byu team event');
