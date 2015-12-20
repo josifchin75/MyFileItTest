@@ -512,6 +512,10 @@ angular.module('app.controllers', [])
             $scope.searchEvents();
         }
     };
+    $scope.goAssociateTest = function () {
+        $state.go('shareAssociate');
+        //$scope.navigateAndSave('shareAssociate');
+    };
 
     $scope.goToAssociate = function () {
         var valid = true;
@@ -538,7 +542,6 @@ angular.module('app.controllers', [])
                 $scope.data.eventDocuments = data.TeamEventDocuments;
                 var org = $scope.getOrganization($scope.data.organizationId);
                 $scope.data.organizationName = $scope.data.organizationId > -1 ? org.NAME : '-';
-                alert('about to nav');
                 $scope.navigateAndSave('shareAssociate');
             }
             FileItService.getAppUserTeamEventDocumentsByTeamEvent($scope.data.familyUserId, $scope.data.eventId, loadEventDocuments);
@@ -611,13 +614,7 @@ angular.module('app.controllers', [])
     };
 
     $scope.navigateAndSave = function (screen) {
-        if (screen == 'shareAssociate') {
-            alert('about to save');
-        } 
         ViewDocument.setObject($scope.data);
-        if (screen == 'shareAssociate') {
-            alert('about to nav in method' + screen);
-        }
         $state.go(screen);
     };
 
