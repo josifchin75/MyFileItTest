@@ -92,10 +92,16 @@
     background-size: cover;
 }
 
-/*.confirm-box {
-    width: 30%;
-    height: 2em;
-}*/
+.item-content {
+    word-wrap: normal !important;
+    white-space: normal !important;
+}
+
+.confirm-box label {
+    word-wrap: normal;
+    white-space: normal !important;
+    height: 10em;
+}
 
 .image-list img {
     width: 6em;
@@ -110,6 +116,14 @@
 
 .left {
     float: left;
+}
+
+.width-75 {
+    width: 75%;
+}
+
+.width-100 {
+    width: 100%;
 }
 
 .large-icon {
@@ -140,6 +154,21 @@
         width: 4em;
     }
 
+/*.confirm-image {
+    line-height: 250px;
+    border: 1px solid rgb(238, 238, 238);
+    border-radius: 3px;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+}
+
+.confirm-image-inner {
+    font-size: 64px;
+    color: rgb(136, 136, 136);
+    vertical-align: middle;
+}*/
 /*this was for angular bootstrap*/
 /*.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }*/
 
@@ -164,18 +193,38 @@
     }
 
 .family-card {
+    position: relative;
     width: 1em;
     float: left;
     margin: .5em !important;
-    border: 1px solid #808080;
-    padding: .5em !important;
+    padding: 0em !important;
     text-align: center;
     width: 42%;
-    background-color: #ffffff;
+    background-color: transparent;
+    min-height: 5em;
+}
+
+.family-card.item {
+    border-style: none !important;
 }
 
     .family-card a {
         text-decoration: none;
+    }
+
+    .family-card .bg {
+        margin-top: 2.3em;
+        border: 1px solid #808080;
+        border-radius: 0.2em;
+        padding: 0.5em;
+        background-color: #ffffff;
+        text-align: right;
+    }
+
+    .family-card .card-icon {
+        position: absolute;
+        top: .4em;
+        left: .2em;
     }
 
 .member-card {

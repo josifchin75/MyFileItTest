@@ -243,7 +243,6 @@
     <Content Include="scripts\services.js" />
     <Content Include="splash.png" />
     <Content Include="templates\addFamilyMembers.html" />
-    <Content Include="templates\confirmDocument.html" />
     <Content Include="templates\confirmDocumentShare.html" />
     <Content Include="templates\documentSlider.html" />
     <Content Include="templates\editAccountLogin.html" />
@@ -257,13 +256,13 @@
     <Content Include="templates\image-popover.html" />
     <Content Include="templates\inviteAFriend.html" />
     <Content Include="templates\login.html" />
-    <Content Include="templates\logOut.html" />
     <Content Include="templates\main.html" />
     <Content Include="templates\mainCards.html" />
     <Content Include="templates\memberCard.html" />
     <Content Include="templates\newAccount.html" />
     <Content Include="templates\newAccountProfile.html" />
     <Content Include="templates\scanDocuments.html" />
+    <Content Include="templates\scanDocumentType.html" />
     <Content Include="templates\scannerSettings.html" />
     <Content Include="templates\selectUser.html" />
     <Content Include="templates\settings.html" />

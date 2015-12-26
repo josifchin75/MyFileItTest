@@ -243,6 +243,24 @@ angular.module('app.services', [])
                 }
             }
             documentDTO.searchImages = foundImages;//$scope.data.images;
+        },
+        searchEvents: function (appUserId, organizationId, eventSearch, onSuccess) {
+            function successSearch(data) {
+                documentDTO.events = data.TeamEvents;
+                for (var i = 0; i < $scope.data.events.length; i++) {
+                    documentDTO.events[i].show = false;
+                }
+                onSuccess();
+            }
+
+            function failSearch(data) {
+                documentDTO.events = [];
+            }
+            //appUserId, organizationId, teamEventId, searchName,
+            FileItService.getTeamEventsByAppUser(appUserId, organizationId, null, null, successSearch, failSearch)
+        },
+        init: function () {
+            documentDTO = {};
         }
     };
 }])

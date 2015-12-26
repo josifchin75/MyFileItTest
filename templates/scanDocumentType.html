@@ -1,0 +1,21 @@
+﻿<ion-view title="Scan Documents">
+    <ion-nav-title>
+        <fileit-header fileit-title="Scan Documents" hide-logout="false"></fileit-header>
+    </ion-nav-title>
+    <ion-content padding="'true'" class="has-header">
+        <form>
+            <img src="{{data.currentImageSrc}}" class="width-100">
+            <label class="item item-select" name="documentType">
+                <span class="input-label">Type of Document</span>
+                <select ng-model="data.documentTypeId">
+                    <option ng-repeat="documentType in data.documentTypes" value="{{documentType.Key}}">{{documentType.Value}}</option>
+                </select>
+            </label>
+
+            <label class="item item-input" name="ScanComment">
+                <span class="input-label">Comment</span><textarea placeholder="" ng-model="data.comment"> </textarea>
+            </label>
+        </form>
+        <a menu-close="" href="#" class="button button-positive button-block " ng-click="confirm()">Confirm Upload</a>
+    </ion-content>
+</ion-view>

@@ -98,7 +98,8 @@ angular.module('app.controllers', [])
                 }
             }
 
-            $scope.confirm();
+            $scope.getScanDocumentType();
+            //$scope.confirm();
         }
 
         function onFail(message) {
@@ -191,28 +192,39 @@ angular.module('app.controllers', [])
         FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch)
     };
 
+    $scope.getScanDocumentType = function () {
+        if ($scope.validUpload(false)) {
+            $state.go('scanDocumentType');
+        }
+    };
+
     $scope.confirm = function () {
-        if ($scope.validUpload()) {
+        if ($scope.validUpload(true)) {
             $scope.data.familyUserName = $scope.getFamilyUserName();
             ScanDocument.setObject($scope.data);
             $state.go('scanDocumentsConfirm');
         }
     };
 
-    $scope.validUpload = function () {
+    $scope.validUpload = function (validateType) {
         var result = true;
         var title = "Incomplete";
         var message = "";
         var data = $scope.data;
+        if (validateType) {
+            if (data.documentTypeId == undefined || data.documentTypeId == -1) {
+                message += "Please select a document type.</br>";
+                result = false;
+            }
 
-        if (data.documentTypeId == undefined || data.documentTypeId == -1) {
-            message += "Please select a document type.</br>";
-            result = false;
-        }
-
-        if (data.familyUserId == undefined || data.familyUserId == -1) {
-            message += "Please select a family user to upload for.</br>";
-            result = false;
+            if (data.familyUserId == undefined || data.familyUserId == -1) {
+                message += "Please select a family user to upload for.</br>";
+                result = false;
+            }
+            if (data.comment == undefined || data.comment.length == 0) {
+                message += "Please enter a brief comment for your own reference.</br>";
+                result = false;
+            }
         }
 
         if (data.currentImage == undefined || data.currentImage.length == 0) {
@@ -220,10 +232,7 @@ angular.module('app.controllers', [])
             result = false;
         }
 
-        if (data.comment == undefined || data.comment.length == 0) {
-            message += "Please enter a brief comment for your own reference.</br>";
-            result = false;
-        }
+        
 
 
         if (!result) {
@@ -234,6 +243,8 @@ angular.module('app.controllers', [])
         }
         return result;
     };
+
+
 
     $scope.init();
 })
@@ -257,14 +268,16 @@ angular.module('app.controllers', [])
 
     // helper method to get selected fruits
     $scope.selectedImages = function selectedImages() {
-        return $filter('filter')($scope.data.searchImages, { selected: true });
+        return $scope.data.selectedImages;
+        //assoc
+        //return $filter('filter')($scope.data.searchImages, { selected: true });
     };
 
     $scope.associatedDocuments = function associatedDocuments() {
         return $filter('filter')($scope.data.eventDocuments, { associated: true });
     };
 
-    // watch fruits for changes
+    // watch docs for changes
     $scope.$watch('searchImages|filter:{selected:true}', function (nv) {
         $scope.selection = nv.map(function (img) {
             return img.ID;
@@ -304,6 +317,12 @@ angular.module('app.controllers', [])
     };
 
     $scope.searchEvents = function () {
+        function onSuccess() {
+            var i = 0;
+        }
+
+        ViewDocument.searchEvents($scope.data.familyUserId, $scope.data.organizationId == -1 ? null : $scope.data.organizationId, null, $scope.data.eventSearch, onSuccess);
+        /*
         function successSearch(data) {
             $scope.data.events = data.TeamEvents;
             for (var i = 0; i < $scope.data.events.length; i++) {
@@ -316,6 +335,7 @@ angular.module('app.controllers', [])
         }
         //appUserId, organizationId, teamEventId, searchName,
         FileItService.getTeamEventsByAppUser($scope.data.familyUserId, $scope.data.organizationId == -1 ? null : $scope.data.organizationId, null, $scope.data.eventSearch, successSearch, failSearch)
+    */
     };
 
     $scope.slideHasChanged = function (index) {
@@ -377,6 +397,10 @@ angular.module('app.controllers', [])
         obj.associatedId = -1;
         obj.Base64Image = null;
         obj.Base64ImageThumb = null;
+    };
+
+    $scope.allowUndo = function (obj) {
+        return (obj.associatedAllowUndo && obj.associated);
     };
 
     $scope.getEventDocument = function (eventDocumentId) {
@@ -459,6 +483,10 @@ angular.module('app.controllers', [])
         return result;
     };
 
+    $scope.goToMemberCard = function () {
+        $state.go('tabsController.memberCard');
+    };
+
     $scope.goToSelectUser = function () {
         function getFamilyRef() {
             function successGetFamily(data) {
@@ -537,11 +565,15 @@ angular.module('app.controllers', [])
                         obj.associated = true;
                         obj.associatedAllowUndo = false;
                         obj.Base64ImageThumb = $scope.getImageById(obj.DocumentId).Base64ImageThumb;
+                        obj.alreadyAssociated = true;
+                    } else {
+                        obj.associated = false;
+                        obj.associatedAllowUndo = false;
                     }
                     $scope.data.eventDocuments.push(obj);
                 }
                 
-                $scope.data.eventDocuments = data.TeamEventDocuments;
+                //$scope.data.eventDocuments = data.TeamEventDocuments;
                 try {
                     var org = $scope.getOrganization($scope.data.organizationId);
                     $scope.data.organizationName = $scope.data.organizationId > -1 ? org.NAME : '-';
@@ -754,7 +786,7 @@ angular.module('app.controllers', [])
             //alert(obj.ID);
             FamilyUser.setObject(obj);
             function onSuccess() {
-                $state.go('memberCard');
+                $state.go('tabsController.memberCard');
             }
             Documents.loadUserDocuments(obj.ID, onSuccess);  
         };
@@ -763,7 +795,7 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal) {
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter) {
         $scope.init = function () {
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
@@ -796,25 +828,58 @@ angular.module('app.controllers', [])
             $scope.modal.remove()
         };
 
-        //$scope.loadUserDocuments = function (onSuccess) {
-        //    var viewDoc = this;
-        //    function successGetAll(data) {
-        //        //data:image/png;base64,
-        //        $scope.data.documents = data.Documents;
-        //        Documents.setObject($scope.data.documents);
-        //    }
-
-        //    function errorGetAll(data) {
-        //    }
-        //    FileItService.getAppUserDocuments($scope.data.familyUser.ID, successGetAll, errorGetAll);
-        //},
-
         $scope.getDocument = function () {
             var obj = ScanDocument.getObject();
             obj.familyUserId = $scope.data.familyUser.ID;
-            
+            obj.familyUserName = $scope.data.familyUser.FIRSTNAME + ' ' + $scope.data.familyUser.LASTNAME;
+
+            ScanDocument.setObject(obj);
             $state.go('scanDocuments');
         };
+
+        $scope.validateSelectedDocuments = function () {
+            var result = false;
+            if ($scope.selectedImages().length > 0) {
+                result = true;
+            } else {
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Select Documents',
+                    template: 'Please select some of your documents.'
+                });
+            }
+            return result;
+        };
+
+        $scope.shareDocuments = function () {
+            if ($scope.validateSelectedDocuments()) {
+                var obj = {
+                    familyUserId: $scope.data.familyUser.ID,
+                    selectedImages: $scope.selectedImages(),
+                    selectDocumentIds: [],
+                    images: Documents.getObject()
+                };
+                ViewDocument.setObject(obj);
+                $state.go('shareEventSelect');
+                ViewDocument.searchEvents($scope.data.familyUser.ID, null, '');
+            } 
+        };
+
+        /*****************************************/
+        $scope.selectedImages = function selectedImages() {
+            return $filter('filter')($scope.data.documents, { selected: true });
+        };
+
+        $scope.associatedDocuments = function associatedDocuments() {
+            return $filter('filter')($scope.data.eventDocuments, { associated: true });
+        };
+
+        // watch docs for changes
+        $scope.$watch('searchImages|filter:{selected:true}', function (nv) {
+            $scope.selection = nv.map(function (img) {
+                return img.ID;
+            });
+        }, true);
+        /************************************************/
 
         $scope.init();
     })

@@ -6,23 +6,42 @@
         <h3>Select a Member To Begin</h3>
         <form class="list">
             <ion-item ng-repeat="familyUser in data.familyUsers" class="family-card">
-                <!--<div class="family-card">-->
                 <a href="#" ng-click="selectUser(familyUser)">
+                    <div class="card-icon">
+                        <i class="large-icon icon-left ion-man" ng-show="showSex(familyUser, 'M')"></i>
+                        <i class="large-icon icon-left ion-woman" ng-show="showSex(familyUser, 'F')"></i>
+                    </div>
+                    <div class="bg">
+                        <h3>{{familyUser.FIRSTNAME}}<br/>{{familyUser.LASTNAME}}</h3>
+                    </div>
+                </a>
+                <!--
+                                    <a href="#" ng-click="selectUser(familyUser)">
                     <h3>{{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}</h3>
                     <i class="large-icon icon-left ion-man" ng-show="showSex(familyUser, 'M')"></i>
                     <i class="large-icon icon-left ion-woman" ng-show="showSex(familyUser, 'F')"></i>
                 </a>
-                <!--</div>-->
-                <!--<i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>
-                {{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}-->
+                {{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}
+                -->
             </ion-item>
             <ion-item class="family-card">
                 <a href="#/addfamilymembers">
+                    <i class="large-icon ion-android-add-circle"></i>
+                    <div class="">
+                        <h3>Add Member</h3>
+                    </div>
+                </a>
+
+                <!--<a href="#/addfamilymembers">
                     <h3>Add Member</h3>
                     <i class="large-icon ion-android-add-circle"></i>
-                </a>
+                </a>-->
             </ion-item>
+            <!--<a menu-close="" href="#/shareuserfilterselect" class="button button-stable button-block">
+                <div class="ion-android-share-alt large-icon"></div>
+                Share Documents
+            </a>-->
         </form>
-        <a menu-close="" href="#/maintab/main" class="button button-positive button-block  icon-left ion-android-add">Back to Main</a>
+        <!--<a menu-close="" href="#/maintab/main" class="button button-positive button-block  icon-left ion-android-add">Back to Main</a>-->
     </ion-content>
 </ion-view>

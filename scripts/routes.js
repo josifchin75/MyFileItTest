@@ -26,6 +26,12 @@ angular.module('app.routes', [])
           controller: 'scanDocumentsCtrl'
       })
 
+              .state('scanDocumentType', {
+                  url: '/scandocumenttype',
+                  templateUrl: 'templates/scanDocumentType.html',
+                  controller: 'scanDocumentsCtrl'
+              })
+
     .state('scanDocumentsConfirm', {
         url: '/scandocumentsconfirm',
         templateUrl: 'templates/UploadDocumentConfirm.html',
@@ -70,11 +76,23 @@ angular.module('app.routes', [])
           url: '/main',
           views: {
               'tab7': {
-                  templateUrl: 'templates/main.html',
-                  controller: 'mainCtrl'
+                  templateUrl: 'templates/mainCards.html',
+                  controller: 'mainCardsCtrl'
               }
           }
       })
+
+
+
+         .state('tabsController.memberCard', {
+             url: '/membercard',
+             views: {
+                 'tab7': {
+                     templateUrl: 'templates/memberCard.html',
+                     controller: 'memberCardCtrl'
+                 }
+             }
+         })
 
 
 
@@ -104,15 +122,15 @@ angular.module('app.routes', [])
 
 
 
-      .state('tabsController.logOut', {
-          url: '/logout',
-          views: {
-              'tab8': {
-                  templateUrl: 'templates/logOut.html',
-                  controller: 'logOutCtrl'
-              }
-          }
-      })
+      //.state('tabsController.logOut', {
+      //    url: '/logout',
+      //    views: {
+      //        'tab8': {
+      //            templateUrl: 'templates/logOut.html',
+      //            controller: 'logOutCtrl'
+      //        }
+      //    }
+      //})
 
 
 
@@ -312,7 +330,7 @@ angular.module('app.routes', [])
             templateUrl: 'templates/shareAssociateTest.html',
             controller: 'viewYourDocumentsCtrl'
         })
-        
+
      .state('documentSlider', {
          url: '/documentslider',
          templateUrl: 'templates/documentSlider.html',
@@ -356,7 +374,7 @@ angular.module('app.routes', [])
          templateUrl: 'templates/teamAddPending.html',
          controller: 'teamCtrl'
      })
-     .state('teamAddNew',{
+     .state('teamAddNew', {
          url: '/teamaddnew',
          templateUrl: 'templates/teamAddNew.html',
          controller: 'teamCtrl'
@@ -367,11 +385,11 @@ angular.module('app.routes', [])
              controller: 'mainCardsCtrl'
          })
 
-        .state('memberCard', {
-            url: '/membercard',
-            templateUrl: 'templates/memberCard.html',
-            controller: 'memberCardCtrl'
-        })
+    //.state('memberCard', {
+    //    url: '/membercard',
+    //    templateUrl: 'templates/memberCard.html',
+    //    controller: 'memberCardCtrl'
+    //})
     ;
 
     // if none of the above states are matched, use this as the fallback

@@ -18,7 +18,7 @@
                     <a class="button button-stable button-block " ng-click="undoAssociate({{document.ID}})" ng-show="document.associatedAllowUndo">
                         Undo
                     </a>
-                    <p ng-hide="document.associatedAllowUndo">Already Associated</p>
+                    <p ng-show="document.alreadyAssociated">Already Associated</p>
                 </div>
                 <div class="clear"></div>
             </ion-item>

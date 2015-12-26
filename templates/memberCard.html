@@ -17,14 +17,21 @@
                         <a href="#" ng-click="showModal(document)">
                             <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
                         </a>
-                        <ion-checkbox> </ion-checkbox>
+                        <div class="item-checkbox image-list">
+                            <label class="checkbox">
+                                <input type="checkbox"
+                                       name="selectedImages[]"
+                                       value="{{document.ID}}"
+                                       ng-model="document.selected">
+                            </label>
+                        </div>
                     </ion-item>
                     <div class="member-thumb add">
                         <a href="#" ng-click="getDocument()">
                             <i class="large-icon ion-android-add-circle"></i>
                             <h5>Add Document</h5>
                         </a>
-                        <a href="#" ng-click="getDocument()">
+                        <a href="#" ng-click="shareDocuments()">
                             <i class="large-icon ion-android-share-alt"></i>
                             <h5>Share Selected</h5>
                         </a>
@@ -34,6 +41,6 @@
 
             </div>
         </form>
-        <a menu-close="" href="#/maincards" class="button button-positive button-block  icon-left ion-android-add">Back to Members</a>
+        <!--<a menu-close="" href="#/maincards" class="button button-positive button-block  icon-left ion-android-add">Back to Members</a>-->
     </ion-content>
 </ion-view>

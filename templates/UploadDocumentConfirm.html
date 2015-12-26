@@ -5,17 +5,15 @@
     <ion-content padding="'true'" class="has-header">
         <h2>{{data.familyUserName}}</h2>
         <h3>{{data.documentTypeName}}</h3>
-        <img src="{{data.currentImageSrc}}" style="width: 75%;">
+        <img src="{{data.currentImageSrc}}" class="width-100" />
 
         <div class="confirm-box clear">
-            <ion-checkbox ng-model="data.confirmed"></ion-checkbox>
-            <!--<input type="checkbox" ng-model="data.confirmed" />-->
-            <div>
-                By checking this box You over 18 and authorization to allow this document to be upload and you agree by terms and conditions of 123File-it
-            </div>
+            <ion-checkbox ng-model="data.confirmed">
+                <div>By checking this box You over 18 and authorization to allow this document to be upload and you agree by terms and conditions of 123File-it</div>
+            </ion-checkbox>
         </div>
-        
+
         <a menu-close="" href="#" class="button button-positive button-block " ng-click="uploadPhoto()">Upload</a>
-        <a menu-close="" href="#/scandocuments" class="button button-positive button-block ">Back</a>
+        <a menu-close="" href="#/scandocumenttype" class="button button-positive button-block ">Back</a>
     </ion-content>
 </ion-view>
