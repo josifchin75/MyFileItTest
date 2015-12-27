@@ -12,7 +12,7 @@
                 </div>
                 <i class="large-icon ion-man sex" ng-show="showSex(data.familyUser, 'M')"></i>
                 <i class="large-icon ion-woman sex" ng-show="showSex(data.familyUser, 'F')"></i>
-                <div class="member-thumbs">
+                <!--<div class="member-thumbs">
                     <ion-item ng-repeat="document in data.documents" class="member-thumb">
                         <a href="#" ng-click="showModal(document)">
                             <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
@@ -26,18 +26,45 @@
                             </label>
                         </div>
                     </ion-item>
-                    <div class="member-thumb add">
-                        <a href="#" ng-click="getDocument()">
-                            <i class="large-icon ion-android-add-circle"></i>
-                            <h5>Add Document</h5>
-                        </a>
-                        <a href="#" ng-click="shareDocuments()">
-                            <i class="large-icon ion-android-share-alt"></i>
-                            <h5>Share Selected</h5>
-                        </a>
-                    </div>
+                    
+                </div>-->
+                <div class="member-thumb add">
+                    <a href="#" ng-click="getDocument()">
+                        <i class="large-icon ion-android-add-circle"></i>
+                        <h5>Add Document</h5>
+                    </a>
+                    <a href="#" ng-click="shareDocuments()">
+                        <i class="large-icon ion-android-share-alt"></i>
+                        <h5>Share Selected</h5>
+                    </a>
+                    <a href="#" ng-click="emergencyShare()">
+                        <i class="large-icon ion-ios-medkit red"></i>
+                        <h5>Emergency Share</h5>
+                    </a>
                 </div>
                 <div class="clear"></div>
+
+                <h5>Click on an image to enlarge it.</h5>
+                <ion-list>
+                    <ion-item class="item-icon-right" ng-repeat="document in data.documents">
+                        <div class="item-checkbox image-list">
+
+                            <label class="checkbox image-checkbox">
+                                <input type="checkbox"
+                                       name="selectedImages[]"
+                                       value="{{document.ID}}"
+                                       ng-model="document.selected">
+                            </label>
+                            <span>
+                                <a href="#" ng-click="showModal(document)">
+                                    <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
+                                </a>
+                                <h2>{{document.DocumentTypeName}}</h2>
+                                <p>{{document.COMMENT}}</p>
+                            </span>
+                        </div>
+                    </ion-item>
+                </ion-list>
 
             </div>
         </form>

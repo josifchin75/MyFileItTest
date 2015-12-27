@@ -247,10 +247,12 @@ angular.module('app.services', [])
         searchEvents: function (appUserId, organizationId, eventSearch, onSuccess) {
             function successSearch(data) {
                 documentDTO.events = data.TeamEvents;
-                for (var i = 0; i < $scope.data.events.length; i++) {
+                for (var i = 0; i < documentDTO.events.length; i++) {
                     documentDTO.events[i].show = false;
                 }
-                onSuccess();
+                if (typeof onSuccess == 'function') {
+                    onSuccess();
+                }
             }
 
             function failSearch(data) {

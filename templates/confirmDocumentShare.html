@@ -7,8 +7,8 @@
         <div>
             <p>*Unless you declare Document emergency you only may share with user that are register.</p>
         </div>
-        <ion-item ng-repeat="document in data.eventDocuments" ng-show="document.associated">
-            <div ng-show="document.associated">
+        <ion-item ng-repeat="document in data.eventDocuments | filter: filterShares">
+            <div>
                 <div class="image-list">
                     <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
                 </div>

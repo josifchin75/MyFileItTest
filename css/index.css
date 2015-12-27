@@ -256,19 +256,28 @@
 }
 
     .member-thumb img {
-        width: 100%;
+        width: 5.5em;
+        height: 5.5em;
     }
 
     .member-thumb.add {
         padding-top: .3em;
         text-align: center;
         width: 100%;
+        /*background-color: #bcb8b8;*/
+        border: solid 1px #808080;
+
     }
 
         .member-thumb.add a {
             float: left;
-            width: 45%;
+            width: 32%;
+            text-decoration: none;
         }
+
+.image-checkbox {
+    width: 5em;
+}
 
 /*************POPUP FOR IMAGE     *******/
 .image-list-thumb {

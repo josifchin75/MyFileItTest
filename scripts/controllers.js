@@ -274,8 +274,21 @@ angular.module('app.controllers', [])
     };
 
     $scope.associatedDocuments = function associatedDocuments() {
-        return $filter('filter')($scope.data.eventDocuments, { associated: true });
+        var eventDocs = $scope.data.eventDocuments;
+        var result = [];
+
+        for (var i = 0; i < eventDocs.length; i++) {
+            if (eventDocs[i].associated == true && eventDocs[i].alreadyAssociated != true) { //this can be undefined
+                result.push(eventDocs[i]);
+            }
+        }
+        return result;
+        //return $filter('filter')($scope.data.eventDocuments, { associated: true, alreadyAssociated: false });
     };
+
+    //$scope.associatedDocuments = function associatedDocuments() {
+    //    return $filter('filter')($scope.data.eventDocuments, { associated: true, alreadyAssociated: false });
+    //};
 
     // watch docs for changes
     $scope.$watch('searchImages|filter:{selected:true}', function (nv) {
@@ -322,20 +335,6 @@ angular.module('app.controllers', [])
         }
 
         ViewDocument.searchEvents($scope.data.familyUserId, $scope.data.organizationId == -1 ? null : $scope.data.organizationId, null, $scope.data.eventSearch, onSuccess);
-        /*
-        function successSearch(data) {
-            $scope.data.events = data.TeamEvents;
-            for (var i = 0; i < $scope.data.events.length; i++) {
-                $scope.data.events[i].show = false;
-            }
-        }
-
-        function failSearch(data) {
-            $scope.data.events = [];
-        }
-        //appUserId, organizationId, teamEventId, searchName,
-        FileItService.getTeamEventsByAppUser($scope.data.familyUserId, $scope.data.organizationId == -1 ? null : $scope.data.organizationId, null, $scope.data.eventSearch, successSearch, failSearch)
-    */
     };
 
     $scope.slideHasChanged = function (index) {
@@ -399,9 +398,9 @@ angular.module('app.controllers', [])
         obj.Base64ImageThumb = null;
     };
 
-    $scope.allowUndo = function (obj) {
-        return (obj.associatedAllowUndo && obj.associated);
-    };
+    //$scope.allowUndo = function (obj) {
+    //    return (obj.associatedAllowUndo && obj.associated);
+    //};
 
     $scope.getEventDocument = function (eventDocumentId) {
         var result = null;
@@ -617,10 +616,16 @@ angular.module('app.controllers', [])
         var data = [];
         var associated = $scope.associatedDocuments();
         for (var i = 0; i < associated.length; i++) {
-            data.push($scope.generateAssociateDocumentDTO(associated[i]))
+            if (associated[i].alreadyAssociated != true) {
+                data.push($scope.generateAssociateDocumentDTO(associated[i]))
+            }
         }
         //shareSuccess();
         FileItService.associateDocumentsToTeamEventDocuments(data, shareSuccess);
+    };
+
+    $scope.filterShares = function (item) {
+        return (item.associated && item.alreadyAssociated != true);
     };
 
     $scope.generateAssociateDocumentDTO = function (obj) {
@@ -795,7 +800,7 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter) {
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup) {
         $scope.init = function () {
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
@@ -864,13 +869,26 @@ angular.module('app.controllers', [])
             } 
         };
 
+        $scope.emergencyShare = function () {
+            alert('todo');
+        };
+
         /*****************************************/
         $scope.selectedImages = function selectedImages() {
             return $filter('filter')($scope.data.documents, { selected: true });
         };
 
         $scope.associatedDocuments = function associatedDocuments() {
-            return $filter('filter')($scope.data.eventDocuments, { associated: true });
+            var eventDocs = $scope.data.eventDocs;
+            var result = [];
+
+            for (var i = 0; i < eventDocs.length; i++) {
+                if (eventDocs[i].associated == true && eventDocs[i].alreadyAssociated == true) {
+                    result.push(eventDocs[i]);
+                }
+            }
+            return result;
+            //return $filter('filter')($scope.data.eventDocuments, { associated: true, alreadyAssociated: false });
         };
 
         // watch docs for changes
@@ -1562,6 +1580,10 @@ angular.module('app.controllers', [])
                 FileItService.addAppUser(appUserDTO, successAdd, failAddAppUser);
             }
         }
+
+        $scope.goToMain = function () {
+            $state.go('tabsController.main');
+        };
 
         $scope.init();
     })
