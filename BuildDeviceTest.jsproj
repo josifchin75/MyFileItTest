@@ -259,6 +259,7 @@
     <Content Include="templates\main.html" />
     <Content Include="templates\mainCards.html" />
     <Content Include="templates\memberCard.html" />
+    <Content Include="templates\memberShareKey.html" />
     <Content Include="templates\newAccount.html" />
     <Content Include="templates\newAccountProfile.html" />
     <Content Include="templates\scanDocuments.html" />

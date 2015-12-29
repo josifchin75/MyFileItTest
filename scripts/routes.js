@@ -94,7 +94,15 @@ angular.module('app.routes', [])
              }
          })
 
-
+         .state('tabsController.memberShareKey', {
+             url: '/membersharekey',
+             views: {
+                 'tab7': {
+                     templateUrl: 'templates/memberShareKey.html',
+                     controller: 'memberCardCtrl'
+                 }
+             }
+         })
 
 
 

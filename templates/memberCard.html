@@ -33,9 +33,13 @@
                         <i class="large-icon ion-android-add-circle"></i>
                         <h5>Add Document</h5>
                     </a>
-                    <a href="#" ng-click="shareDocuments()">
+                    <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser)">
                         <i class="large-icon ion-android-share-alt"></i>
                         <h5>Share Selected</h5>
+                    </a>
+                    <a href="#" ng-click="associateKey()" ng-hide="hasShareKey(data.familyUser)">
+                        <i class="large-icon ion-key"></i>
+                        <h5>Add Sharing Key</h5>
                     </a>
                     <a href="#" ng-click="emergencyShare()">
                         <i class="large-icon ion-ios-medkit red"></i>

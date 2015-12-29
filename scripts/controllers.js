@@ -800,11 +800,13 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup) {
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys) {
         $scope.init = function () {
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
-                documents: Documents.getObject()
+                documents: Documents.getObject(),
+                availableShareKeys: AvailableShareKeys.getObject(),
+                promocode: ''
             };
             if ($scope.data.documents.length == 0) {
                 Documents.loadUserDocuments();
@@ -813,6 +815,10 @@ angular.module('app.controllers', [])
 
         $scope.showSex = function (obj, sex) {
             return obj.SEX == sex;
+        };
+
+        $scope.hasShareKey = function (obj) {
+            return obj.ShareKeys.length > 0;
         };
 
         $scope.showModal = function (image) {
@@ -869,8 +875,64 @@ angular.module('app.controllers', [])
             } 
         };
 
+        $scope.associateKey = function () {
+            function goToMemberPage() {
+                $state.go('tabsController.memberShareKey');
+            }
+
+            $scope.searchKeys(goToMemberPage);
+        };
+
+        $scope.searchKeys = function (onSuccess) {
+            function onGetKeys(data) {
+                $scope.data.shareKeys = data.ShareKeys;
+                AvailableShareKeys.setObject(data.ShareKeys);
+                if (typeof onSuccess == 'function') {
+                    onSuccess(data);
+                }
+            }
+
+            function onGetError() { }
+
+            FileItService.getAvailableShareKeysByPromoCodeAndPrimaryUser($scope.data.familyUser.ID, $scope.data.promocode, onGetKeys, onGetError);
+        };
+
+        $scope.goToMemberCard = function () {
+            $state.go('tabsController.memberCard');
+        };
+
+        $scope.selectShareKey = function (shareKeyId) {
+            var appUserId = $scope.data.familyUser.ID;
+
+            function keySuccess() {
+                $scope.data.familyUser.ShareKeys = [];
+                $scope.data.familyUser.ShareKeys.push({ ID: shareKeyId });
+
+                var message = 'The key you selected has been activated. You may now share documents!';
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Key has been used.',
+                    template: message
+                });
+                alertPopup.then(function () {
+                    $scope.goToMemberCard();
+                });
+            }
+
+            function keyFail() { }
+
+            FileItService.associateShareKeyToUser(
+                        appUserId,
+                        shareKeyId,
+                        keySuccess,
+                        keyFail);
+        };
+
         $scope.emergencyShare = function () {
             alert('todo');
+        };
+
+        $scope.goToMainCard = function () {
+            $state.go('tabsController.memberCard');
         };
 
         /*****************************************/
@@ -1264,10 +1326,6 @@ angular.module('app.controllers', [])
                 });
         }
 
-        function successAddThenAssociate() {
-            //AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
-        }
-
         if ($scope.validAddAccount()) {
             var data = $scope.data;
 
@@ -1293,15 +1351,17 @@ angular.module('app.controllers', [])
 
             function successAddAppUser(data) {
                 FileItService.setCurrentUser(data.AppUsers[0]);
+                successAdd();
 
-                //todo: this may be important!!! it needs to be fixed.
-                var appUserTypeId = 5;
-                var startDate = DateHelper.serializeDate(new Date());
-                var expiresDate = DateHelper.serializeDate(new Date());
-                var yearCode = '2015';
-                var sportTypeId = 1;
-                //AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
-                FileItService.associateAppUserToOrganization(data.AppUsers[0].ID, appUserTypeId, $scope.data.organizationId, startDate, expiresDate, yearCode, sportTypeId, successAdd);
+                //this is removed for now Dec29-2015
+                ////todo: this may be important!!! it needs to be fixed.
+                //var appUserTypeId = 5;
+                //var startDate = DateHelper.serializeDate(new Date());
+                //var expiresDate = DateHelper.serializeDate(new Date());
+                //var yearCode = '2015';
+                //var sportTypeId = 1;
+                ////AssociateAppUserToOrganization(string user, string pass, int appUserId, int appUserTypeId, int organizationId, DateTime startDate, DateTime expiresDate, int? yearCode, int sportTypeId)
+                //FileItService.associateAppUserToOrganization(data.AppUsers[0].ID, appUserTypeId, $scope.data.organizationId, startDate, expiresDate, yearCode, sportTypeId, successAdd);
             }
 
             function failAddAppUser(data) {
@@ -1410,10 +1470,10 @@ angular.module('app.controllers', [])
             result = false;
             errorMessage += '<br/>Please enter a valid email address';
         }
-        if (data.organizationId == undefined || data.organizationId == -1) {
-            result = false;
-            errorMessage += '<br/>Please select an organization.';
-        }
+        //if (data.organizationId == undefined || data.organizationId == -1) {
+        //    result = false;
+        //    errorMessage += '<br/>Please select an organization.';
+        //}
 
         if (!result) {
             var alertPopup = $ionicPopup.alert({

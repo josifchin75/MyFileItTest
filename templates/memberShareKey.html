@@ -1,0 +1,25 @@
+﻿<ion-view title="Share Keys">
+    <ion-nav-title>
+        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}}" hide-logout="false"></fileit-header>
+    </ion-nav-title>
+    <ion-content padding="'true'" class="has-header">
+        <h3>Select a sharing key to allow this member to share documents</h3>
+        <form class="list"> 
+            <input type="text" placeholder="Enter a key promo code" ng-model="data.promocode" ng-change="searchKeys()">
+        </form>
+        <form class="list">
+            <ion-item ng-repeat="sharekey in data.shareKeys">
+                <div class="left">
+                    <i class="medium-icon icon-left ion-key left">&nbsp;</i>
+                </div>
+                <div class="left">
+                    {{sharekey.PROMOCODE}} {{sharekey.SHAREKEYCODE}}
+                    <a class="button button-stable button-block" ng-click="selectShareKey({{sharekey.ID}})">
+                        Use this key
+                    </a>
+                </div>
+            </ion-item>
+        </form>
+        <a menu-close="" href="" ng-click="goToMainCard()" class="button button-positive button-block  icon-left ion-android-add">Back</a>
+    </ion-content>
+</ion-view>

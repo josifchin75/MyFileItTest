@@ -132,6 +132,22 @@ angular.module('app.services', [])
             };
         }])
 
+        .service('AvailableShareKeys', [function () {
+        var availableShareKeys = [];
+
+        return {
+            init: function () {
+                availableShareKeys = [];
+            },
+            getObject: function () {
+                return availableShareKeys;
+            },
+            setObject: function (obj) {
+                availableShareKeys = obj;
+            }
+        };
+    }])
+
  .service('ScanDocument', [function () {
      var documentDTO = {
          currentImage: null,
