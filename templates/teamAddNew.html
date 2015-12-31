@@ -5,7 +5,7 @@
     <ion-content padding="'true'" class="has-header">
         <h3>{{data.organization.NAME}}</h3>
         <h4>{{data.teamEvent.NAME}}</h4>
-        <h5>{{data.teamEvent.STARTDATE}} - {{data.teamEvent.EXPIRESDATE}}</h5>
+        <h5>{{displayDate(data.teamEvent.STARTDATE)}} - {{displayDate(data.teamEvent.EXPIRESDATE)}}</h5>
         <form class="list">
             <p>Search for a player to add to the team.</p>
             <ion-list>

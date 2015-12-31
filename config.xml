@@ -12,7 +12,7 @@
   <access origin="*" />
   <preference name="SplashScreen" value="screen" />
   <preference name="AutoHideSplashScreen" value="false" />
-  <preference name="SplashScreenDelay" value="3000" />
+  <preference name="SplashScreenDelay" value="1" />
 
   <preference name="windows-target-version" value="8.0" />
   <preference name="windows-phone-target-version" value="8.1" />

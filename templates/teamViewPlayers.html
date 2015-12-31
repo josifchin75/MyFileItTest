@@ -17,13 +17,21 @@
         <h3>{{data.organization.NAME}}</h3>
         <h4>{{data.teamEvent.NAME}}</h4>
         <h5>{{displayDate(data.teamEvent.STARTDATE)}} - {{displayDate(data.teamEvent.EXPIRESDATE)}}</h5>
-
+        <div class="italic"><i class="medium-icon icon-left ion-wrench">&nbsp;</i> indicates that a user requires document verification.</div>
         <form class="list">
             <ion-item ng-repeat="player in data.players">
                 <i class="medium-icon icon-left ion-man" ng-show="showSex(player,'M')">&nbsp;</i>
                 <i class="medium-icon icon-left ion-woman" ng-show="showSex(player, 'F')">&nbsp;</i>
+
                 {{player.PlayerName}}
-                <button ng-click="removePlayer(player.ID)">Remove</button>
+                <div class="right margin-bottom">
+                    <i class="medium-icon icon-left ion-wrench red" ng-show="player.RequiresVerification">&nbsp;</i>
+                    <button ng-click="viewPlayer(player)" class="small-button">View</button>
+                </div>
+                <div class="clear"></div>
+                <button ng-click="removePlayer(player.ID)" class="right margin-bottom small-button" >Remove</button>
+                
+               
             </ion-item>
         </form>
 

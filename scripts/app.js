@@ -5,12 +5,16 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives','ngAnimate'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngAnimate'])
 
 .run(function ($ionicPlatform) {
     $ionicPlatform.ready(function () {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)
+        setTimeout(function () {
+            $('.splash').slideUp('slow');
+        }, 2000);
+
         if (window.cordova && window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
@@ -18,8 +22,21 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+
     });
-});
+})
+ .run(function ($rootScope, $location) {
+     $rootScope.$on('$stateChangeStart',
+        function (event, toState, toParams, fromState, fromParams) {
+            //var state = toState.name;
+            //switch (state) {
+            //    case "tabsController.main":
+            //        //event.targetScope.$broadcast('logged-in');
+            //        break;
+            //}
+        });
+ })
+;
 
 var app = {
     // Application Constructor
@@ -34,7 +51,7 @@ var app = {
     },
     // Update DOM on a Received Event
     receivedEvent: function (id) {
-       // alert('load');
+        // alert('load');
         //$('.splash').slideUp('slow');
         console.log('Received Event: ' + id);
     }

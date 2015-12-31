@@ -1,13 +1,16 @@
 angular.module('app.controllers', [])
 
-.controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera, AppUser) {
+.controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera, AppUser, FamilyUsers) {
     $scope.init = function () {
         $scope.data = {};
-       // $scope.pageTitle = '<img src="images/MyFileIT_Icon.png" /><label>Login</label>';
+        // $scope.pageTitle = '<img src="images/MyFileIT_Icon.png" /><label>Login</label>';
         AppUser.logout();
         //debug
         $scope.data.username = 'josifchin75@gmail.com';
         $scope.data.password = 'jopass12';
+
+        $scope.data.username = 'coach@coach.com';
+        $scope.data.password = 'coach12';
     }
 
     $scope.login = function () {
@@ -16,7 +19,13 @@ angular.module('app.controllers', [])
             $scope.data.password = '';
             FileItService.setCurrentUser(data.AppUsers[0]);
 
-            $state.go('tabsController.main');
+            var user = data.AppUsers[0];
+            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+            function onLoadFamily(data) {
+                $state.go('tabsController.main', {appUserId: user.ID});
+            }
+
+            FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
         }
         function failCallback() {
             var alertPopup = $ionicPopup.alert({
@@ -232,7 +241,7 @@ angular.module('app.controllers', [])
             result = false;
         }
 
-        
+
 
 
         if (!result) {
@@ -571,7 +580,7 @@ angular.module('app.controllers', [])
                     }
                     $scope.data.eventDocuments.push(obj);
                 }
-                
+
                 //$scope.data.eventDocuments = data.TeamEventDocuments;
                 try {
                     var org = $scope.getOrganization($scope.data.organizationId);
@@ -765,22 +774,52 @@ angular.module('app.controllers', [])
     $scope.init();
 })
 
-    .controller('mainCardsCtrl', function ($scope, FileItService, FamilyUser, $state, Documents) {
+    .controller('mainCardsCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, FamilyUsers) {
         $scope.init = function () {
             $scope.data = {
                 currentUser: FileItService.currentUser(),
-                familyUsers: []
+                familyUsers: FamilyUsers.getObject()
             };
 
-            function successGetFamily(data) {
+            // $scope.loadFamilyUsers();
+
+            /*function successGetFamily(data) {
                 $scope.data.familyUsers = data.AppUsers;
+                FamilyUsers.setObject(data.AppUsers);
             }
 
             function failRef() { }
 
             var user = $scope.data.currentUser;
             var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
-            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);*/
+        };
+
+        //insure that it refreshes!
+        $scope.$on('$ionicView.beforeEnter', function () {
+            $scope.data.familyUsers = FamilyUsers.getObject();
+        });
+
+        //occurs when leaving
+        $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+           // var i = 0;
+        });
+
+        $scope.reloadRoute = function () {
+            $route.reload();
+        };
+
+        $scope.loadFamilyUsers = function () {
+            $scope.data.familyUsers = FamilyUsers.getObject();
+            /*
+            var user = $scope.data.currentUser;
+            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+            function onLoadFamily(data) {
+                $scope.data.familyUsers = FamilyUsers.getObject();
+            }
+
+            FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
+            */
         };
 
         $scope.showSex = function (obj, sex) {
@@ -793,7 +832,7 @@ angular.module('app.controllers', [])
             function onSuccess() {
                 $state.go('tabsController.memberCard');
             }
-            Documents.loadUserDocuments(obj.ID, onSuccess);  
+            Documents.loadUserDocuments(obj.ID, onSuccess);
         };
 
 
@@ -806,15 +845,25 @@ angular.module('app.controllers', [])
                 familyUser: FamilyUser.getObject(),
                 documents: Documents.getObject(),
                 availableShareKeys: AvailableShareKeys.getObject(),
-                promocode: ''
+                promocode: '',
+                currentUser: FileItService.currentUser()
             };
             if ($scope.data.documents.length == 0) {
                 Documents.loadUserDocuments();
             }
         };
 
+        //insure that it refreshes!
+        $scope.$on('$ionicView.beforeEnter', function () {
+            $scope.data.documents = Documents.getObject();
+        });
+
         $scope.showSex = function (obj, sex) {
             return obj.SEX == sex;
+        };
+
+        $scope.showVerify = function (obj) {
+            return obj.VERIFIEDAPPUSERID == null && $scope.data.currentUser.IsCoach == true;
         };
 
         $scope.hasShareKey = function (obj) {
@@ -872,7 +921,35 @@ angular.module('app.controllers', [])
                 ViewDocument.setObject(obj);
                 $state.go('shareEventSelect');
                 ViewDocument.searchEvents($scope.data.familyUser.ID, null, '');
-            } 
+            }
+        };
+
+        $scope.findDocument = function (documentId) {
+            var docs = $scope.data.documents;
+            var result = {};
+            for (var i = 0; i < docs.length; i++) {
+                if (docs[i].ID == documentId) {
+                    result = docs[i];
+                    break;
+                }
+            }
+            return result;
+        };
+
+        $scope.verifyDocument = function (documentId) {
+            var verifyAppUserId = $scope.data.currentUser.ID;
+
+            function onVerifySuccess(data) {
+                var doc = $scope.findDocument(documentId);
+                doc.VERIFIEDAPPUSERID = $scope.data.currentUser.ID;
+                doc.VERIFIEDDATE = moment().format();
+            }
+
+            function onVerifyFail() {
+
+            }
+
+            FileItService.verifyDocument(documentId, verifyAppUserId, onVerifySuccess, onVerifyFail);
         };
 
         $scope.associateKey = function () {
@@ -964,8 +1041,14 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-.controller('settingsCtrl', function ($scope) {
+.controller('settingsCtrl', function ($scope, FileItService) {
+    $scope.init = function () {
+        $scope.data = {
+            currentUser: FileItService.currentUser()
+        };
+    };
 
+    $scope.init();
 })
 
 .controller('forgotPasswordCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper) {
@@ -1648,16 +1731,17 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-    .controller('teamCtrl', function ($scope, TeamPlayer, FileItService, $ionicPopup, $state, EmailHelper, DateHelper) {
+    .controller('teamCtrl', function ($scope, TeamPlayer, FileItService, $ionicPopup, $state, EmailHelper, DateHelper, Documents, FamilyUser) {
         $scope.init = function () {
             $scope.data = TeamPlayer.getObject();
             $scope.data.currentUser = FileItService.currentUser();
-            if ($scope.data.organizations.length == 0) {
-                $scope.searchOrganizations();
+            $scope.data.organization = null;
+            if ($scope.data.teamEvents.length == 0) {
+                $scope.searchEvents();
             }
         };
 
-        $scope.displayDate = function(val){
+        $scope.displayDate = function (val) {
             return DateHelper.displayDate(val);
         };
 
@@ -1685,7 +1769,8 @@ angular.module('app.controllers', [])
 
             }
             //appUserId, organizationId, teamEventId, searchName,
-            FileItService.getTeamEventsByAppUser($scope.data.currentUser.ID, $scope.data.organization == null ? null : $scope.data.organization.ID, null, $scope.data.eventSearch, successSearch, successSearch);
+            FileItService.getTeamEventsByCoach($scope.data.currentUser.ID, null, successSearch, failSearch);
+            //FileItService.getTeamEventsByAppUser($scope.data.currentUser.ID, $scope.data.organization == null ? null : $scope.data.organization.ID, null, $scope.data.eventSearch, successSearch, successSearch);
         };
 
         $scope.getPlayers = function (callback) {
@@ -1756,7 +1841,7 @@ angular.module('app.controllers', [])
             FileItService.addTeamEventPlayerRoster(tepRosterObj, addSuccess, addFail);//: function (teamEventPlayerRoster, success, fail)
         };
 
-        $scope.removePlayer = function(id){
+        $scope.removePlayer = function (id) {
             function addSuccess() {
                 $scope.getPlayers();
             }
@@ -1766,6 +1851,23 @@ angular.module('app.controllers', [])
             FileItService.removeTeamEventPlayerRoster(id, addSuccess, addFail);
         }
 
+        $scope.viewPlayer = function (player) {
+            function getUserSuccess(data) {
+                var user = data.AppUsers[0];
+
+                FamilyUser.setObject(user);
+                function onSuccess() {
+                    $state.go('tabsController.memberCard');
+                }
+                //need to get appuser
+
+                Documents.loadUserDocuments(user.ID, onSuccess);
+            }
+            function getUserFail() { }
+
+            FileItService.getAppUsers(player.APPUSERID, '', getUserSuccess, getUserFail);
+        };
+
         $scope.searchMembers = function (callback) {
             function successGetMembers(data) {
                 $scope.data.searchedMembers = data.AppUsers;
@@ -1774,7 +1876,7 @@ angular.module('app.controllers', [])
                 }
             }
 
-            function failGetMembers(){}
+            function failGetMembers() { }
 
             FileItService.getAppUsersByNameSexEmail($scope.data.currentUser.ID, $scope.data.teamEvent.ID, $scope.data.firstNameSearch, $scope.data.lastNameSearch, $scope.data.emailSearch, $scope.data.sex, successGetMembers, failGetMembers);
         };

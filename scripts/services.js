@@ -27,7 +27,7 @@ angular.module('app.services', [])
 
 }])
 
-.service('AppUser', [function () {
+.service('AppUser', ['$window',function ($window) {
     var userDTO = {
         userName: '',
         password: '',
@@ -102,6 +102,36 @@ angular.module('app.services', [])
             }
         };
     }])
+
+         .service('FamilyUsers', ['FileItService', function (FileItService) {
+             var familyUsers = [];
+
+             return {
+                 loadFamilyUsers: function (primaryAppUserId, onSuccess) {
+                     var family = this;
+                     function successGetFamily(data) {
+                         family.setObject(data.AppUsers);
+                         if (typeof onSuccess == 'function') {
+                             onSuccess(data);
+                         }
+                     }
+
+                     function failRef() { }
+
+                     FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
+                 },
+                 init: function () {
+                     familyUsers = [];
+                 },
+                 getObject: function () {
+                     return familyUsers;
+                 },
+                 setObject: function (obj) {
+                     familyUsers = obj;
+                 }
+             };
+         }])
+
 
         .service('Documents', ['FileItService', function (FileItService) {
             var docs = [];
@@ -483,6 +513,18 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //GetAppUsers(string user, string pass, int? appUserId, string nameLookup)
+        getAppUsers: function (appUserId, nameLookup, success, fail) {
+            var routeUrl = 'GetAppUsers';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                nameLookup: nameLookup
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         //GetAppUsersByNameSexEmail(string user, string pass, int appUserId, string firstName, string lastName, string parentEmailAddress, string sex
         getAppUsersByNameSexEmail: function (appUserId, teamEventId, firstName, lastName, parentEmailAddress, sex, success, fail) {
             var routeUrl = 'GetAppUsersByNameSexEmail';
@@ -499,6 +541,21 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //GetCoachMembers(string user, string pass, int appUserId, int? organizationId, int? teamEventId, string nameLookup, string parentEmailAddress)
+        getCoachMembers: function (appUserId, organizationId, teamEventId, nameLookup, parentEmailAddress, success, fail) {
+            var routeUrl = 'GetCoachMembers';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                organizationId: organizationId,
+                teamEventId: teamEventId,
+                nameLookup: nameLookup,
+                parentEmailAddress: parentEmailAddress
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
 
         getAppUserDocuments: function (appUserId, success, fail) {
             var routeUrl = 'GetAppUserDocuments';
@@ -510,7 +567,18 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //VerifyDocument(string user, string pass, int documentId, int verifyAppUserId)
+        verifyDocument: function (documentId, verifyAppUserId, success, fail) {
+            var routeUrl = 'VerifyDocument';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                documentId: documentId,
+                verifyAppUserId: verifyAppUserId
+            };
 
+            return this.basePost(routeUrl, data, success, fail);
+        },
         getFamilyDocuments: function (appUserId, success, fail) {
             var routeUrl = 'GetFamilyDocuments';
             var data = {
@@ -580,6 +648,19 @@ angular.module('app.services', [])
                 appUserId: appUserId,
                 organizationId: organizationId,
                 teamEventId: teamEventId,
+                name: searchName
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+
+        //GetTeamEventsByCoach(string user, string pass, int appUserId, string name
+        getTeamEventsByCoach: function (appUserId, searchName, success, fail) {
+            var routeUrl = 'GetTeamEventsByCoach';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
                 name: searchName
             };
 

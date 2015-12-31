@@ -65,6 +65,9 @@
                                 </a>
                                 <h2>{{document.DocumentTypeName}}</h2>
                                 <p>{{document.COMMENT}}</p>
+                                <div ng-show="showVerify(document)">
+                                    <button ng-click="verifyDocument(document.ID)" class="medium-button">Verify Document</button>
+                                </div>
                             </span>
                         </div>
                     </ion-item>

@@ -1,47 +1,45 @@
-﻿<ion-view title="Main">
+﻿<ion-view title="Main" ng-init="reloadRoute()">
     <ion-nav-title>
         <fileit-header fileit-title="Home" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
-        <h3>Select a Member To Begin</h3>
-        <form class="list">
-            <ion-item ng-repeat="familyUser in data.familyUsers" class="family-card">
-                <a href="#" ng-click="selectUser(familyUser)">
-                    <div class="card-icon">
-                        <i class="large-icon icon-left ion-man" ng-show="showSex(familyUser, 'M')"></i>
-                        <i class="large-icon icon-left ion-woman" ng-show="showSex(familyUser, 'F')"></i>
-                    </div>
-                    <div class="bg">
-                        <h3>{{familyUser.FIRSTNAME}}<br/>{{familyUser.LASTNAME}}</h3>
-                    </div>
-                </a>
-                <!--
-                                    <a href="#" ng-click="selectUser(familyUser)">
-                    <h3>{{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}</h3>
-                    <i class="large-icon icon-left ion-man" ng-show="showSex(familyUser, 'M')"></i>
-                    <i class="large-icon icon-left ion-woman" ng-show="showSex(familyUser, 'F')"></i>
-                </a>
-                {{familyUser.FIRSTNAME}}&nbsp;{{familyUser.LASTNAME}}
-                -->
-            </ion-item>
-            <ion-item class="family-card">
-                <a href="#/addfamilymembers">
-                    <i class="large-icon ion-android-add-circle"></i>
-                    <div class="">
-                        <h3>Add Member</h3>
-                    </div>
-                </a>
+        <a menu-close=""
+           href="#/teamselectevent"
+           class="button button-positive button-block  icon-left ion-person-stalker"
+           ng-show="data.currentUser.IsCoach">
+            Coach Administration
+        </a>
+        <div id="mainCards">
+            <fieldset>
+                <legend>Your Members</legend>
+                <h5>Click on a member to begin</h5>
+                <form class="list">
+                    <ion-item ng-repeat="familyUser in data.familyUsers" class="family-card">
+                        <a href="#" ng-click="selectUser(familyUser)">
+                            <div class="card-icon">
+                                <i class="large-icon icon-left ion-man" ng-show="showSex(familyUser, 'M')"></i>
+                                <i class="large-icon icon-left ion-woman" ng-show="showSex(familyUser, 'F')"></i>
+                            </div>
+                            <div class="bg">
+                                <h3>{{familyUser.FIRSTNAME}}<br />{{familyUser.LASTNAME}}</h3>
+                            </div>
+                        </a>
 
-                <!--<a href="#/addfamilymembers">
-                    <h3>Add Member</h3>
-                    <i class="large-icon ion-android-add-circle"></i>
-                </a>-->
-            </ion-item>
-            <!--<a menu-close="" href="#/shareuserfilterselect" class="button button-stable button-block">
-                <div class="ion-android-share-alt large-icon"></div>
-                Share Documents
-            </a>-->
-        </form>
-        <!--<a menu-close="" href="#/maintab/main" class="button button-positive button-block  icon-left ion-android-add">Back to Main</a>-->
+                    </ion-item>
+
+                    <ion-item class="family-card">
+
+                        <a href="#/addfamilymembers">
+                            <i class="large-icon ion-android-add-circle"></i>
+                            <div class="">
+                                <h3>Add Member</h3>
+                            </div>
+                        </a>
+
+                    </ion-item>
+
+                </form>
+            </fieldset>
+        </div>
     </ion-content>
 </ion-view>
