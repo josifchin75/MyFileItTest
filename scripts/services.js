@@ -137,7 +137,7 @@ angular.module('app.services', [])
             var docs = [];
 
             return {
-                loadUserDocuments: function (appUserId, onSuccess) {
+                loadUserDocuments: function (appUserId, teamEventId, onSuccess) {
                     var viewDoc = this;
                     function successGetAll(data) {
                         docs = data.Documents;
@@ -148,7 +148,8 @@ angular.module('app.services', [])
 
                     function errorGetAll(data) {
                     }
-                    FileItService.getAppUserDocuments(appUserId, successGetAll, errorGetAll);
+                    //var teamEventId = null;
+                    FileItService.getAppUserDocuments(appUserId, teamEventId, successGetAll, errorGetAll);
                 },
                 init: function () {
                     docs = [];
@@ -270,7 +271,8 @@ angular.module('app.services', [])
 
             function errorGetAll(data) {
             }
-            FileItService.getAppUserDocuments(appUserId, successGetAll, errorGetAll);
+            var teamEventId = null;
+            FileItService.getAppUserDocuments(appUserId, teamEventId, successGetAll, errorGetAll);
         },
         searchDocuments: function () {
             //filter the docs if necessary
@@ -557,12 +559,13 @@ angular.module('app.services', [])
             return this.basePost(routeUrl, data, success, fail);
         },
 
-        getAppUserDocuments: function (appUserId, success, fail) {
+        getAppUserDocuments: function (appUserId, teamEventId, success, fail) {
             var routeUrl = 'GetAppUserDocuments';
             var data = {
                 user: this.adminUser(),
                 pass: this.adminPass(),
-                appUserId: appUserId
+                appUserId: appUserId,
+                teamEventId: teamEventId
             };
 
             return this.basePost(routeUrl, data, success, fail);

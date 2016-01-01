@@ -832,7 +832,7 @@ angular.module('app.controllers', [])
             function onSuccess() {
                 $state.go('tabsController.memberCard');
             }
-            Documents.loadUserDocuments(obj.ID, onSuccess);
+            Documents.loadUserDocuments(obj.ID, null, onSuccess);
         };
 
 
@@ -1861,7 +1861,7 @@ angular.module('app.controllers', [])
                 }
                 //need to get appuser
 
-                Documents.loadUserDocuments(user.ID, onSuccess);
+                Documents.loadUserDocuments(user.ID, $scope.data.teamEvent.ID, onSuccess);
             }
             function getUserFail() { }
 
