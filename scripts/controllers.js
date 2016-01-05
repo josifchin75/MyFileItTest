@@ -936,7 +936,7 @@ angular.module('app.controllers', [])
             return result;
         };
 
-        $scope.verifyDocument = function (documentId) {
+        $scope.verifyDocument = function (documentId, teamEventDocumentId) {
             var verifyAppUserId = $scope.data.currentUser.ID;
 
             function onVerifySuccess(data) {
@@ -949,7 +949,7 @@ angular.module('app.controllers', [])
 
             }
 
-            FileItService.verifyDocument(documentId, verifyAppUserId, onVerifySuccess, onVerifyFail);
+            FileItService.verifyDocument(documentId, verifyAppUserId, teamEventDocumentId, onVerifySuccess, onVerifyFail);
         };
 
         $scope.associateKey = function () {

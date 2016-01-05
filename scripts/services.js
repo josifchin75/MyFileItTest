@@ -571,13 +571,14 @@ angular.module('app.services', [])
             return this.basePost(routeUrl, data, success, fail);
         },
         //VerifyDocument(string user, string pass, int documentId, int verifyAppUserId)
-        verifyDocument: function (documentId, verifyAppUserId, success, fail) {
+        verifyDocument: function (documentId, verifyAppUserId, teamEventDocumentId, success, fail) {
             var routeUrl = 'VerifyDocument';
             var data = {
                 user: this.adminUser(),
                 pass: this.adminPass(),
                 documentId: documentId,
-                verifyAppUserId: verifyAppUserId
+                verifyAppUserId: verifyAppUserId,
+                teamEventDocumentId: teamEventDocumentId
             };
 
             return this.basePost(routeUrl, data, success, fail);
