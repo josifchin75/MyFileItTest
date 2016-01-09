@@ -24,6 +24,26 @@
         /*height: 100%;*/
     }
 
+.sidebar {
+    background-color: #dddddd !important;
+}
+
+    .sidebar img {
+        width: 3em;
+    }
+
+    .sidebar h1 {
+     text-align: right !important;
+    }
+
+.navigate-icon:before {
+    font-size: 2em;
+}
+
+.spacer {
+    height: 2em;
+}
+
 /*.bar-header {
     background-image: url('../images/MyFileIT_Icon.png');
 }*/
@@ -94,7 +114,7 @@
     height: 100%;
 }
 
-.scroll-content {
+.main-content .scroll-content {
     background: url('../images/bg.png') no-repeat center center fixed;
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover; /* Mozilla*/
@@ -146,6 +166,11 @@
 
 .margin-bottom {
     margin-bottom: .5em;
+}
+
+.bottom {
+    position: relative;
+    bottom: 0px;
 }
 
 .small-button {

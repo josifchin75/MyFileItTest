@@ -70,40 +70,53 @@ angular.module('app.routes', [])
       })
 
 
+        .state('main', {
+            url: '/main',
+            templateUrl: 'templates/mainCards.html',
+            controller: 'mainCardsCtrl'
+        })
 
+      //.state('tabsController.main', {
+      //    url: '/main',
+      //    views: {
+      //        'tab7': {
+      //            templateUrl: 'templates/mainCards.html',
+      //            controller: 'mainCardsCtrl'
+      //        }
+      //    }
+      //})
 
-      .state('tabsController.main', {
-          url: '/main',
-          views: {
-              'tab7': {
-                  templateUrl: 'templates/mainCards.html',
-                  controller: 'mainCardsCtrl'
-              }
-          }
-      })
-
-
-
-         .state('tabsController.memberCard', {
+         .state('memberCard', {
              url: '/membercard',
-             views: {
-                 'tab7': {
-                     templateUrl: 'templates/memberCard.html',
-                     controller: 'memberCardCtrl'
-                 }
-             }
+             templateUrl: 'templates/memberCard.html',
+             controller: 'memberCardCtrl'
          })
 
-         .state('tabsController.memberShareKey', {
+         //.state('tabsController.memberCard', {
+         //    url: '/membercard',
+         //    views: {
+         //        'tab7': {
+         //            templateUrl: 'templates/memberCard.html',
+         //            controller: 'memberCardCtrl'
+         //        }
+         //    }
+         //})
+
+         //.state('tabsController.memberShareKey', {
+         //    url: '/membersharekey',
+         //    views: {
+         //        'tab7': {
+         //            templateUrl: 'templates/memberShareKey.html',
+         //            controller: 'memberCardCtrl'
+         //        }
+         //    }
+         //})
+         .state('memberShareKey', {
              url: '/membersharekey',
-             views: {
-                 'tab7': {
-                     templateUrl: 'templates/memberShareKey.html',
-                     controller: 'memberCardCtrl'
-                 }
-             }
-         })
+             templateUrl: 'templates/memberShareKey.html',
+             controller: 'memberCardCtrl'
 
+         })
 
 
       .state('tabsController.settings', {

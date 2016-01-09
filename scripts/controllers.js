@@ -3,8 +3,7 @@ angular.module('app.controllers', [])
 .controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera, AppUser, FamilyUsers) {
     $scope.init = function () {
         $scope.data = {};
-        // $scope.pageTitle = '<img src="images/MyFileIT_Icon.png" /><label>Login</label>';
-        AppUser.logout();
+
         //debug
         $scope.data.username = 'josifchin75@gmail.com';
         $scope.data.password = 'jopass12';
@@ -12,6 +11,10 @@ angular.module('app.controllers', [])
         $scope.data.username = 'coach@coach.com';
         $scope.data.password = 'coach12';
     }
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        AppUser.logout();
+    });
 
     $scope.login = function () {
         function callback(data) {
@@ -22,7 +25,7 @@ angular.module('app.controllers', [])
             var user = data.AppUsers[0];
             var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
             function onLoadFamily(data) {
-                $state.go('tabsController.main', {appUserId: user.ID});
+                $state.go('main', {appUserId: user.ID});
             }
 
             FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
@@ -146,7 +149,7 @@ angular.module('app.controllers', [])
                 title: 'Success',
                 template: 'Your file has been uploaded.'
             });
-            $state.go('tabsController.main');
+            $state.go('main');
         }
         function getDate() {
             var d = moment.utc();
@@ -492,7 +495,7 @@ angular.module('app.controllers', [])
     };
 
     $scope.goToMemberCard = function () {
-        $state.go('tabsController.memberCard');
+        $state.go('memberCard');
     };
 
     $scope.goToSelectUser = function () {
@@ -728,7 +731,7 @@ angular.module('app.controllers', [])
     $scope.sendInvitationEmail = function () {
         function callback(data) {
             $scope.init();
-            $state.go('tabsController.main');
+            $state.go('main');
             var alertPopup = $ionicPopup.alert({
                 title: 'Invitation sent!',
                 template: 'Your invitation has been sent.'
@@ -830,7 +833,7 @@ angular.module('app.controllers', [])
             //alert(obj.ID);
             FamilyUser.setObject(obj);
             function onSuccess() {
-                $state.go('tabsController.memberCard');
+                $state.go('memberCard');
             }
             Documents.loadUserDocuments(obj.ID, null, onSuccess);
         };
@@ -954,7 +957,7 @@ angular.module('app.controllers', [])
 
         $scope.associateKey = function () {
             function goToMemberPage() {
-                $state.go('tabsController.memberShareKey');
+                $state.go('memberShareKey');
             }
 
             $scope.searchKeys(goToMemberPage);
@@ -975,7 +978,7 @@ angular.module('app.controllers', [])
         };
 
         $scope.goToMemberCard = function () {
-            $state.go('tabsController.memberCard');
+            $state.go('memberCard');
         };
 
         $scope.selectShareKey = function (shareKeyId) {
@@ -1009,7 +1012,7 @@ angular.module('app.controllers', [])
         };
 
         $scope.goToMainCard = function () {
-            $state.go('tabsController.memberCard');
+            $state.go('memberCard');
         };
 
         /*****************************************/
@@ -1403,7 +1406,7 @@ angular.module('app.controllers', [])
                           text: '<b>Ok</b>',
                           type: 'button-positive',
                           onTap: function (e) {
-                              $state.go('tabsController.main');
+                              $state.go('main');
                           }
                       }]
                 });
@@ -1725,7 +1728,7 @@ angular.module('app.controllers', [])
         }
 
         $scope.goToMain = function () {
-            $state.go('tabsController.main');
+            $state.go('main');
         };
 
         $scope.init();
@@ -1857,7 +1860,7 @@ angular.module('app.controllers', [])
 
                 FamilyUser.setObject(user);
                 function onSuccess() {
-                    $state.go('tabsController.memberCard');
+                    $state.go('memberCard');
                 }
                 //need to get appuser
 
@@ -1970,4 +1973,28 @@ angular.module('app.controllers', [])
 
 })
 
+.controller('sideMenuCtrl', function ($scope, $rootScope, FileItService) {
+    $scope = $rootScope;
+    $scope.init = function () {
+       
+    }
+
+    $scope.loggedIn = function () {
+        var user = FileItService.currentUser();
+        var result = false;
+        result = typeof user != 'undefined' && user != null;
+
+        return result;
+    };
+    
+    $scope.isCoach = function () {
+        var user = FileItService.currentUser();
+        var result = false;
+        result = typeof user != 'undefined' && user.IsCoach;
+
+        return result;
+    };
+
+    $scope.init();
+})
 

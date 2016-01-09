@@ -27,7 +27,9 @@ angular.module('app.services', [])
 
 }])
 
-.service('AppUser', ['$window',function ($window) {
+
+
+.service('AppUser', ['$window', 'FileItService', function ($window, FileItService) {
     var userDTO = {
         userName: '',
         password: '',
@@ -57,6 +59,7 @@ angular.module('app.services', [])
         logout: function () {
             this.init();
             userDTO = {}; //really kill it make sure they are logged out
+            FileItService.setCurrentUser(null);
         },
         getObject: function () {
             return userDTO;

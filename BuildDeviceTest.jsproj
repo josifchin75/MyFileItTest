@@ -278,6 +278,7 @@
     <Content Include="templates\shareUserFilterSelect.html" />
     <Content Include="templates\shareUserSelect.html" />
     <Content Include="templates\sharingKeyManagement.html" />
+    <Content Include="templates\sideMenu.html" />
     <Content Include="templates\success.html" />
     <Content Include="templates\tabsController.html" />
     <Content Include="templates\tabsController2.html" />
