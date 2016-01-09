@@ -25,7 +25,7 @@ angular.module('app.controllers', [])
             var user = data.AppUsers[0];
             var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
             function onLoadFamily(data) {
-                $state.go('main', {appUserId: user.ID});
+                $state.go('main', { appUserId: user.ID });
             }
 
             FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
@@ -278,6 +278,10 @@ angular.module('app.controllers', [])
     // selected images
     $scope.selection = [];
 
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.init();
+    });
+
     // helper method to get selected fruits
     $scope.selectedImages = function selectedImages() {
         return $scope.data.selectedImages;
@@ -357,7 +361,7 @@ angular.module('app.controllers', [])
         //alert(eventDocumentId);
         //$scope.getEventDocument(eventDocumentId).show = true;
         //$scope.navigateAndSave('documentSlider');
-        $scope.data.associatedImages = $scope.selectedImages();
+        $scope.data.associatedImages = $scope.data.selectedImages;
         $scope.data.associatedImageId = $scope.data.associatedImages[0].ID;
         $scope.data.selectedEventDocumentId = eventDocumentId
         var title = 'Select an Image';
@@ -783,29 +787,17 @@ angular.module('app.controllers', [])
                 currentUser: FileItService.currentUser(),
                 familyUsers: FamilyUsers.getObject()
             };
-
-            // $scope.loadFamilyUsers();
-
-            /*function successGetFamily(data) {
-                $scope.data.familyUsers = data.AppUsers;
-                FamilyUsers.setObject(data.AppUsers);
-            }
-
-            function failRef() { }
-
-            var user = $scope.data.currentUser;
-            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
-            FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);*/
         };
 
         //insure that it refreshes!
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.data.familyUsers = FamilyUsers.getObject();
+            currentUser = FileItService.currentUser();
         });
 
         //occurs when leaving
         $scope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-           // var i = 0;
+            // var i = 0;
         });
 
         $scope.reloadRoute = function () {
@@ -814,15 +806,6 @@ angular.module('app.controllers', [])
 
         $scope.loadFamilyUsers = function () {
             $scope.data.familyUsers = FamilyUsers.getObject();
-            /*
-            var user = $scope.data.currentUser;
-            var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
-            function onLoadFamily(data) {
-                $scope.data.familyUsers = FamilyUsers.getObject();
-            }
-
-            FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
-            */
         };
 
         $scope.showSex = function (obj, sex) {
@@ -859,6 +842,7 @@ angular.module('app.controllers', [])
         //insure that it refreshes!
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.data.documents = Documents.getObject();
+            $scope.data.familyUser = FamilyUser.getObject();
             myScroll = new iScroll('wrapper',
                 { zoom: true, zoomMax: 6 });
         });
@@ -868,7 +852,7 @@ angular.module('app.controllers', [])
         };
 
         $scope.showVerify = function (obj) {
-            return obj.VERIFIEDAPPUSERID == null && $scope.data.currentUser.IsCoach == true;
+            return obj.VerifiedAppUserId == null && $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.ID;
         };
 
         $scope.hasShareKey = function (obj) {
@@ -1748,6 +1732,10 @@ angular.module('app.controllers', [])
             }
         };
 
+        $scope.$on('$ionicView.beforeEnter', function () {
+            $scope.init();
+        });
+
         $scope.displayDate = function (val) {
             return DateHelper.displayDate(val);
         };
@@ -1934,7 +1922,7 @@ angular.module('app.controllers', [])
             });
         };
 
-        $scope.init();
+        //$scope.init();
     })
 
 .controller('successCtrl', function ($scope) {
@@ -1980,7 +1968,7 @@ angular.module('app.controllers', [])
 .controller('sideMenuCtrl', function ($scope, $rootScope, FileItService) {
     $scope = $rootScope;
     $scope.init = function () {
-       
+
     }
 
     $scope.loggedIn = function () {
@@ -1990,7 +1978,7 @@ angular.module('app.controllers', [])
 
         return result;
     };
-    
+
     $scope.isCoach = function () {
         var user = FileItService.currentUser();
         var result = false;
