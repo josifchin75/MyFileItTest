@@ -181,6 +181,7 @@
     <Content Include="lib\ionic\scss\_util.scss" />
     <Content Include="lib\ionic\scss\_variables.scss" />
     <Content Include="lib\ionic\version.json" />
+    <Content Include="lib\iScroll\iscroll.js" />
     <Content Include="lib\jquery\jquery-2.1.4.min.js" />
     <Content Include="lib\moment\moment.js" />
     <Content Include="res\icons\android\icon-36-ldpi.png" />

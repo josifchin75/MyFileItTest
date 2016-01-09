@@ -48,7 +48,12 @@
                 </div>
                 <div class="clear"></div>
 
-                <h5>Click on an image to enlarge it.</h5>
+                <h5>Click on an image to enlarge it here.</h5>
+                <div>
+                    <div id="wrapper">
+                        <img ng-src="{{imageSrc}}" class="big-image" />
+                    </div>
+                </div>
                 <ion-list>
                     <ion-item class="item-icon-right" ng-repeat="document in data.documents">
                         <div class="item-checkbox image-list">

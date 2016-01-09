@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=2, user-scalable=no, width=device-width">
+    <meta name="viewport" content="initial-scale=1, user-scalable=yes, width=device-width">
     <title></title>
     <style>
         .angular-google-map-container {
@@ -28,12 +28,25 @@
 
     <script src="lib/jquery/jquery-2.1.4.min.js"></script>
 
+    <script src="lib/iScroll/iscroll.js"></script>
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
 
+    <script type="text/javascript">
+    var myScroll;
+    function loadScroll() {
+        setTimeout(function () {
+            //debugger;
+            //alert('scroll');
+            myScroll = new iScroll('wrapper',
+            { zoom: true, zoomMax: 4 });
+        }, 1000);
+    }
 
+    document.addEventListener('DOMContentLoaded', loadScroll, false);
+    </script>
 </head>
 <body>
 
@@ -48,7 +61,7 @@
 
                     <!-- Center content -->
                     <ion-side-menu-content enable-menu-with-back-views="true">
-                        <ion-nav-bar class="bar-stable">
+                        <ion-nav-bar class="bar-light">
 
                         </ion-nav-bar>
                         <ion-nav-view class="main-content"></ion-nav-view>
@@ -82,6 +95,7 @@
 
     <script type="text/javascript">
         app.initialize();
+        loadScroll();
     </script>
 </body>
 </html>

@@ -859,6 +859,8 @@ angular.module('app.controllers', [])
         //insure that it refreshes!
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.data.documents = Documents.getObject();
+            myScroll = new iScroll('wrapper',
+                { zoom: true, zoomMax: 6 });
         });
 
         $scope.showSex = function (obj, sex) {
@@ -876,10 +878,12 @@ angular.module('app.controllers', [])
         $scope.showModal = function (image) {
             var templateUrl = 'templates/image-popover.html';
             $scope.imageSrc = "data:image/png;base64," + image.Base64Image;
+            return;
             $ionicModal.fromTemplateUrl(templateUrl, {
                 scope: $scope,
                 animation: 'slide-in-up'
             }).then(function (modal) {
+                //loadScroll();
                 $scope.modal = modal;
                 $scope.modal.show();
             });
