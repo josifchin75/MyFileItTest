@@ -19,6 +19,7 @@
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
+  <plugin name="com.kumbe.phonegap.zoom.zoomcontrol" spec="0.1.7" source="pgb" />
 
   <vs:platformSpecificValues />
 
