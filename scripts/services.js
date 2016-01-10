@@ -782,6 +782,20 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //AddEmergencyShare(string user, string pass, int appUserId, int[] fileCabinetDocumentIds, string emergencyEmailAddress, string emailMessage)
+        addEmergencyShare: function (appUserId, fileCabinetDocumentIds, emergencyEmailAddress, emailMessage, success, fail) {
+            var routeUrl = 'AddEmergencyShare';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                fileCabinetDocumentIds: fileCabinetDocumentIds,
+                emergencyEmailAddress: emergencyEmailAddress,
+                emailMessage: emailMessage
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         currentUser: function () {
             return currentUser;
         },
@@ -813,45 +827,6 @@ angular.module('app.services', [])
     }
 });
 
-//.service('LoginService', function ($q, $http) {
-//    var currentUser;
 
-//    return {
-//        loginUser: function (name, pw, loginCallback, failCallback) {
-//            var deferred = $q.defer();
-//            var promise = deferred.promise;
-//            var url = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/LoginAppUser';
-
-//            //string user, string pass, string appUserName, string appUserPass
-//            $http.post(url, { user: "admin", pass: "admin", appUserName: name, appUserPass: pw })
-//                .success(function (response) {
-//                    if (response.Success) {
-//                        currentUser = response.AppUsers[0];
-//                        loginCallback(response);
-//                    } else {
-//                        failCallback(response);
-//                    }
-//                });
-//            /*
-//            if (name == 'user' && pw == 'secret') {
-//                deferred.resolve('Welcome ' + name + '!');
-//            } else {
-//                deferred.reject('Wrong credentials.');
-//            }
-//            promise.success = function (fn) {
-//                promise.then(fn);
-//                return promise;
-//            }
-//            promise.error = function (fn) {
-//                promise.then(null, fn);
-//                return promise;
-//            }*/
-//            return promise;
-//        },
-//        currentUser: function () {
-//            return currentUser;
-//        }
-//    }
-//})
 ;
 

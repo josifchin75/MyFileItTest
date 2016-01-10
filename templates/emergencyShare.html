@@ -1,4 +1,40 @@
-<ion-view title="Emergency Share">
+<ion-view title="Confirm Upload Document">
+    <ion-nav-title>
+        <fileit-header fileit-title="Emergency Share" hide-logout="false"></fileit-header>
+    </ion-nav-title>
+    <ion-content padding="'true'" class="has-header">
+        <div id="image-list-emergency">
+            <div ng-repeat="image in data.selectedImages">
+                <img src="data:image/png;base64,{{image.Base64ImageThumb}}" />
+            </div>
+        </div>
+        <div class="clear"></div><form class="list">
+            <ion-list>
+                <label class="item item-input" name="emergencyEmail">
+                    <span class="input-label">Email</span>
+                    <input type="text" placeholder="Emergency Email" ng-model="data.emergencyEmailAddress">
+                </label>
+                <span class="input-label">Message</span>
+                <label class="item item-input" name="emergencyMessage">
+                    <textarea placeholder="Enter message here..." ng-model="data.emailMessage"> </textarea>
+                </label>
+
+            </ion-list>
+        </form>
+
+        <div class="confirm-box clear">
+            <ion-checkbox ng-model="data.confirmed">
+                <div>IN CASE OF EMERGENCY -If this box is marked you are declaring a state of emergency and you may email anyone your documents in or out of this protected environment of Myfileit. This should only be used In case of an emergency</div>
+            </ion-checkbox>
+        </div>
+
+        <a menu-close="" href="#" class="button button-assertive button-block icon-left ion-alert-circled" ng-click="sendEmergencyShare()">Send Emergency Share</a>
+        <!--<a menu-close="" href="#/main" class="button button-positive button-block ">Back</a>-->
+    </ion-content>
+</ion-view>
+
+
+<!--<ion-view title="Emergency Share">
     <ion-nav-title>
         <fileit-header fileit-title="Emergency Share" hide-logout="false"></fileit-header>
     </ion-nav-title>
@@ -29,4 +65,4 @@
             </p>
         </div>
     </ion-content>
-</ion-view>
+</ion-view>-->

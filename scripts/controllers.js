@@ -8,8 +8,8 @@ angular.module('app.controllers', [])
         $scope.data.username = 'josifchin75@gmail.com';
         $scope.data.password = 'jopass12';
 
-        $scope.data.username = 'coach@coach.com';
-        $scope.data.password = 'coach12';
+        //$scope.data.username = 'coach@coach.com';
+        //$scope.data.password = 'coach12';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -901,7 +901,20 @@ angular.module('app.controllers', [])
             return result;
         };
 
+        $scope.emergencyShare = function () {
+            if ($scope.setViewDocument()) {
+                $state.go('emergencyShare');
+            }
+        };
+
         $scope.shareDocuments = function () {
+            if ($scope.setViewDocument()) {
+                $state.go('shareEventSelect');
+            }
+        };
+
+        $scope.setViewDocument = function () {
+            var valid = false;
             if ($scope.validateSelectedDocuments()) {
                 var obj = {
                     familyUserId: $scope.data.familyUser.ID,
@@ -910,9 +923,10 @@ angular.module('app.controllers', [])
                     images: Documents.getObject()
                 };
                 ViewDocument.setObject(obj);
-                $state.go('shareEventSelect');
                 ViewDocument.searchEvents($scope.data.familyUser.ID, null, '');
+                valid = true;
             }
+            return valid;
         };
 
         $scope.findDocument = function (documentId) {
@@ -993,10 +1007,6 @@ angular.module('app.controllers', [])
                         shareKeyId,
                         keySuccess,
                         keyFail);
-        };
-
-        $scope.emergencyShare = function () {
-            alert('todo');
         };
 
         $scope.goToMainCard = function () {
@@ -1622,14 +1632,14 @@ angular.module('app.controllers', [])
                 return data[key] != undefined && data[key].length > 0;
             }
 
-            if (!hasValue('userName')) {
-                result = false;
-                errorMessage += 'No username entered.';
-            }
-            if (!hasValue('password')) {
-                result = false;
-                errorMessage += 'No password entered.';
-            }
+            //if (!hasValue('userName')) {
+            //    result = false;
+            //    errorMessage += 'No username entered.';
+            //}
+            //if (!hasValue('password')) {
+            //    result = false;
+            //    errorMessage += 'No password entered.';
+            //}
             if (!hasValue('firstName') || !hasValue('lastName')) {
                 result = false;
                 errorMessage += '<br/>Please enter a name.';
@@ -1688,8 +1698,8 @@ angular.module('app.controllers', [])
                 var data = $scope.data;
 
                 var appUserDTO = {
-                    USERNAME: data.userName,
-                    PASSWORD: data.password,
+                    USERNAME: data.currentUser.USERNAME,//data.userName,
+                    PASSWORD: data.currentUser.PASSWORD,
                     FIRSTNAME: data.firstName,
                     LASTNAME: data.lastName,
                     ADDRESS1: '.',
@@ -1957,9 +1967,6 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('emergencyShareCtrl', function ($scope) {
-
-})
 
 .controller('shareHasBeenSentCtrl', function ($scope) {
 
@@ -1988,5 +1995,75 @@ angular.module('app.controllers', [])
     };
 
     $scope.init();
+})
+
+.controller('emergencyShareCtrl', function ($scope, FileItService, $ionicPopup, $state, ViewDocument, EmailHelper) {
+    $scope.init = function () {
+        $scope.data = ViewDocument.getObject();
+        $scope.data.currentUser = FileItService.currentUser();
+        $scope.data.confirmed = false;
+        $scope.data.emergencyEmailAddress = '';
+        $scope.data.emailMessage = '';
+
+        //debug
+        $scope.data.emergencyEmailAddress = 'josifchin75@gmail.com';
+    };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.init();
+    });
+
+    $scope.sendEmergencyShare = function () {
+        function emergencySuccess() {
+            $scope.showMessage('Success', 'An emergency email has been sent to ' + $scope.data.emergencyEmailAddress);
+            $state.go('main');
+        }
+
+        function emergencyFail(data) {
+            $scope.showMessage('Error', 'There was an error sending the emergency email.\n' + data.message);
+        }
+
+        var docIds = [];
+        var images = $scope.data.selectedImages;
+        for (var i = 0; i < images.length; i++) {
+            docIds.push(images[i].ID);
+        }
+        if ($scope.validEmergencyShare()) {
+            FileItService.addEmergencyShare($scope.data.currentUser.ID, docIds, $scope.data.emergencyEmailAddress, $scope.data.emailMessage, emergencySuccess, emergencyFail);
+        }
+    };
+
+    $scope.validEmergencyShare = function () {
+        var result = true;
+        var message = '';
+
+        if (!$scope.data.confirmed) {
+            message += 'Please confirm the emergency share.';
+        }
+
+        if (typeof $scope.data.emergencyEmailAddress == 'undefined' || $scope.data.emergencyEmailAddress == null || $scope.data.emergencyEmailAddress.length == 0) {
+            message += "Please enter an email address to send the emergency share to.";
+        } else {
+            if (!EmailHelper.validEmail($scope.data.emergencyEmailAddress)) {
+                message += "Please enter a valid email address.";
+            }
+        }
+
+
+
+        if (message.length > 0) {
+            $scope.showMessage('Incomplete', message);
+            result = false;
+        }
+
+        return result;
+    };
+
+    $scope.showMessage = function (title, message) {
+        var alertPopup = $ionicPopup.alert({
+            title: title,
+            template: message
+        });
+    };
 })
 
