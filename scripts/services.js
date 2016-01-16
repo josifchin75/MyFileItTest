@@ -802,6 +802,10 @@ angular.module('app.services', [])
         setCurrentUser: function (val) {
             currentUser = val;
         },
+        //sharekeyUrl: function () {
+        //    //http://my123filit.com/Pages/IFrame.aspx?UId=2
+        //    return 'http://my123filit.com/Pages/IFrame.aspx?UId=' + currentUser.ID;
+        //},
         adminUser: function () { return "admin"; },
         adminPass: function () { return "admin"; },
         baseUrl: function () {

@@ -4,7 +4,7 @@
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <div>
-            <p>From: {{data.currentUser.USERNAME}}</p>
+            <p>From: {{data.currentUser.FIRSTNAME}}&nbsp;{{data.currentUser.LASTNAME}}&nbsp;({{data.currentUser.USERNAME}})</p>
         </div>
         <form class="list">
             <label class="item item-input">
@@ -17,15 +17,17 @@
         </form>
         <form class="list">
             <label class="item item-input" name="invitetext">
-                <span class="input-label"></span><textarea placeholder="" ng-model="data.message"> </textarea>
+                <span class="input-label">Your message</span>
+                <textarea placeholder="" class="large-textarea" ng-model="data.message"> </textarea>
             </label>
         </form>
+    
         <form class="list">
             <ion-checkbox name="checkinvite" ng-model="data.accepted">I agree</ion-checkbox>
         </form>
         <form class="list"></form>
         <a menu-close="" href="#" ng-click="sendInvitationEmail()" class="button button-positive button-block ">Send Invite Email</a>
-        <div class="spacer" style="width: 300px; height: 41px;"></div>
-        <a menu-close="" href="#/maintab/main" class="button button-positive button-block ">Back</a>
+        <!--<div class="spacer" style="width: 300px; height: 41px;"></div>
+        <a menu-close="" href="#/maintab/main" class="button button-positive button-block ">Back</a>-->
     </ion-content>
 </ion-view>

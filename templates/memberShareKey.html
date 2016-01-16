@@ -3,6 +3,7 @@
         <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}}" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
+        <sharekey-url user-id="{{data.currentUser.ID}}"></sharekey-url>
         <h3>Select a sharing key to allow this member to share documents</h3>
         <form class="list"> 
             <input type="text" placeholder="Enter a key promo code" ng-model="data.promocode" ng-change="searchKeys()">

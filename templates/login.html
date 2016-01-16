@@ -15,11 +15,13 @@
                 </label>
                 <label class="item item-input" name="password">
                     <span class="input-label">Password</span>
-                    <input type="password" placeholder="" ng-model="data.password" />
+                    <input type="password" placeholder="" ng-model="data.password" ng-hide="data.showPasswordIsChecked" />
+                    <input type="text" placeholder="" ng-model="data.password" ng-show="data.showPasswordIsChecked" />
                 </label>
+                <ion-checkbox ng-model="data.showPasswordIsChecked">Show password</ion-checkbox>
             </ion-list>
             <div class="spacer" style="width: 300px; height: 1em;"></div>
-            <a menu-close="" href="#/forgotpassword" class="button button-positive button-clear button-block ">Forgot Password</a>
+            <a menu-close="" href="#/forgotpassword" class="button button-stable button-block ">Forgot Password</a>
            
             <div class="view-bottom">
                 <a menu-close="" ng-click="login()" class="button button-positive button-block ">Log in</a>

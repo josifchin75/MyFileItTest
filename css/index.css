@@ -131,6 +131,10 @@
     height: 8em;
 }
 
+.large-textarea {
+    height: 14em !important;
+}
+
 .confirm-box label {
     word-wrap: normal;
     white-space: normal !important;
@@ -252,6 +256,11 @@
 }*/
 /*this was for angular bootstrap*/
 /*.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }*/
+
+.slider {
+    width: 100%;
+    height: 100%;
+}
 
 .document-slider {
     /*width: 90%;
@@ -404,7 +413,4 @@
     top: 0;
 }
 
-.slider {
-    width: 100%;
-    height: 100%;
-}
+

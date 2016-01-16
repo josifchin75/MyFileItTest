@@ -26,7 +26,7 @@
                             </label>
                         </div>
                     </ion-item>
-                    
+
                 </div>-->
                 <div class="member-thumb add">
                     <a href="#" ng-click="getDocument()">
@@ -49,8 +49,8 @@
                 <div class="clear"></div>
 
                 <h5>Click on an image to enlarge it here.</h5>
-                <div>
-                    <div id="wrapper">
+                <div drag-content="false">
+                    <div id="wrapper" ng-show="showLargeImage()">
                         <img ng-src="{{imageSrc}}" class="big-image" />
                     </div>
                 </div>

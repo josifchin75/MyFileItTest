@@ -3,6 +3,7 @@
         <fileit-header fileit-title="Sharing Key Management" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" scroll="true" class="has-header">
+        <sharekey-url user-id="{{data.currentUser.ID}}"></sharekey-url>
         <form class="list">
             <ion-list></ion-list>
             <label class="item item-input" name="sharekeyCoupon">
@@ -33,7 +34,7 @@
                 <p>Some organization particular in MyFile-It programs where your organization would provide you with a Share Key Coupon if not you must purchase one if you want to share your documents.</p>
             </div>
             <a menu-close="" href="#" class="button button-positive button-block  icon-left ion-checkmark" ng-click="updateShareKeys()">Apply Changes</a>
-            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
+            <a menu-close="" href="#/main" class="button button-positive button-block ">Back</a>
             <h3>Members with keys</h3>
             <ion-item ng-repeat="familyUser in data.familyUsers" ng-show="familyUser.show">
                 <i class="medium-icon icon-left ion-ios-person-outline green">&nbsp;</i>

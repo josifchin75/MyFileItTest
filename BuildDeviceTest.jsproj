@@ -276,6 +276,7 @@
     <Content Include="templates\shareDocumentSelect.html" />
     <Content Include="templates\shareEventSelect.html" />
     <Content Include="templates\shareHasBeenSent.html" />
+    <Content Include="templates\sharekey-url.html" />
     <Content Include="templates\shareUserFilterSelect.html" />
     <Content Include="templates\shareUserSelect.html" />
     <Content Include="templates\sharingKeyManagement.html" />

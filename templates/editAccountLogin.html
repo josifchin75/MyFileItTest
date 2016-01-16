@@ -9,15 +9,17 @@
                     <input type="text" placeholder="Parent / Guardian Email" disabled="disabled" ng-model="data.currentUser.USERNAME">
                 </label>
                 <label class="item item-input" name="NewPassword">
-                    <input type="password" placeholder="Password" ng-model="data.newPassword">
+                    <input type="password" placeholder="Password" ng-model="data.newPassword" ng-hide="data.showPasswordIsChecked">
+                    <input type="text" placeholder="Password" ng-model="data.newPassword" ng-show="data.showPasswordIsChecked" /> 
                 </label>
-                <label class="item item-input" name="NewPasswordConfirm">
+                <ion-checkbox ng-model="data.showPasswordIsChecked">Show password</ion-checkbox>
+                <!--<label class="item item-input" name="NewPasswordConfirm">
                     <input type="password" placeholder="Re-Enter Password" ng-model="data.confirmPassword">
-                </label>
+                </label>-->
             </ion-list>
             <a menu-close=""  class="button button-positive button-block" ng-click="updateLogin()">Update</a>
             <div class="spacer" style="height: 100px;"></div>
-            <a menu-close="" href="#/maintab/Settings" class="button button-positive button-block ">Back</a>
+            <a menu-close="" href="#/main" class="button button-positive button-block ">Back</a>
         </form>
     </ion-content>
 </ion-view>

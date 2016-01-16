@@ -31,6 +31,7 @@
   <allow-intent href="geo:*"/>
 
   <splash src="splash.png" />
+  <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
   <!--<splash qualifier="ldpi" platform="android" src="res/screens/android/screen-ldpi-portrait.png" />
   <splash qualifier="mdpi" platform="android" src="res/screens/android/screen-mdpi-portrait.png" />
   <splash qualifier="hdpi" platform="android" src="res/screens/android/screen-hdpi-portrait.png" />

@@ -261,7 +261,7 @@ angular.module('app.controllers', [])
     $scope.init();
 })
 
-.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter) {
+.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter, $ionicSlideBoxDelegate) {
     $scope.init = function () {
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
@@ -357,6 +357,11 @@ angular.module('app.controllers', [])
         $scope.data.associatedImageId = $scope.data.associatedImages[index].ID;
     };
 
+    $scope.repeatDone = function () {
+        $ionicSlideBoxDelegate.update();
+        $scope.$apply();
+    };
+
     $scope.associateImage = function (eventDocumentId) {
         //alert(eventDocumentId);
         //$scope.getEventDocument(eventDocumentId).show = true;
@@ -366,11 +371,13 @@ angular.module('app.controllers', [])
         $scope.data.selectedEventDocumentId = eventDocumentId
         var title = 'Select an Image';
         var message = eventDocumentId;
+        
         var alertPopup = $ionicPopup.show({
             title: title,
             templateUrl: 'templates/documentSlider.html',
             cssClass: 'document-slider',
             scope: $scope,
+            cache: false,
             buttons: [
                  {
                      text: 'Cancel',
@@ -383,13 +390,8 @@ angular.module('app.controllers', [])
                      text: '<b>Associate</b>',
                      type: 'button-positive',
                      onTap: function (e) {
-                         if (0 == 1) {
-                             //don't allow the user to close unless he enters wifi password
-                             e.preventDefault();
-                         } else {
-                             //alert($scope.data.associatedImageId);
-                             return $scope.data.associatedImageId;
-                         }
+                         //e.preventDefault();
+                         return $scope.data.associatedImageId;
                      }
                  }]
         });
@@ -400,7 +402,11 @@ angular.module('app.controllers', [])
             eventDoc.associatedAllowUndo = res > -1;
             eventDoc.Base64ImageThumb = $scope.getSelectedImageBase64Thumb(res);
         });
-
+        /*
+        setTimeout(function () {
+            $ionicSlideBoxDelegate.update();
+            $scope.$apply();
+        },500);*/
 
         // $scope.navigateAndSave('documentSlider');
     };
@@ -843,6 +849,7 @@ angular.module('app.controllers', [])
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.data.documents = Documents.getObject();
             $scope.data.familyUser = FamilyUser.getObject();
+            $scope.imageSrc = '';
             myScroll = new iScroll('wrapper',
                 { zoom: true, zoomMax: 6 });
         });
@@ -859,18 +866,22 @@ angular.module('app.controllers', [])
             return obj.ShareKeys.length > 0;
         };
 
+        $scope.showLargeImage = function () {
+            return typeof $scope.imageSrc != 'undefined' && $scope.imageSrc != '';
+        };
+
         $scope.showModal = function (image) {
             var templateUrl = 'templates/image-popover.html';
             $scope.imageSrc = "data:image/png;base64," + image.Base64Image;
             return;
-            $ionicModal.fromTemplateUrl(templateUrl, {
-                scope: $scope,
-                animation: 'slide-in-up'
-            }).then(function (modal) {
-                //loadScroll();
-                $scope.modal = modal;
-                $scope.modal.show();
-            });
+            //$ionicModal.fromTemplateUrl(templateUrl, {
+            //    scope: $scope,
+            //    animation: 'slide-in-up'
+            //}).then(function (modal) {
+            //    //loadScroll();
+            //    $scope.modal = modal;
+            //    $scope.modal.show();
+            //});
         }
 
         // Close the modal
@@ -1293,19 +1304,19 @@ angular.module('app.controllers', [])
         function successCallback() {
             $scope.data.newPassword = '';
             $scope.data.confirmPassword = '';
-            $state.go('tabsController.settings');
+            $state.go('main');
         }
 
-        if (($scope.data.newPassword != $scope.data.confirmPassword) || ($scope.data.newPassword.length == 0)) {
+        /*if (($scope.data.newPassword != $scope.data.confirmPassword) || ($scope.data.newPassword.length == 0)) {
             failCallback('New password doesn\'t match the confirm password.');
+        } else {*/
+        if (!PasswordHelper.validPassword($scope.data.newPassword)) {
+            failCallback(PasswordHelper.getPasswordFormatError());
         } else {
-            if (!PasswordHelper.validPassword($scope.data.newPassword)) {
-                failCallback(PasswordHelper.getPasswordFormatError());
-            } else {
-                $scope.data.currentUser.PASSWORD = $scope.data.newPassword;
-                FileItService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
-            }
+            $scope.data.currentUser.PASSWORD = $scope.data.newPassword;
+            FileItService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
         }
+        // }
     };
 })
 
@@ -1325,7 +1336,7 @@ angular.module('app.controllers', [])
         }
 
         function successCallback(result) {
-            $state.go('tabsController.settings');
+            $state.go('main');
         }
         if ($scope.validUpdateUser()) {
             FileItService.updateUser($scope.data.currentUser, successCallback, failedUpdateCallback);
@@ -1975,8 +1986,12 @@ angular.module('app.controllers', [])
 .controller('sideMenuCtrl', function ($scope, $rootScope, FileItService) {
     $scope = $rootScope;
     $scope.init = function () {
-
+        $scope.UserId = FileItService.currentUser().ID;
     }
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.init();
+    });
 
     $scope.loggedIn = function () {
         var user = FileItService.currentUser();
@@ -1994,7 +2009,7 @@ angular.module('app.controllers', [])
         return result;
     };
 
-    $scope.init();
+    //$scope.init();
 })
 
 .controller('emergencyShareCtrl', function ($scope, FileItService, $ionicPopup, $state, ViewDocument, EmailHelper) {
