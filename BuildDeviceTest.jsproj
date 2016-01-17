@@ -270,7 +270,6 @@
     <Content Include="templates\selectUser.html" />
     <Content Include="templates\settings.html" />
     <Content Include="templates\setUpTeamAndPlayers.html" />
-    <Content Include="templates\shareAssociate.html" />
     <Content Include="templates\shareAssociateTest.html" />
     <Content Include="templates\shareDocuments.html" />
     <Content Include="templates\shareDocumentSelect.html" />

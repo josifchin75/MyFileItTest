@@ -275,11 +275,11 @@
 
     .document-slider .popup {
         height: 65%;
-        width: 70%;
+        width: 20em;/*70%;*/
     }
 
     .document-slider img {
-        width: 100%;
+        width: 20em;
     }
 
 #mainCards fieldset {

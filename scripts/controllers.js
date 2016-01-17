@@ -563,10 +563,6 @@ angular.module('app.controllers', [])
             $scope.searchEvents();
         }
     };
-    $scope.goAssociateTest = function () {
-        $state.go('shareAssociateTest');
-        //$scope.navigateAndSave('shareAssociate');
-    };
 
     $scope.goToAssociate = function () {
         var valid = true;

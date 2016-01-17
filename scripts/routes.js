@@ -335,11 +335,11 @@ angular.module('app.routes', [])
             templateUrl: 'templates/shareDocumentSelect.html',
             controller: 'viewYourDocumentsCtrl'
         })
-        .state('shareAssociate', {
-            url: '/shareassociate',
-            templateUrl: 'templates/shareAssociate.html',
-            controller: 'viewYourDocumentsCtrl'
-        })
+        //.state('shareAssociate', {
+        //    url: '/shareassociate',
+        //    templateUrl: 'templates/shareAssociate.html',
+        //    controller: 'viewYourDocumentsCtrl'
+        //})
         .state('shareEventSelect', {
             url: '/shareeventselect',
             templateUrl: 'templates/shareEventSelect.html',
