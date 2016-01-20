@@ -244,6 +244,7 @@
     <Content Include="scripts\routes.js" />
     <Content Include="scripts\services.js" />
     <Content Include="splash.png" />
+    <Content Include="templates\about.html" />
     <Content Include="templates\addFamilyMembers.html" />
     <Content Include="templates\confirmDocumentShare.html" />
     <Content Include="templates\documentSlider.html" />

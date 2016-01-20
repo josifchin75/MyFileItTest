@@ -406,6 +406,12 @@ angular.module('app.routes', [])
              controller: 'mainCardsCtrl'
          })
 
+     .state('about', {
+         url: '/about',
+         templateUrl: 'templates/about.html',
+         controller: 'aboutCtrl'
+     })
+
     //.state('memberCard', {
     //    url: '/membercard',
     //    templateUrl: 'templates/memberCard.html',

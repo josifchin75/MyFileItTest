@@ -1,11 +1,13 @@
 ﻿<div class="sidebar">
     <ion-header-bar class="bar-dark">
         <h1 class="title">My FileIT</h1>
-        <a href="#/login" menu-toggle="left" class="left-icon"><img src="images/MyFileIT_Icon.png" /></a>
+        <a href="#/login" class="left-icon"><img src="images/MyFileIT_Icon.png" /></a>
     </ion-header-bar>
+    
     <ion-content padding="'true'" class="has-header sidebar" onscroll="false" ng-show="loggedIn()">
         <a menu-toggle="left" href="#" ui-sref="main" class="button button-light button-block  icon-left ion-android-home">Home</a>
         <sharekey-url user-id="{{UserId}}"></sharekey-url>
+        <a menu-toggle="left" href="#" ui-sref="about" class="button button-light button-block  icon-left ion-ios-information-outline">About</a>
         <a menu-toggle="left" href="#" ui-sref="editAccountLogin" class="button button-light button-block  icon-left ion-wrench">Edit Account Login</a>
         <a menu-toggle="left" href="#" ui-sref="editAccountUser" class="button button-light button-block  icon-left ion-person">Edit Account User Profile</a>
         <a menu-toggle="left" href="#" ui-sref="sharingKeyManagement" class="button button-light button-block  icon-left ion-android-lock">Sharing Key Management</a>
@@ -15,8 +17,9 @@
         <a menu-toggle="left" href="#" ui-sref="login" class="button button-light button-block  icon-left ion-android-exit bottom">Logout</a>
     </ion-content>
     <ion-content padding="'true'" class="has-header sidebar" onscroll="false" ng-hide="loggedIn()">
+        <a menu-toggle="left" href="#" ui-sref="about" class="button button-light button-block  icon-left ion-ios-information-outline">About</a>
         <a menu-toggle="left" href="#" ui-sref="login" class="button button-light button-block  icon-left ion-log-in">Login</a>
-        <a menu-toggle="left" href="#" ui-sref="forgotPassword" class="button button-light button-block  icon-left ion-ios-information-outline">Forgot Password</a>
+        <a menu-toggle="left" href="#" ui-sref="forgotPassword" class="button button-light button-block  icon-left ion-ios-help-outline">Forgot Password</a>
         <a menu-toggle="left" href="#" ui-sref="newAccount" class="button button-light button-block  icon-left ion-android-person-add">Create an Account</a>
-        </ion-content>
+     </ion-content>
 </div>

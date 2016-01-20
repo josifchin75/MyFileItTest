@@ -1979,6 +1979,17 @@ angular.module('app.controllers', [])
 
 })
 
+    .controller('aboutCtrl', function ($scope) {
+        $scope.init = function () {
+            var data = {
+                version: "1.0"
+            };
+            $scope.data = data;
+        };
+
+        $scope.init();
+    })
+
 .controller('sideMenuCtrl', function ($scope, $rootScope, FileItService) {
     $scope = $rootScope;
     $scope.init = function () {
