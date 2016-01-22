@@ -233,10 +233,10 @@ angular.module('app.controllers', [])
                 message += "Please select a family user to upload for.</br>";
                 result = false;
             }
-            if (data.comment == undefined || data.comment.length == 0) {
-                message += "Please enter a brief comment for your own reference.</br>";
-                result = false;
-            }
+            //if (data.comment == undefined || data.comment.length == 0) {
+            //    message += "Please enter a brief comment for your own reference.</br>";
+            //    result = false;
+            //}
         }
 
         if (data.currentImage == undefined || data.currentImage.length == 0) {
@@ -607,7 +607,7 @@ angular.module('app.controllers', [])
 
     $scope.goToConfirm = function () {
         var valid = true;
-
+        
         if ($scope.associatedDocuments().length == 0) {
             valid = false;
             $scope.showError("Incomplete", "Please associate some documents to share.");
@@ -617,6 +617,18 @@ angular.module('app.controllers', [])
             $scope.data.associatedCount = $scope.associatedDocuments().length;
             $scope.navigateAndSave('confirmDocumentShare');
         }
+    };
+
+    $scope.allDocumentsAreAssociated = function () {
+        var allAssociated = true;
+        for (var i = 0; i < $scope.data.eventDocuments.length; i++) {
+            var document = $scope.data.eventDocuments[i];
+            if (!document.alreadyAssociated) {
+                allAssociated = false;
+                break;
+            }
+        }
+        return allAssociated;
     };
 
     $scope.shareDocuments = function () {
@@ -725,11 +737,11 @@ angular.module('app.controllers', [])
             $scope.data.errorTitle = "Cannot send invitation";
             result = false;
         }
-        if (!$scope.data.accepted) {
-            $scope.data.errorMessage += "\nPlease accept the agreement.";
-            $scope.data.errorTitle = "Cannot send invitation";
-            result = false;
-        }
+        //if (!$scope.data.accepted) {
+        //    $scope.data.errorMessage += "\nPlease accept the agreement.";
+        //    $scope.data.errorTitle = "Cannot send invitation";
+        //    result = false;
+        //}
 
         return result;
     }

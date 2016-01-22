@@ -23,10 +23,11 @@
                 <div class="clear"></div>
             </ion-item>
         </form>
-
+        <h3 ng-show="allDocumentsAreAssociated()">All documents are associated.</h3>
         <div class="button-bar">
             <a menu-close="" href="#/shareeventselect" class="button button-positive button-block">Back</a>
-            <a menu-close="" href="#" class="button button-positive button-block" ng-click="goToConfirm()">Next</a>
+            <a menu-close="" ng-hide="allDocumentsAreAssociated()" href="#" class="button button-positive button-block" ng-click="goToConfirm()">Next</a>
         </div>
+        
     </ion-content>
 </ion-view>
