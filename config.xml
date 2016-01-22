@@ -19,9 +19,9 @@
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
-
-  <plugin name="org.li8.inappbrowser" spec="0.1" source="pgb" />
-
+  
+  <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
+ 
   <vs:platformSpecificValues />
 
   <plugin name="cordova-plugin-whitelist" version="1"/>
