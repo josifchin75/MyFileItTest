@@ -371,7 +371,7 @@ angular.module('app.controllers', [])
         $scope.data.selectedEventDocumentId = eventDocumentId
         var title = 'Select an Image';
         var message = eventDocumentId;
-        
+
         var alertPopup = $ionicPopup.show({
             title: title,
             templateUrl: 'templates/documentSlider.html',
@@ -607,7 +607,7 @@ angular.module('app.controllers', [])
 
     $scope.goToConfirm = function () {
         var valid = true;
-        
+
         if ($scope.associatedDocuments().length == 0) {
             valid = false;
             $scope.showError("Incomplete", "Please associate some documents to share.");
@@ -896,6 +896,10 @@ angular.module('app.controllers', [])
         $scope.closeModal = function () {
             $scope.modal.hide();
             $scope.modal.remove()
+        };
+
+        $scope.editMemberProfile = function () {
+            $state.go('addFamilyMembers.update', { familyUser: true });
         };
 
         $scope.getDocument = function () {
@@ -1594,8 +1598,8 @@ angular.module('app.controllers', [])
 //.controller('newAccountProfileCtrl', function ($scope) {
 
 //})
-    .controller('addFamilyMembersCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper) {
-        $scope.init = function () {
+    .controller('addFamilyMembersCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper, FamilyUser) {
+        $scope.init = function (obj) {
 
             $scope.data = {
                 currentUser: FileItService.currentUser(),
@@ -1609,8 +1613,26 @@ angular.module('app.controllers', [])
                 phoneNumber: '',
                 emailAddress: '',
                 appUserTypeId: -1,
-                sex: ''
+                sex: '',
+                adding: true
             };
+            function loadObject() {
+                if (typeof obj != 'undefined') {
+                    obj = FamilyUser.getObject();
+                    //load up the controls
+                    $scope.data.ID = obj.ID;
+                    $scope.data.userName = obj.USERNAME;
+                    $scope.data.firstName = obj.FIRSTNAME;
+                    $scope.data.lastName = obj.LASTNAME;
+                    $scope.data.relationShipTypeId = obj.RELATIONSHIPTYPEID;
+                    $scope.data.phoneNumber = obj.PHONE;
+                    $scope.data.emailAddress = obj.EMAILADDRESS;
+                    $scope.data.appUserTypeId = obj.APPUSERTYPEID;
+                    $scope.data.sex = obj.SEX;
+                    $scope.data.adding = false;
+                    $scope.data.dtoObject = obj;
+                }
+            }
 
             function successGetFamily(data) {
                 $scope.data.familyUsers = data.AppUsers;
@@ -1631,7 +1653,7 @@ angular.module('app.controllers', [])
                         break;
                     }
                 }
-
+                loadObject();
             }
 
             function failRef() { }
@@ -1640,6 +1662,12 @@ angular.module('app.controllers', [])
             var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
             FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, failRef);
         };
+
+        $scope.$on('$ionicView.beforeEnter', function () {
+            var user = eval('(' + $state.params.familyUser + ')');
+            $scope.init(user);
+        });
+
 
         $scope.validAddFamilyMember = function () {
             var result = true;
@@ -1700,17 +1728,25 @@ angular.module('app.controllers', [])
                 var alertPopup = $ionicPopup.alert(
                     {
                         title: 'Success',
-                        template: 'Your family member has been added!',
+                        template: $scope.data.adding ? 'Your family member has been added!' : 'Your family member has been updated!',
                         buttons: [
                           {
                               text: '<b>Ok</b>',
                               type: 'button-positive',
                               onTap: function (e) {
-                                  //$state.go('tabsController.main');
+                                 
                               }
                           }]
                     });
-                $scope.init();
+                
+                if (!$scope.data.adding) {
+                    //TODO: should have used the FamilyUser to pass in the object!!!
+                    angular.extend($scope.data.dtoObject, appUserDTO);
+                    FamilyUser.setObject($scope.data.dtoObject);
+                    $scope.goToMain();
+                } else {
+                    $scope.init();
+                }
             }
 
             if ($scope.validAddFamilyMember()) {
@@ -1735,17 +1771,24 @@ angular.module('app.controllers', [])
                     APPUSERSTATUSID: 2,
                     PRIMARYAPPUSERID: $scope.data.currentUser.ID
                 };
-
+                if (!$scope.data.adding) {
+                   
+                }
 
                 function failAddAppUser(data) {
                 }
 
-                FileItService.addAppUser(appUserDTO, successAdd, failAddAppUser);
+                if ($scope.data.adding) {
+                    FileItService.addAppUser(appUserDTO, successAdd, failAddAppUser);
+                } else {
+                    appUserDTO.ID = $scope.data.ID;
+                    FileItService.updateUser(appUserDTO, successAdd, failAddAppUser);
+                }
             }
         }
 
         $scope.goToMain = function () {
-            $state.go('main');
+            $state.go($scope.data.adding ? 'main' : 'memberCard');
         };
 
         $scope.init();

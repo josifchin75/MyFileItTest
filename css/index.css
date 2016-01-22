@@ -275,7 +275,7 @@
 
     .document-slider .popup {
         height: 65%;
-        width: 20em;/*70%;*/
+        width: 20em; /*70%;*/
     }
 
     .document-slider img {
@@ -292,6 +292,13 @@
         padding-left: 1em;
     }
 
+.member-link {
+    text-decoration: none;
+    font-size: 1.5em;
+    position: absolute;
+    right: .5em;
+    top: .9em;
+}
 
 .family-card {
     position: relative;
@@ -412,5 +419,3 @@
     right: 0;
     top: 0;
 }
-
-

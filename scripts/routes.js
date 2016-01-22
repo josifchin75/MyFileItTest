@@ -375,6 +375,12 @@ angular.module('app.routes', [])
          controller: 'addFamilyMembersCtrl'
      })
 
+        .state('addFamilyMembers.update', {
+            url: '/addfamilymembers/:familyUser',
+            templateUrl: 'templates/addFamilyMembers.html',
+            controller: 'addFamilyMembersCtrl'
+        })
+
     .state('teamSelectOrganization', {
         url: '/teamselectorganization',
         templateUrl: 'templates/teamSelectOrganization.html',

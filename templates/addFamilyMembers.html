@@ -41,7 +41,8 @@
             </label>
         </form>
 
-        <a menu-close="" href="#" class="button button-positive button-block  button-full" ng-click="addFamilyMember()">Add new family member</a>
+        <a menu-close="" href="#" class="button button-positive button-block  button-full" ng-show="data.adding" ng-click="addFamilyMember()">Add new family member</a>
+        <a menu-close="" href="#" class="button button-positive button-block  button-full" ng-hide="data.adding" ng-click="addFamilyMember()">Update family member</a>
         <a menu-close="" href="#" ng-click="goToMain()" class="button button-positive button-block ">Back</a>
 
         <!--<form class="list">
