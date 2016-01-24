@@ -292,13 +292,7 @@
         padding-left: 1em;
     }
 
-.member-link {
-    text-decoration: none;
-    font-size: 1.5em;
-    position: absolute;
-    right: .5em;
-    top: .9em;
-}
+
 
 .family-card {
     position: relative;
@@ -351,6 +345,18 @@
         margin-left: 5em;
         padding-top: .5em;
     }
+
+    .member-card > div {
+        text-align: right;
+    }
+
+.member-link {
+    text-decoration: none;
+    font-size: 1.5em;
+    /*position: absolute;
+    right: .5em;
+    top: .9em;*/
+}
 
 .member-thumbs {
 }

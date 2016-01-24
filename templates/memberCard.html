@@ -5,6 +5,9 @@
     <ion-content padding="'true'" class="has-header">
         <form class="list">
             <div class="member-card">
+                <div style="text-align: right;"
+                    <a href="#" class="member-link" ng-click="editMemberProfile()" ng-hide="data.IsCoach">Edit</a>
+                </div>
                 <div class="header">
                     <h3>{{data.familyUser.FIRSTNAME}}&nbsp;{{data.familyUser.LASTNAME}}</h3>
                     <h4>{{data.familyUser.USERNAME}}</h4>
@@ -28,7 +31,7 @@
                     </ion-item>
 
                 </div>-->
-                <a href="#" class="member-link" ng-click="editMemberProfile()" ng-hide="data.IsCoach">Edit</a>
+               
                 <div class="member-thumb add">
                     <a href="#" ng-click="getDocument()">
                         <i class="large-icon ion-android-add-circle"></i>

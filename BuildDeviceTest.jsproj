@@ -271,7 +271,9 @@
     <Content Include="templates\selectUser.html" />
     <Content Include="templates\settings.html" />
     <Content Include="templates\setUpTeamAndPlayers.html" />
-    <Content Include="templates\shareAssociateTest.html" />
+    <Content Include="templates\shareAssociateTest.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="templates\shareDocuments.html" />
     <Content Include="templates\shareDocumentSelect.html" />
     <Content Include="templates\shareEventSelect.html" />
