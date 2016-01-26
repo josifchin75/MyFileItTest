@@ -12,7 +12,7 @@
                     <input type="text" placeholder="Last Name" ng-model="data.lastName">
                 </label>
             </ion-list>
-            <ion-checkbox name="primaryaccountholder" ng-model="data.primaryAccountHolder">Primary Account Holder</ion-checkbox>
+            <!--<ion-checkbox name="primaryaccountholder" ng-model="data.primaryAccountHolder">Primary Account Holder</ion-checkbox>-->
             <div>
                 Primary account holder must be over 18
             </div>
@@ -32,12 +32,12 @@
                 Must have a primary account holder's phone number
             </div>
 
-            <label class="item item-select" name="usertype">
+            <!--<label class="item item-select" name="usertype">
                 <span class="input-label">Type of User</span>
                 <select ng-model="data.appUserTypeId">
                     <option ng-repeat="appUserType in data.appUserTypes" value="{{appUserType.Key}}">{{appUserType.Value}}</option>
                 </select>
-            </label>
+            </label>-->
             <label class="item item-select" name="sex">
                 <span class="input-label">Sex</span>
                 <select ng-model="data.sex">

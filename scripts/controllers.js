@@ -614,8 +614,40 @@ angular.module('app.controllers', [])
         }
 
         if (valid) {
-            $scope.data.associatedCount = $scope.associatedDocuments().length;
-            $scope.navigateAndSave('confirmDocumentShare');
+            function goToConfirm() {
+                $scope.data.associatedCount = $scope.associatedDocuments().length;
+                $scope.navigateAndSave('confirmDocumentShare');
+            }
+
+            function goToMemberCard() {
+                $scope.navigateAndSave('memberCard');
+            }
+
+            var allDocs = $scope.data.eventDocuments;
+            var allAssociated = true;
+            for (var i = 0; i < allDocs.length; i++) {
+                if (allDocs[i].associated == false) {
+                    allAssociated = false;
+                    break;
+                }
+            }
+
+            if (!allAssociated) {
+                var confirmPopup = $ionicPopup.confirm({
+                    title: 'Associate',
+                    template: 'Not all of your documents are associated. Would you still like to continue?'
+                });
+
+                confirmPopup.then(function (res) {
+                    if (res) {
+                        goToConfirm();
+                    } else {
+                       // goToMemberCard();
+                    }
+                });
+            } else {
+                goToConfirm();
+            }
         }
     };
 
@@ -1385,7 +1417,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('newAccountCtrl', function ($scope, FileItService, $ionicPopup, $state, AppUser, EmailHelper, PasswordHelper, DateHelper) {
+.controller('newAccountCtrl', function ($scope, FileItService, $ionicPopup, $state, AppUser, EmailHelper, PasswordHelper, DateHelper, FamilyUsers) {
     $scope.init = function () {
 
         $scope.data = AppUser.getObject();
@@ -1458,7 +1490,11 @@ angular.module('app.controllers', [])
 
             function successAddAppUser(data) {
                 FileItService.setCurrentUser(data.AppUsers[0]);
-                successAdd();
+                var user = data.AppUsers[0];
+                var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
+
+                FamilyUsers.loadFamilyUsers(primaryAppUserId, successAdd);
+               // successAdd();
 
                 //this is removed for now Dec29-2015
                 ////todo: this may be important!!! it needs to be fixed.
@@ -1565,10 +1601,10 @@ angular.module('app.controllers', [])
             result = false;
             errorMessage += '<br/>Please specify your sex.';
         }
-        if (data.appUserTypeId == undefined || data.appUserTypeId == -1) {
-            result = false;
-            errorMessage += '<br/>Please select a user type.';
-        }
+        //if (data.appUserTypeId == undefined || data.appUserTypeId == -1) {
+        //    result = false;
+        //    errorMessage += '<br/>Please select a user type.';
+        //}
         if (!hasValue('emailAddress')) {
             result = false;
             errorMessage += '<br/>Please enter an email address';
@@ -1734,11 +1770,11 @@ angular.module('app.controllers', [])
                               text: '<b>Ok</b>',
                               type: 'button-positive',
                               onTap: function (e) {
-                                 
+
                               }
                           }]
                     });
-                
+
                 if (!$scope.data.adding) {
                     //TODO: should have used the FamilyUser to pass in the object!!!
                     angular.extend($scope.data.dtoObject, appUserDTO);
@@ -1772,7 +1808,7 @@ angular.module('app.controllers', [])
                     PRIMARYAPPUSERID: $scope.data.currentUser.ID
                 };
                 if (!$scope.data.adding) {
-                   
+
                 }
 
                 function failAddAppUser(data) {

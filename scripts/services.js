@@ -135,6 +135,34 @@ angular.module('app.services', [])
              };
          }])
 
+    .service('LocalDocuments', function () {
+       // var localDocuments = window.localStorage.getItem('localDocuments');
+
+        return {
+            getLocalDocuments: function () {
+                var result = window.localStorage.getItem('localDocuments');
+                if (typeof result != 'undefined' && result != null && result != '') {
+                    result = eval('(' + result + ')');
+                } else {
+                    result = [];
+                }
+                return result;
+            },
+            setLocalDocuments: function (obj) {
+                window.localStorage.setItem('localDocuments', JSON.stringify(obj));
+            },
+            getLocalDocumentsIdList: function () {
+                var docs = this.getLocalDocuments();
+                var result = [];
+                if (docs.length > 0) {
+                    for (var i = 0; i < docs.length; i++) {
+                        results.push(docs[i].ID);
+                    }
+                }
+                return result;
+            }
+        };
+    })
 
         .service('Documents', ['FileItService', function (FileItService) {
             var docs = [];
@@ -167,20 +195,20 @@ angular.module('app.services', [])
         }])
 
         .service('AvailableShareKeys', [function () {
-        var availableShareKeys = [];
+            var availableShareKeys = [];
 
-        return {
-            init: function () {
-                availableShareKeys = [];
-            },
-            getObject: function () {
-                return availableShareKeys;
-            },
-            setObject: function (obj) {
-                availableShareKeys = obj;
-            }
-        };
-    }])
+            return {
+                init: function () {
+                    availableShareKeys = [];
+                },
+                getObject: function () {
+                    return availableShareKeys;
+                },
+                setObject: function (obj) {
+                    availableShareKeys = obj;
+                }
+            };
+        }])
 
  .service('ScanDocument', [function () {
      var documentDTO = {
@@ -395,9 +423,10 @@ angular.module('app.services', [])
     };
 })
 
-.service('FileItService', function ($q, $http, loadingService) {
+.service('FileItService', function ($q, $http, loadingService, LocalDocuments) {
     var currentUser;
     var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
+    var referenceLists = {};
     //baseUrl = 'http://localhost:37533/MyFileItAppService.svc/rest';
     return {
         basePost: function (routeUrl, obj, successCallback, failCallback) {
@@ -432,8 +461,23 @@ angular.module('app.services', [])
                 pass: this.adminPass(),
                 referenceTableName: referenceTableName
             };
-
-            return this.basePost(routeUrl, data, success, fail);
+            //speed up the reference data lookups
+            var refLists = this.referenceLists();
+            if (refLists[referenceTableName]) {
+                var data = {};
+                data.KeyValueData = refLists[referenceTableName];
+                if (typeof success == 'function') {
+                    return success(data);
+                }
+            } else {
+                function keepRefData(data) {
+                    refLists[referenceTableName] = data.KeyValueData;
+                    if (typeof success == 'function') {
+                        return success(data);
+                    }
+                }
+                return this.basePost(routeUrl, data, keepRefData, fail);
+            }
         },
         //GetOrganizations(string user, string pass, int? organizationId, string nameLookup)
         getOrganizations: function (organizationId, lookup, successCallback, failCallback) {
@@ -568,10 +612,30 @@ angular.module('app.services', [])
                 user: this.adminUser(),
                 pass: this.adminPass(),
                 appUserId: appUserId,
-                teamEventId: teamEventId
+                teamEventId: teamEventId,
+                downloadedDocumentIds: LocalDocuments.getLocalDocumentsIdList()
             };
 
-            return this.basePost(routeUrl, data, success, fail);
+            function retainDocuments(data) {
+                //keep any documents not found already 
+                //also add the existing ones to the response
+                //data.Documents
+                var downloadedDocs = LocalDocuments.getLocalDocuments();
+                for (var i = 0; i < data.Documents.length; i++) {
+                    downloadedDocs.push(data.Documents[i]);
+                }
+                //LocalDocuments.setLocalDocuments(downloadedDocs);
+
+                if (typeof success == 'function') {
+                    var response = {
+                        Documents: downloadedDocs
+                    };
+                   
+                    success(response);
+                }
+            }
+
+            return this.basePost(routeUrl, data, retainDocuments, fail);
         },
         //VerifyDocument(string user, string pass, int documentId, int verifyAppUserId)
         verifyDocument: function (documentId, verifyAppUserId, teamEventDocumentId, success, fail) {
@@ -810,6 +874,9 @@ angular.module('app.services', [])
         adminPass: function () { return "admin"; },
         baseUrl: function () {
             return baseUrl;
+        },
+        referenceLists: function () {
+            return referenceLists;
         },
         serviceFailCallback: function (data, status, headers, config) {
             alert(data);
