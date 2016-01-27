@@ -149,7 +149,7 @@ angular.module('app.controllers', [])
                 title: 'Success',
                 template: 'Your file has been uploaded.'
             });
-            $state.go('main');
+            $state.go('memberCard');
         }
         function getDate() {
             var d = moment.utc();
@@ -1634,7 +1634,7 @@ angular.module('app.controllers', [])
 //.controller('newAccountProfileCtrl', function ($scope) {
 
 //})
-    .controller('addFamilyMembersCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper, FamilyUser) {
+    .controller('addFamilyMembersCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper, FamilyUser, FamilyUsers) {
         $scope.init = function (obj) {
 
             $scope.data = {
@@ -1824,7 +1824,16 @@ angular.module('app.controllers', [])
         }
 
         $scope.goToMain = function () {
-            $state.go($scope.data.adding ? 'main' : 'memberCard');
+            if ($scope.data.adding) {
+                function onLoadFamily(data) {
+                    $state.go('main', { appUserId: $scope.data.currentUser.ID });
+                }
+
+                FamilyUsers.loadFamilyUsers($scope.data.currentUser.ID, onLoadFamily);
+            } else {
+                $state.go($scope.data.adding ? 'main' : 'memberCard');
+            }
+
         };
 
         $scope.init();
@@ -2102,7 +2111,8 @@ angular.module('app.controllers', [])
     $scope.isCoach = function () {
         var user = FileItService.currentUser();
         var result = false;
-        result = typeof user != 'undefined' && user.IsCoach;
+        var isCoach = typeof user != 'undefined' && user != null && user.IsCoach;
+        result = typeof user != 'undefined' && isCoach;
 
         return result;
     };
