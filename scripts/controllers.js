@@ -1031,7 +1031,6 @@ angular.module('app.controllers', [])
 
             function onGetError() { }
 
-            FileItService.getAvailableShareKeysByPromoCodeAndPrimaryUser($scope.data.familyUser.ID, $scope.data.promocode, onGetKeys, onGetError);
             FileItService.getAvailableShareKeysByPromoCodeAndPrimaryUser($scope.data.currentUser.ID, $scope.data.promocode, onGetKeys, onGetError);
         };
 
