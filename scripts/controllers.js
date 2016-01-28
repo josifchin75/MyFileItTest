@@ -1022,7 +1022,7 @@ angular.module('app.controllers', [])
 
         $scope.searchKeys = function (onSuccess) {
             function onGetKeys(data) {
-                $scope.data.shareKeys = data.ShareKeys;
+                $scope.data.availableShareKeys = data.ShareKeys;
                 AvailableShareKeys.setObject(data.ShareKeys);
                 if (typeof onSuccess == 'function') {
                     onSuccess(data);
@@ -1032,6 +1032,7 @@ angular.module('app.controllers', [])
             function onGetError() { }
 
             FileItService.getAvailableShareKeysByPromoCodeAndPrimaryUser($scope.data.familyUser.ID, $scope.data.promocode, onGetKeys, onGetError);
+            FileItService.getAvailableShareKeysByPromoCodeAndPrimaryUser($scope.data.currentUser.ID, $scope.data.promocode, onGetKeys, onGetError);
         };
 
         $scope.goToMemberCard = function () {
