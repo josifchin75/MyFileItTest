@@ -5,8 +5,8 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-        //$scope.data.username = 'josifchin75@gmail.com';
-        //$scope.data.password = 'jopass12';
+        $scope.data.username = 'josifchin75@gmail.com';
+        $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'coach@coach.com';
         //$scope.data.password = 'coach12';
@@ -55,7 +55,7 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('scanDocumentsCtrl', function ($scope, Camera, FileItService, ScanDocument, $ionicPopup, $state, ViewDocument) {
+.controller('scanDocumentsCtrl', function ($scope, Camera, FileItService, ScanDocument, $ionicPopup, $state, ViewDocument, Documents) {
     $scope.init = function () {
         $scope.data = ScanDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
@@ -149,7 +149,12 @@ angular.module('app.controllers', [])
                 title: 'Success',
                 template: 'Your file has been uploaded.'
             });
-            $state.go('memberCard');
+
+            function onSuccessAlertClosed() {
+                $state.go('memberCard');
+            }
+
+            Documents.loadUserDocuments($scope.data.familyUserId, null, onSuccessAlertClosed);
         }
         function getDate() {
             var d = moment.utc();
@@ -244,9 +249,6 @@ angular.module('app.controllers', [])
             result = false;
         }
 
-
-
-
         if (!result) {
             var alertPopup = $ionicPopup.alert({
                 title: title,
@@ -255,9 +257,6 @@ angular.module('app.controllers', [])
         }
         return result;
     };
-
-
-
     $scope.init();
 })
 

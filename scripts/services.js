@@ -449,6 +449,7 @@ angular.module('app.services', [])
                     }
                 })
                 .error(function (response) {
+                    alert(response);
                     loadingService.hide();
                 });
             return promise;

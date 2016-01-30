@@ -6,7 +6,7 @@
         <div class="button-bar">
             <a menu-close="" href="#" class="button button-stable button-block" ng-click="goUploadPlayers()">
                 <div class="ion-android-add-circle large-icon"></div>
-                <h5>Add Player</h5> 
+                <h5>Add Player</h5>
                 <h5>Already Uploaded</h5>
             </a>
             <a menu-close="" href="#/teamaddnew" class="button button-stable button-block">
@@ -20,18 +20,17 @@
         <div class="italic"><i class="medium-icon icon-left ion-wrench">&nbsp;</i> indicates that a user requires document verification.</div>
         <form class="list">
             <ion-item ng-repeat="player in data.players">
-                <i class="medium-icon icon-left ion-man" ng-show="showSex(player,'M')">&nbsp;</i>
-                <i class="medium-icon icon-left ion-woman" ng-show="showSex(player, 'F')">&nbsp;</i>
-
-                {{player.PlayerName}}
-                <div class="right margin-bottom">
-                    <i class="medium-icon icon-left ion-wrench red" ng-show="player.RequiresVerification">&nbsp;</i>
+                <div>
+                    <i class="medium-icon icon-left ion-man" ng-show="showSex(player,'M')">&nbsp;</i>
+                    <i class="medium-icon icon-left ion-woman" ng-show="showSex(player, 'F')">&nbsp;</i>
+                    {{player.PlayerName}}
+                    <i class="medium-icon icon-left ion-wrench red right" ng-show="player.RequiresVerification">&nbsp;</i>
+                </div>
+                <div>
                     <button ng-click="viewPlayer(player)" class="small-button">View</button>
+                    <button ng-click="removePlayer(player.ID)" class="margin-bottom small-button">Remove</button>
                 </div>
                 <div class="clear"></div>
-                <button ng-click="removePlayer(player.ID)" class="right margin-bottom small-button" >Remove</button>
-                
-               
             </ion-item>
         </form>
 
