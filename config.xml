@@ -32,7 +32,7 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-  <splash src="splash.png" />
+  <vs:splash src="splash.png" />
   <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
  <!-- <vs:splash src="res/screens/android/screen-hdpi-portrait.png" vs:platform="android"/>-->
   <!--<splash qualifier="ldpi" platform="android" src="res/screens/android/screen-ldpi-portrait.png" />
@@ -44,7 +44,6 @@
 
   <platform name="android">
     <icon src="icon.png" />
-	  <splash src="splash.png" />
   </platform>
   <platform name="ios">
     <icon src="icon.png" />
