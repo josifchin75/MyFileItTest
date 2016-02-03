@@ -58,6 +58,9 @@
                         <img ng-src="{{imageSrc}}" class="big-image" />
                     </div>
                 </div>
+                <div ng-show="showLargeImage()">
+                    Pinch and drag to zoom and move the image. Double tap to revert to regular size.
+                </div>
                 <ion-list>
                     <ion-item class="item-icon-right" ng-repeat="document in data.documents">
                         <div class="item-checkbox image-list">

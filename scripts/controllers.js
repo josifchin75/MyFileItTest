@@ -5,8 +5,8 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-        //$scope.data.username = 'josifchin75@gmail.com';
-        //$scope.data.password = 'jopass12';
+        $scope.data.username = 'josifchin75@gmail.com';
+        $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'coach@coach.com';
         //$scope.data.password = 'coach12';
@@ -75,6 +75,10 @@ angular.module('app.controllers', [])
 
         FileItService.getReferenceData('DocumentType', successRef, failRef);
     };
+
+    $scope.$on('$ionicView.beforeEnter', function () {
+        $scope.init();
+    });
 
     $scope.getFamilyUserName = function () {
         var result = '';
@@ -211,6 +215,7 @@ angular.module('app.controllers', [])
 
     $scope.getScanDocumentType = function () {
         if ($scope.validUpload(false)) {
+            $scope.data.comment = '';
             $state.go('scanDocumentType');
         }
     };

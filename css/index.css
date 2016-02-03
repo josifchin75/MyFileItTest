@@ -409,6 +409,10 @@
     left: 0 !important;
 }
 
+.checkbox input:before, .checkbox .checkbox-icon:before {
+    border-color: #387ef5;
+}
+
 .big-image {
     width: 100%;
     height: auto;
