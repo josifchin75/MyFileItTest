@@ -906,6 +906,10 @@ angular.module('app.controllers', [])
             return obj.VerifiedAppUserId == null && $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.ID;
         };
 
+        $scope.isCoachVerifying = function () {
+            return $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.PRIMARYAPPUSERID;
+        };
+
         $scope.hasShareKey = function (obj) {
             return obj.ShareKeys.length > 0;
         };

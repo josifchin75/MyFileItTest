@@ -37,14 +37,16 @@
                         <i class="large-icon ion-android-add-circle"></i>
                         <h5>Add Document</h5>
                     </a>
-                    <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser)">
-                        <i class="large-icon ion-android-share-alt"></i>
-                        <h5>Share Selected</h5>
-                    </a>
-                    <a href="#" ng-click="associateKey()" ng-hide="hasShareKey(data.familyUser)">
-                        <i class="large-icon ion-key"></i>
-                        <h5>Add Sharing Key</h5>
-                    </a>
+                    <span ng-hide="isCoachVerifying()">
+                        <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser)">
+                            <i class="large-icon ion-android-share-alt"></i>
+                            <h5>Share Selected</h5>
+                        </a>
+                        <a href="#" ng-click="associateKey()" ng-hide="hasShareKey(data.familyUser)">
+                            <i class="large-icon ion-key"></i>
+                            <h5>Add Sharing Key</h5>
+                        </a>
+                    </span>
                     <a href="#" ng-click="emergencyShare()">
                         <i class="large-icon ion-ios-medkit red"></i>
                         <h5>Emergency Share</h5>
@@ -87,6 +89,6 @@
 
             </div>
         </form>
-        <!--<a menu-close="" href="#/maincards" class="button button-positive button-block  icon-left ion-android-add">Back to Members</a>-->
+        <a menu-close="" href="#/teamviewplayers" ng-hide="isCoachVerifying()" class="button button-positive button-block  icon-left">Back to Players</a>
     </ion-content>
 </ion-view>
