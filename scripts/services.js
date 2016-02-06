@@ -778,6 +778,18 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //RejectTeamEventDocumentShare(string user, string pass, int shareId)
+        rejectTeamEventDocumentShare: function (appUserId, teamEventDocumentId, success, fail) {
+            var routeUrl = 'RejectTeamEventDocumentShare';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                teamEventDocumentId: teamEventDocumentId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         // GetAvailableShareKeysByPromoCodeAndPrimaryUser(string user, string pass, int primaryAppUserId, string promocode)
         getAvailableShareKeysByPromoCodeAndPrimaryUser: function (primaryAppUserId, promocode, success, fail) {
             var routeUrl = 'GetAvailableShareKeysByPromoCodeAndPrimaryUser';

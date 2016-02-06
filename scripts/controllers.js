@@ -922,14 +922,6 @@ angular.module('app.controllers', [])
             var templateUrl = 'templates/image-popover.html';
             $scope.imageSrc = "data:image/png;base64," + image.Base64Image;
             return;
-            //$ionicModal.fromTemplateUrl(templateUrl, {
-            //    scope: $scope,
-            //    animation: 'slide-in-up'
-            //}).then(function (modal) {
-            //    //loadScroll();
-            //    $scope.modal = modal;
-            //    $scope.modal.show();
-            //});
         }
 
         // Close the modal
@@ -1005,19 +997,86 @@ angular.module('app.controllers', [])
         };
 
         $scope.verifyDocument = function (documentId, teamEventDocumentId) {
-            var verifyAppUserId = $scope.data.currentUser.ID;
+            function verifyDoc() {
+                var verifyAppUserId = $scope.data.currentUser.ID;
 
-            function onVerifySuccess(data) {
-                var doc = $scope.findDocument(documentId);
-                doc.VERIFIEDAPPUSERID = $scope.data.currentUser.ID;
-                doc.VERIFIEDDATE = moment().format();
+                function onVerifySuccess(data) {
+                    var doc = $scope.findDocument(documentId);
+                    doc.VerifiedAppUserId = $scope.data.currentUser.ID;
+                    doc.VerifiedDate = moment().format();
+                    return;
+
+                    var docs = $scope.data.documents;
+                    var result = [];
+                    for (var i = 0; i < docs.length; i++) {
+                        if (docs[i].ID == documentId) {
+                            docs[i].VERIFIEDAPPUSERID = $scope.data.currentUser.ID;
+                            docs[i].VERIFIEDDATE = moment().format();
+                        }
+                        result.push(docs[i]);
+                    }
+                    Documents.setObject(result);
+                    $scope.data.documents = result;
+                }
+
+                function onVerifyFail() {
+
+                }
+
+                FileItService.verifyDocument(documentId, verifyAppUserId, teamEventDocumentId, onVerifySuccess, onVerifyFail);
             }
 
-            function onVerifyFail() {
+            var title = 'Verify?';
+            var message = "Are you sure this document is correct?";
 
+            $scope.confirmMessage(title, message, verifyDoc);
+        };
+
+        $scope.rejectDocument = function (teamEventDocumentId) {
+            function reject() {
+                var appUserId = $scope.data.familyUser.ID;
+
+                function rejectSuccess() {
+                    var docs = $scope.data.documents;
+                    var result = [];
+                    for (var i = 0; i < docs.length; i++) {
+                        if (docs[i].TeamEventDocumentId != teamEventDocumentId) {
+                            result.push(docs[i]);
+                        }
+                    }
+                    $scope.data.documents = result;
+                }
+
+                function rejectFail() {
+
+                }
+
+                FileItService.rejectTeamEventDocumentShare(appUserId, teamEventDocumentId, rejectSuccess, rejectFail);
             }
 
-            FileItService.verifyDocument(documentId, verifyAppUserId, teamEventDocumentId, onVerifySuccess, onVerifyFail);
+            var title = 'Reject?';
+            var message = "Are you sure you want to reject this document?";
+
+            $scope.confirmMessage(title, message, reject);
+        };
+
+        $scope.confirmMessage = function (title, message, onOk, onCancel) {
+            var confirmPopup = $ionicPopup.confirm({
+                title: title,
+                template: message
+            });
+
+            confirmPopup.then(function (res) {
+                if (res) {
+                    if (typeof onOk == 'function') {
+                        onOk();
+                    }
+                } else {
+                    if (typeof onCancel == 'function') {
+                        onCancel();
+                    }
+                }
+            });
         };
 
         $scope.associateKey = function () {

@@ -80,7 +80,8 @@
                                 <h2>{{document.DocumentTypeName}}</h2>
                                 <p>{{document.COMMENT}}</p>
                                 <div ng-show="showVerify(document)">
-                                    <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="medium-button">Verify Document</button>
+                                    <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class=""><i class="ion-thumbsup medium-icon"></i></button>
+                                    <button ng-click="rejectDocument(document.TeamEventDocumentId)" class=""><i class="ion-thumbsdown medium-icon"></i></button>
                                 </div>
                             </span>
                         </div>
