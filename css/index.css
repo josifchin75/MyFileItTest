@@ -215,6 +215,10 @@
     font-size: 2em;
 }
 
+.verify-icon {
+    height: 3em;
+}
+
 .blue {
     color: blue;
 }
