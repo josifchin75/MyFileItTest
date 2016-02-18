@@ -1504,6 +1504,20 @@ angular.module('app.controllers', [])
         FileItService.getReferenceData('RelationShipType', successRef, failRef);
     };
 
+    $scope.clearData = function () {
+        $scope.data.userName = null;
+        $scope.data.password = null;
+        $scope.data.confirmPassword = null;
+        $scope.data.firstName = null;
+        $scope.data.lastName = null;
+        $scope.data.phoneNumber = null;
+        $scope.data.phoneNumber = null;
+        $scope.data.emailAddress = null;
+        $scope.data.sex = null;
+        $scope.data.relationShipTypeId = null;
+        $scope.data.appUserTypeId = null;
+    };
+
     $scope.addAccountUserName = function () {
         function isValid() {
             if ($scope.data.emailAddress == undefined || $scope.data.emailAddress.length == 0) {
@@ -1526,6 +1540,7 @@ angular.module('app.controllers', [])
                           text: '<b>Ok</b>',
                           type: 'button-positive',
                           onTap: function (e) {
+                              $scope.clearData();
                               $state.go('main');
                           }
                       }]

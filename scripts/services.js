@@ -425,7 +425,8 @@ angular.module('app.services', [])
 
 .service('FileItService', function ($q, $http, loadingService, LocalDocuments) {
     var currentUser;
-    var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
+    //var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
+    var baseUrl = 'http://myfileit.net/MyFileItService/MyFileItAppService.svc/rest/';
     var referenceLists = {};
     //baseUrl = 'http://localhost:37533/MyFileItAppService.svc/rest';
     return {
