@@ -30,7 +30,7 @@
 
     <script src="lib/iScroll/iscroll.js"></script>
     <!--Concierge help -->
-    <script src='http://websdk.live.gotoassist.com/concierge.js'></script>
+    <!--<script src='http://websdk.live.gotoassist.com/concierge.js'></script>-->
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
     <link href="css/ionic.app.css" rel="stylesheet">
     -->
@@ -50,6 +50,25 @@
 
     function initConcierge() {
         concierge.setApplicationKey('MTQyOTs1Nzg=-1d2nf8bvvrlxqnvd0g5vfq2jkcrkk1hsjkr571bfg7hpqmhhk0wxm5i8wi4y8j1o');
+    }
+
+    function openSupportWindow() {
+        if (window.plugins && window.plugins.Hipmob) {
+            var hipmob_app_id = '62f5b89ea9424be79419e8935a4354be';
+            var Hipmob = window.plugins.Hipmob;
+
+            Hipmob.openHelpdeskSearch(hipmob_app_id, {
+                'title': 'Help',
+                'query': 'Android',
+                'user': '<hipmob user id>',
+                'name': 'Femi',
+                'email': 'femi@hipmob.com',
+                'context': 'shopping for shoes',
+                'location': 'At home'
+            });
+        } else {
+            alert('Hipmob plugin not available/ready.');
+        }
     }
     </script>
 </head>
