@@ -22,8 +22,6 @@
   
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
   
-  <plugin name="com.hipmob.ios.phonegap.plugin" spec="1.0.1" source="pgb" />
-  <plugin name="com.hipmob.android.phonegap.plugin" spec="1.0.0" source="pgb" />
   
   <vs:platformSpecificValues />
 
