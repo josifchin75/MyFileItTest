@@ -217,6 +217,7 @@
 
 .verify-icon {
     height: 3em !important;
+    margin-top: 2px;
 }
 .verify-icon-button {
     display: block;

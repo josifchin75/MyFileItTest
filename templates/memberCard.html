@@ -82,18 +82,22 @@
 
                             </span>
                         </div>
-
+                        <div class="verify-icon">
+                            <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
+                                <!--<i class="ion-thumbsup medium-icon"></i>-->
+                                Verify
+                            </button>
+                            <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
+                                <!--<i class="ion-thumbsdown medium-icon"></i>-->
+                                Reject
+                            </button>
+                            <button ng-click="deleteDocument(document.DOCUMENTID)" class="verify-icon" ng-show="document.CanDelete">
+                                <!--<i class="ion-thumbsdown medium-icon"></i>-->
+                                Remove
+                            </button>
+                        </div>
                     </ion-item>
-                    <div ng-show="showVerify(document)" class="verify-icon">
-                        <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon">
-                            <!--<i class="ion-thumbsup medium-icon"></i>-->
-                            Verify
-                        </button>
-                        <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon">
-                            <!--<i class="ion-thumbsdown medium-icon"></i>-->
-                            Reject
-                        </button>
-                    </div>
+                   
                 </ion-list>
 
             </div>

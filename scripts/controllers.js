@@ -1062,6 +1062,34 @@ angular.module('app.controllers', [])
             $scope.confirmMessage(title, message, reject);
         };
 
+        $scope.deleteDocument = function (fileName) {
+            function remove() {
+                var appUserId = $scope.data.familyUser.ID;
+
+                function removeSuccess() {
+                    var docs = $scope.data.documents;
+                    var result = [];
+                    for (var i = 0; i < docs.length; i++) {
+                        if (docs[i].DOCUMENTID != fileName) {
+                            result.push(docs[i]);
+                        }
+                    }
+                    $scope.data.documents = result;
+                }
+
+                function removeFail() {
+
+                }
+
+                FileItService.deleteAppUserDocument(appUserId, fileName, removeSuccess, removeFail);
+            }
+
+            var title = 'Delete?';
+            var message = "Are you sure you want to remove this document?";
+
+            $scope.confirmMessage(title, message, remove);
+        };
+
         $scope.confirmMessage = function (title, message, onOk, onCancel) {
             var confirmPopup = $ionicPopup.confirm({
                 title: title,

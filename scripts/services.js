@@ -640,6 +640,18 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, retainDocuments, fail);
         },
+        //DeleteAppUserDocument(string user, string pass, int appUserId, string documentId)
+        deleteAppUserDocument: function(appUserId,documentId, success, fail){
+            var routeUrl = 'DeleteAppUserDocument';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                documentId: documentId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         //VerifyDocument(string user, string pass, int documentId, int verifyAppUserId)
         verifyDocument: function (documentId, verifyAppUserId, teamEventDocumentId, success, fail) {
             var routeUrl = 'VerifyDocument';
