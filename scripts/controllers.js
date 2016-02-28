@@ -5,8 +5,8 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-        $scope.data.username = 'josifchin75@gmail.com';
-        $scope.data.password = 'jopass12';
+       // $scope.data.username = 'josifchin75@gmail.com';
+        //$scope.data.password = 'jopass12';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';

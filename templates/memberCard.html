@@ -31,7 +31,7 @@
                     </ion-item>
 
                 </div>-->
-               
+
                 <div class="member-thumb add">
                     <a href="#" ng-click="getDocument()">
                         <i class="large-icon ion-android-add-circle"></i>
@@ -79,22 +79,20 @@
                                 </a>
                                 <h2>{{document.DocumentTypeName}}</h2>
                                 <p>{{document.COMMENT}}</p>
-                               
+
                             </span>
                         </div>
-                      
+
                     </ion-item>
                     <div ng-show="showVerify(document)" class="verify-icon">
                         <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon">
-                            <i class="ion-thumbsup medium-icon"></i>
+                            <!--<i class="ion-thumbsup medium-icon"></i>-->
                             Verify
                         </button>
                         <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon">
-                            <i class="ion-thumbsdown medium-icon"></i>
+                            <!--<i class="ion-thumbsdown medium-icon"></i>-->
                             Reject
                         </button>
-                        <!--<button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon"><i class="ion-thumbsup medium-icon"></i></button>
-        <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon"><i class="ion-thumbsdown medium-icon"></i></button>-->
                     </div>
                 </ion-list>
 
