@@ -155,10 +155,6 @@ angular.module('app.controllers', [])
             }).then(refreshDocs);
 
             function onSuccessAlertClosed() {
-                $ionicPopup.alert({
-                    title: 'test',
-                    template: 'abot to go to membercard'
-                });
                 $state.go('memberCard');
             }
 

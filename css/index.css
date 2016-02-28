@@ -216,7 +216,7 @@
 }
 
 .verify-icon {
-    height: 3em;
+    height: 3em !important;
 }
 
 .blue {
