@@ -218,6 +218,9 @@
 .verify-icon {
     height: 3em !important;
 }
+.verify-icon-button {
+    display: block;
+}
 
 .blue {
     color: blue;
