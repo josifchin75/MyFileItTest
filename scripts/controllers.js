@@ -5,8 +5,8 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-        //$scope.data.username = 'josifchin75@gmail.com';
-        //$scope.data.password = 'jopass12';
+        $scope.data.username = 'josifchin75@gmail.com';
+        $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
@@ -152,13 +152,19 @@ angular.module('app.controllers', [])
             var alertPopup = $ionicPopup.alert({
                 title: 'Success',
                 template: 'Your file has been uploaded.'
-            });
+            }).then(refreshDocs);
 
             function onSuccessAlertClosed() {
+                $ionicPopup.alert({
+                    title: 'test',
+                    template: 'abot to go to membercard'
+                });
                 $state.go('memberCard');
             }
 
-            Documents.loadUserDocuments($scope.data.familyUserId, null, onSuccessAlertClosed);
+            function refreshDocs() {
+                Documents.loadUserDocuments($scope.data.familyUserId, null, onSuccessAlertClosed);
+            }
         }
         function getDate() {
             var d = moment.utc();
