@@ -256,6 +256,7 @@
     <Content Include="templates\fileit-login-header.html" />
     <Content Include="templates\forgotPassword.html" />
     <Content Include="templates\forgottenPasswordSent.html" />
+    <Content Include="templates\help-link.html" />
     <Content Include="templates\image-popover.html" />
     <Content Include="templates\inviteAFriend.html" />
     <Content Include="templates\login.html" />

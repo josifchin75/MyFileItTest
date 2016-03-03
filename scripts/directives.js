@@ -21,7 +21,7 @@ angular.module('app.directives', [])
                 templateUrl: 'templates/fileit-login-header.html'
             };
         })
-    .directive('sharekeyUrl', function () {
+    .directive('sharekeyUrl', function (FileItService) {
         return {
             restrict: 'E',
             scope: {
@@ -30,7 +30,27 @@ angular.module('app.directives', [])
             templateUrl: 'templates/sharekey-url.html',
             link: function (scope, element, attrs) {
                 scope.openUrl = function (id) {
-                    window.open('http://my123filit.com/Pages/IFrame.aspx?UId=' + id, '_system', 'location=yes');
+                    if (typeof id == 'undefined') {
+                        id = FileItService.currentUser().ID;
+                    }
+                    var url = 'https://myfileit.net/Processing/?UId=' + id;
+                    window.open(url, '_system', 'location=yes');
+                    //window.open('http://my123filit.com/Pages/IFrame.aspx?UId=' + id, '_system', 'location=yes');
+                    return false;
+                }
+            }
+        };
+    })
+    .directive('helpLink', function () {
+        return {
+            restrict: 'E',
+            scope: {
+            },
+            templateUrl: 'templates/help-link.html',
+            link: function (scope, element, attrs) {
+                scope.openHelpUrl = function (id) {
+                    var url = 'http://myfileithelpcenter.myfileit.com/Help_Center.html';
+                    window.open(url, '_system', 'location=yes');
                     return false;
                 }
             }

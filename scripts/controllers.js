@@ -896,6 +896,7 @@ angular.module('app.controllers', [])
             $scope.data.documents = Documents.getObject();
             $scope.data.familyUser = FamilyUser.getObject();
             $scope.imageSrc = '';
+            $scope.data.currentUser = FileItService.currentUser();
             myScroll = new iScroll('wrapper',
                 { zoom: true, zoomMax: 6 });
         });

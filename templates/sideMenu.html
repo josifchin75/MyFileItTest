@@ -15,15 +15,17 @@
         
         <!--<div class="spacer"></div>-->
         <div class="spacer"></div>
-        <a menu-toggle="left" href="#" onclick="openSupportWindow()" class="button button-light button-block  icon-left ion-android-call">Call Support</a> 
-        <a menu-toggle="left" href="#" ui-sref="login" class="button button-light button-block  icon-left ion-android-exit bottom">Logout</a>
+        <help-link></help-link>
+        <!--<a menu-toggle="left" href="#" onclick="openSupportWindow()" class="button button-light button-block  icon-left ion-android-call">Call Support</a>--> 
+        <a menu-toggle="left" href="#" ui-sref="login" class="button button-light button-block  icon-left ion-log-out bottom">Logout</a>
     </ion-content>
     <ion-content padding="'true'" class="has-header sidebar" onscroll="false" ng-hide="loggedIn()">
         <a menu-toggle="left" href="#" ui-sref="login" class="button button-light button-block  icon-left ion-log-in">Login</a>
         <a menu-toggle="left" href="#" ui-sref="about" class="button button-light button-block  icon-left ion-ios-information-outline">About</a>
         <a menu-toggle="left" href="#" ui-sref="forgotPassword" class="button button-light button-block  icon-left ion-ios-help-outline">Forgot Password</a>
         <a menu-toggle="left" href="#" ui-sref="newAccount" class="button button-light button-block  icon-left ion-android-person-add">Create an Account</a>
-        <a menu-toggle="left" href="#" onclick="openSupportWindow()" class="button button-light button-block  icon-left ion-android-call">Call Support</a> 
+        <help-link></help-link>
+        <!--<a menu-toggle="left" href="#" onclick="openSupportWindow()" class="button button-light button-block  icon-left ion-android-call">Call Support</a>--> 
     </ion-content>
     
 </div>
