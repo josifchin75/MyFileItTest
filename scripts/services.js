@@ -49,7 +49,8 @@ angular.module('app.services', [])
               //{ ID: 2, NAME: "org2", radioName: "org" }
         ],
         relationShipTypes: [],
-        appUserTypes: []
+        appUserTypes: [],
+        verifying: false
     };
 
     return {

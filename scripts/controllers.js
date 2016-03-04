@@ -868,6 +868,7 @@ angular.module('app.controllers', [])
             //alert(obj.ID);
             FamilyUser.setObject(obj);
             function onSuccess() {
+                $scope.data.currentUser.verifying = false;
                 $state.go('memberCard');
             }
             Documents.loadUserDocuments(obj.ID, null, onSuccess);
@@ -906,11 +907,11 @@ angular.module('app.controllers', [])
         };
 
         $scope.showVerify = function (obj) {
-            return obj.VerifiedAppUserId == null && $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.ID;
+            return obj.VerifiedAppUserId == null && $scope.data.currentUser.verifying;//$scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.ID;
         };
 
         $scope.isCoachVerifying = function () {
-            return $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.PRIMARYAPPUSERID;
+            return $scope.data.currentUser.verifying;// $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.PRIMARYAPPUSERID;
         };
 
         $scope.hasShareKey = function (obj) {
@@ -2082,6 +2083,7 @@ angular.module('app.controllers', [])
 
                 FamilyUser.setObject(user);
                 function onSuccess() {
+                    $scope.data.currentUser.verifying = true;
                     $state.go('memberCard');
                 }
                 //need to get appuser
