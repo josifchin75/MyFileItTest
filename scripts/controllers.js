@@ -11,8 +11,8 @@ angular.module('app.controllers', [])
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
 
-        $scope.data.username = 'johndoe@gmail.com';
-        $scope.data.password = 'johndoe12';
+        //$scope.data.username = 'johndoe@gmail.com';
+        //$scope.data.password = 'johndoe12';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
