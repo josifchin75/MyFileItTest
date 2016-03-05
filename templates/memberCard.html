@@ -5,8 +5,11 @@
     <ion-content padding="'true'" class="has-header">
         <form class="list">
             <div class="member-card">
-                <div style="text-align: right;"
-                    <a href="#" class="member-link" ng-click="editMemberProfile()" ng-hide="data.IsCoach">Edit</a>
+                <div ng-hide="isCoachVerifying()">
+                    <div style="text-align: right;"
+                        <button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>
+                    <!--<a href="#" class="member-link" ng-click="editMemberProfile()" ng-hide="data.IsCoach">Edit</a>-->
+                </div>
                 </div>
                 <div class="header">
                     <h3>{{data.familyUser.FIRSTNAME}}&nbsp;{{data.familyUser.LASTNAME}}</h3>
@@ -95,9 +98,10 @@
                                 <!--<i class="ion-thumbsdown medium-icon"></i>-->
                                 Remove
                             </button>
+                            <h3 class="green" ng-hide="document.CanDelete">Associated Document</h3>
                         </div>
                     </ion-item>
-                   
+
                 </ion-list>
 
             </div>
@@ -105,6 +109,6 @@
         <a menu-close=""
            href="#/teamviewplayers"
            ng-show="isCoachVerifying()"
-           class="button button-positive button-block  icon-left">Set Up Team and Players</a>
+           class="button button-energized button-block  icon-left ion-person-stalker">Set Up Team and Players</a>
     </ion-content>
 </ion-view>

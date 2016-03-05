@@ -10,6 +10,9 @@ angular.module('app.controllers', [])
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
+
+        $scope.data.username = 'johndoe@gmail.com';
+        $scope.data.password = 'johndoe12';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -286,6 +289,7 @@ angular.module('app.controllers', [])
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.init();
+        //$scope.searchOrganizations();
     });
 
     // helper method to get selected fruits
@@ -347,8 +351,11 @@ angular.module('app.controllers', [])
         function failSearch(data) {
 
         }
-
-        FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch);
+        if ($scope.data.organizationSearch.length > 0) {
+            FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch);
+        } else {
+            $scope.data.organizations = []
+        }
     };
 
     $scope.searchEvents = function () {
@@ -462,6 +469,20 @@ angular.module('app.controllers', [])
         }
 
         return result;
+    };
+
+    $scope.resendDocuments = function () {
+        function resendSuccess() {
+            $scope.showError("Success", "Your documents have been resent.");
+            $state.go('memberCard');
+        }
+
+        function resendFail() { }
+
+        var appUserId = $scope.data.familyUserId;
+        var teamEventId = $scope.data.eventId;
+
+        FileItService.resendAssociatedDocuments(appUserId, teamEventId, resendSuccess, resendFail);
     };
 
     $scope.getSelectedImageBase64 = function (selectedImageId) {

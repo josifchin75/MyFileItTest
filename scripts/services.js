@@ -793,6 +793,18 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
+        //ResendAssociatedDocuments(string user, string pass, int appUserId, int teamEventId)
+        resendAssociatedDocuments: function (appUserId, teamEventId, success, fail) {
+            var routeUrl = 'ResendAssociatedDocuments';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                teamEventId: teamEventId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
         //RejectTeamEventDocumentShare(string user, string pass, int shareId)
         rejectTeamEventDocumentShare: function (appUserId, teamEventDocumentId, success, fail) {
             var routeUrl = 'RejectTeamEventDocumentShare';

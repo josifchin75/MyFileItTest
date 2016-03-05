@@ -24,6 +24,7 @@
             </ion-item>
         </form>
         <h3 ng-show="allDocumentsAreAssociated()">All documents are associated.</h3>
+        <a menu-close="" ng-show="allDocumentsAreAssociated()" href="#" ng-click="resendDocuments()" class="button button-balanced button-block">Resend My Document(s)</a>
         <div class="button-bar">
             <a menu-close="" href="#/shareeventselect" class="button button-positive button-block">Back</a>
             <a menu-close="" ng-hide="allDocumentsAreAssociated()" href="#" class="button button-positive button-block" ng-click="goToConfirm()">Next</a>
