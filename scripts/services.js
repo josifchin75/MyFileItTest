@@ -673,6 +673,7 @@ angular.module('app.services', [])
                     //also add the existing ones to the response
                     //data.Documents
                     //var downloadedDocs = LocalDocuments.getLocalDocuments();
+                    loadingService.show();
                     function processRetained(downloadedDocs) {
                         for (var i = 0; i < data.Documents.length; i++) {
                             downloadedDocs.push(data.Documents[i]);
@@ -689,6 +690,7 @@ angular.module('app.services', [])
 
                             success(response);
                         }
+                        loadingService.hide();
                     }
 
                     LocalDocuments.getLocalDocuments(appUserId, processRetained);
