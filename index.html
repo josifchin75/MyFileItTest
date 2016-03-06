@@ -117,6 +117,7 @@
     <script src="scripts/services.js"></script>
     <script src="scripts/directives.js"></script>
     <script src="scripts/fileHelper.js"></script>
+    <script src="scripts/dbHelper.js"></script>
 
     <script type="text/javascript">
         app.initialize();
@@ -126,6 +127,8 @@
         window.onerror = function (err) { 
             alert(err);
         };
+
+        dbHelper.init();
     </script>
 </body>
 </html>

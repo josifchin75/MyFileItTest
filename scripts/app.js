@@ -15,7 +15,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             $('.splash').slideUp('slow');
         }, 2000);
 
-        if (window.cordova && window.cordova.plugins.Keyboard) {
+        if (window.cordova && typeof window.cordova.plugins != 'undefined' &&  window.cordova.plugins.Keyboard) {
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
         }
         if (window.StatusBar) {

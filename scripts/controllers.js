@@ -5,8 +5,8 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-       $scope.data.username = 'josifchin75@gmail.com';
-        $scope.data.password = 'jopass12';
+       //$scope.data.username = 'josifchin75@gmail.com';
+        //$scope.data.password = 'jopass12';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
@@ -906,7 +906,7 @@ angular.module('app.controllers', [])
         $scope.init();
     })
 
-    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys) {
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys, LocalDocuments) {
         $scope.init = function () {
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
@@ -1105,6 +1105,7 @@ angular.module('app.controllers', [])
                         }
                     }
                     $scope.data.documents = result;
+                    LocalDocuments.setLocalDocuments(appUserId, result, function () { });
                 }
 
                 function removeFail() {
