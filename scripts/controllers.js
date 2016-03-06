@@ -5,8 +5,8 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-       // $scope.data.username = 'josifchin75@gmail.com';
-        //$scope.data.password = 'jopass12';
+       $scope.data.username = 'josifchin75@gmail.com';
+        $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
@@ -289,7 +289,8 @@ angular.module('app.controllers', [])
 
     $scope.$on('$ionicView.beforeEnter', function () {
         $scope.init();
-        //$scope.searchOrganizations();
+        //ViewDocument.clearEvents();
+        $scope.searchOrganizations();
     });
 
     // helper method to get selected fruits
@@ -318,9 +319,11 @@ angular.module('app.controllers', [])
 
     // watch docs for changes
     $scope.$watch('searchImages|filter:{selected:true}', function (nv) {
-        $scope.selection = nv.map(function (img) {
-            return img.ID;
-        });
+        if (typeof nv != 'undefined') {
+            $scope.selection = nv.map(function (img) {
+                return img.ID;
+            });
+        }
     }, true);
     /*****************************/
 
@@ -351,10 +354,14 @@ angular.module('app.controllers', [])
         function failSearch(data) {
 
         }
+        if (typeof $scope.data.organizationSearch == 'undefined' || $scope.data.organizationSearch == null) {
+            $scope.data.organizationSearch = '';
+        }
         if ($scope.data.organizationSearch.length > 0) {
             FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch);
         } else {
-            $scope.data.organizations = []
+            $scope.data.organizations = [];
+            ViewDocument.clearEvents();
         }
     };
 
@@ -723,7 +730,7 @@ angular.module('app.controllers', [])
             organizationId: $scope.data.organizationId,
             fileCabinetDocumentId: obj.associatedId,
             teamEventDocumentId: obj.ID,
-            comment: $scope.data.comment + '',
+            comment: (typeof $scope.data.comment != 'undefined') ? $scope.data.comment + '' : '',
             emergency: false,
             remove: false
         };
@@ -874,7 +881,7 @@ angular.module('app.controllers', [])
         });
 
         $scope.reloadRoute = function () {
-            $route.reload();
+            //$route.reload();
         };
 
         $scope.loadFamilyUsers = function () {
@@ -1208,9 +1215,11 @@ angular.module('app.controllers', [])
 
         // watch docs for changes
         $scope.$watch('searchImages|filter:{selected:true}', function (nv) {
-            $scope.selection = nv.map(function (img) {
-                return img.ID;
-            });
+            if (typeof nv != 'undefined') {
+                $scope.selection = nv.map(function (img) {
+                    return img.ID;
+                });
+            }
         }, true);
         /************************************************/
 
@@ -2229,7 +2238,8 @@ angular.module('app.controllers', [])
 .controller('sideMenuCtrl', function ($scope, $rootScope, FileItService) {
     $scope = $rootScope;
     $scope.init = function () {
-        $scope.UserId = FileItService.currentUser().ID;
+        var user = FileItService.currentUser();
+        $scope.UserId = (typeof user != 'undefined' && user != null) ?  user.ID: null;
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {

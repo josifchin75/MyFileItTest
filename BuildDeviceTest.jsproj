@@ -241,6 +241,7 @@
     <Content Include="res\screens\wp8\SplashScreenImage.jpg" />
     <Content Include="scripts\app.js" />
     <Content Include="scripts\controllers.js" />
+    <Content Include="scripts\fileHelper.js" />
     <Content Include="scripts\routes.js" />
     <Content Include="scripts\services.js" />
     <Content Include="splash.png" />

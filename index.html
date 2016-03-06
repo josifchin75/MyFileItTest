@@ -49,7 +49,7 @@
     document.addEventListener('DOMContentLoaded', loadScroll, false);
 
     function initConcierge() {
-        concierge.setApplicationKey('MTQyOTs1Nzg=-1d2nf8bvvrlxqnvd0g5vfq2jkcrkk1hsjkr571bfg7hpqmhhk0wxm5i8wi4y8j1o');
+        //concierge.setApplicationKey('MTQyOTs1Nzg=-1d2nf8bvvrlxqnvd0g5vfq2jkcrkk1hsjkr571bfg7hpqmhhk0wxm5i8wi4y8j1o');
     }
 
     function openSupportWindow() {
@@ -116,11 +116,16 @@
     <script src="scripts/routes.js"></script>
     <script src="scripts/services.js"></script>
     <script src="scripts/directives.js"></script>
+    <script src="scripts/fileHelper.js"></script>
 
     <script type="text/javascript">
         app.initialize();
         loadScroll();
         initConcierge();
+
+        window.onerror = function (err) { 
+            alert(err);
+        };
     </script>
 </body>
 </html>

@@ -138,29 +138,56 @@ angular.module('app.services', [])
 
     .service('LocalDocuments', function () {
        // var localDocuments = window.localStorage.getItem('localDocuments');
+        documentFileName = 'MyFileItDocuments.txt';
 
         return {
-            getLocalDocuments: function () {
-                var result = window.localStorage.getItem('localDocuments');
-                if (typeof result != 'undefined' && result != null && result != '') {
-                    result = eval('(' + result + ')');
-                } else {
-                    result = [];
+            getLocalDocuments: function (appUserId, callback) {
+                
+                function fileIsRead(result) {
+                    //var result = null;
+                    alert(result);
+                    if (typeof result != 'undefined' && result != null && result != '') {
+                        result = eval('(' + result + ')');
+                    } else {
+                        result = [];
+                    }
+                    callback(result);
                 }
-                return result;
+
+                fileHelper.readFile(appUserId + "_" + documentFileName, fileIsRead);
+
+                //var result = window.localStorage.getItem('localDocuments');
+                //if (typeof result != 'undefined' && result != null && result != '') {
+                //    result = eval('(' + result + ')');
+                //} else {
+                //    result = [];
+                //}
+                //return result;
             },
-            setLocalDocuments: function (obj) {
-                window.localStorage.setItem('localDocuments', JSON.stringify(obj));
-            },
-            getLocalDocumentsIdList: function () {
-                var docs = this.getLocalDocuments();
-                var result = [];
-                if (docs.length > 0) {
-                    for (var i = 0; i < docs.length; i++) {
-                        results.push(docs[i].ID);
+            setLocalDocuments: function (appUserId, obj, callback) {
+                var fileName = appUserId + "_" + documentFileName;
+
+                function fileWritten() {
+                    if (typeof callback == 'function') {
+                        callback();
                     }
                 }
-                return result;
+
+                fileHelper.writeFile(fileName, JSON.stringify(obj), true, fileWritten);
+                //window.localStorage.setItem('localDocuments', JSON.stringify(obj));
+            },
+            getLocalDocumentsIdList: function (appUserId, callback) {
+                function gotDocs(docs) {
+                    var result = [];
+                    if (docs.length > 0) {
+                        for (var i = 0; i < docs.length; i++) {
+                            results.push(docs[i].ID);
+                        }
+                    }
+                    callback(result);
+                }
+
+               this.getLocalDocuments(appUserId, gotDocs);
             }
         };
     })
@@ -323,6 +350,9 @@ angular.module('app.services', [])
                 }
             }
             documentDTO.searchImages = foundImages;//$scope.data.images;
+        },
+        clearEvents: function () {
+            documentDTO.events = [];
         },
         searchEvents: function (appUserId, organizationId, eventSearch, onSuccess) {
             function successSearch(data) {
@@ -612,34 +642,44 @@ angular.module('app.services', [])
 
         getAppUserDocuments: function (appUserId, teamEventId, success, fail) {
             var routeUrl = 'GetAppUserDocuments';
-            var data = {
-                user: this.adminUser(),
-                pass: this.adminPass(),
-                appUserId: appUserId,
-                teamEventId: teamEventId,
-                downloadedDocumentIds: LocalDocuments.getLocalDocumentsIdList()
-            };
+            var serviceUser = this.adminUser();
+            var servicePass = this.adminPass();
+            var svc = this;
+            function mainAppGet(downloadedDocumentIds) {
+                var data = {
+                    user: serviceUser,
+                    pass: servicePass,
+                    appUserId: appUserId,
+                    teamEventId: teamEventId,
+                    downloadedDocumentIds: downloadedDocumentIds
+                };
 
-            function retainDocuments(data) {
-                //keep any documents not found already 
-                //also add the existing ones to the response
-                //data.Documents
-                var downloadedDocs = LocalDocuments.getLocalDocuments();
-                for (var i = 0; i < data.Documents.length; i++) {
-                    downloadedDocs.push(data.Documents[i]);
-                }
-                //LocalDocuments.setLocalDocuments(downloadedDocs);
+                function retainDocuments(data) {
+                    //keep any documents not found already 
+                    //also add the existing ones to the response
+                    //data.Documents
+                    //var downloadedDocs = LocalDocuments.getLocalDocuments();
+                    function processRetained(downloadedDocs) {
+                        for (var i = 0; i < data.Documents.length; i++) {
+                            downloadedDocs.push(data.Documents[i]);
+                        }
+                        //LocalDocuments.setLocalDocuments(downloadedDocs);
 
-                if (typeof success == 'function') {
-                    var response = {
-                        Documents: downloadedDocs
-                    };
-                   
-                    success(response);
+                        if (typeof success == 'function') {
+                            var response = {
+                                Documents: downloadedDocs
+                            };
+
+                            success(response);
+                        }
+                    }
+                    LocalDocuments.getLocalDocuments(appUserId, processRetained);
                 }
+
+                return svc.basePost(routeUrl, data, retainDocuments, fail);
             }
 
-            return this.basePost(routeUrl, data, retainDocuments, fail);
+            LocalDocuments.getLocalDocumentsIdList(appUserId, mainAppGet);
         },
         //DeleteAppUserDocument(string user, string pass, int appUserId, string documentId)
         deleteAppUserDocument: function(appUserId,documentId, success, fail){
