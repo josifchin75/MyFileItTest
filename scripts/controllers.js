@@ -5,14 +5,14 @@ angular.module('app.controllers', [])
         $scope.data = {};
 
         //debug
-       //$scope.data.username = 'josifchin75@gmail.com';
+        //$scope.data.username = 'josifchin75@gmail.com';
         //$scope.data.password = 'jopass12';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
 
-        //$scope.data.username = 'johndoe@gmail.com';
-        //$scope.data.password = 'johndoe12';
+        $scope.data.username = 'johndoe@gmail.com';
+        $scope.data.password = 'johndoe12';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -676,7 +676,7 @@ angular.module('app.controllers', [])
                     if (res) {
                         goToConfirm();
                     } else {
-                       // goToMemberCard();
+                        // goToMemberCard();
                     }
                 });
             } else {
@@ -1175,7 +1175,7 @@ angular.module('app.controllers', [])
 
                 var message = 'The key you selected has been activated. You may now share documents!';
                 var alertPopup = $ionicPopup.alert({
-                    title: 'Key has been used.',
+                    title: 'Key has been used successfully.',
                     template: message
                 });
                 alertPopup.then(function () {
@@ -1639,7 +1639,7 @@ angular.module('app.controllers', [])
                 var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
 
                 FamilyUsers.loadFamilyUsers(primaryAppUserId, successAdd);
-               // successAdd();
+                // successAdd();
 
                 //this is removed for now Dec29-2015
                 ////todo: this may be important!!! it needs to be fixed.
@@ -2240,7 +2240,7 @@ angular.module('app.controllers', [])
     $scope = $rootScope;
     $scope.init = function () {
         var user = FileItService.currentUser();
-        $scope.UserId = (typeof user != 'undefined' && user != null) ?  user.ID: null;
+        $scope.UserId = (typeof user != 'undefined' && user != null) ? user.ID : null;
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
