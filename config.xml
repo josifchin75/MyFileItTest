@@ -44,7 +44,7 @@
     <icon src="icon.png" />
   </platform>
   <platform name="ios">
-   <icon src="resources/images/icons/ios/MyFileIt_icon72_72.png.png" vs:platform="ios" width="72"  height="72"  /> 
+	<icon src="resources/images/icons/ios/MyFileIt_icon72_72.png.png" width="72"  height="72"  /> 
     <icon src="icon.png" />
   </platform>
   <platform name="winphone">
