@@ -44,7 +44,12 @@
     <icon src="icon.png" />
   </platform>
   <platform name="ios">
-    <icon src="icon.png" />
+    <icon src="resources/images/icons/ios/MyFileIt_icon72_72.png.png" width="72"  height="72"  />
+    <!--
+	<icon src="resources/images/icons/ios/icon-57.png" width="57"  height="57"  />
+	<icon src="resources/images/icons/ios/icon-57@2x.png" width="114" height="114" />
+    <icon src="resources/images/icons/ios/icon-72@2x.png" width="144" height="144" />-->
+	<icon src="icon.png" />
   </platform>
   <platform name="winphone">
     <icon src="icon.png" />
