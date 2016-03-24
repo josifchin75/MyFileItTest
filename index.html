@@ -157,8 +157,9 @@
                 restore: IAP.onRestore,
                 error: IAP.onError
             });
-
+            alert('before onready');
             IAP.onReady = function () {
+                alert('in onReady');
                 storekit.load(IAP.list, function (products, invalidIds) {
                     alert('ready');
                     alert(products);
@@ -178,6 +179,7 @@
             };
 
             IAP.onRestore = function (transactionId, productId, transactionReceipt) {
+                alert('onRestore');
                 if (productId == shareKeySKU) {
                     //Code to remove ads for the user
                     loadShareKey(transactionId, productId, receipt);
