@@ -188,6 +188,7 @@
             };
 
             IAP.buy = function (productId) {
+                alert('in buy method' + productId)
                 storekit.purchase(productId);
             };
 
