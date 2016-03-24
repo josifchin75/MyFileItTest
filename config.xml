@@ -2,7 +2,7 @@
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0"
         xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps"
         id="com.myfileit.app"
-        version="1.0.0"
+        version="1.0.1"
         xmlns="http://www.w3.org/ns/widgets">
   <name>MyFileIT Documents</name>
   <description>MyFileIT document sharing and storage.</description>
