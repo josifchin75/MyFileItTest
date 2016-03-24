@@ -33,6 +33,10 @@ angular.module('app.directives', [])
                     if (typeof id == 'undefined') {
                         id = FileItService.currentUser().ID;
                     }
+                    alert('attempt to buy');
+                    IAP.buy(shareKeySKU);
+                    return;
+                    
                     var url = 'https://myfileit.net/Processing/?UId=' + id;
                     window.open(url, '_system', 'location=yes');
                     //window.open('http://my123filit.com/Pages/IFrame.aspx?UId=' + id, '_system', 'location=yes');

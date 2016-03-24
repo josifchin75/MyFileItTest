@@ -48,9 +48,9 @@
 
     document.addEventListener('DOMContentLoaded', loadScroll, false);
 
-    function initConcierge() {
+    //function initConcierge() {
         //concierge.setApplicationKey('MTQyOTs1Nzg=-1d2nf8bvvrlxqnvd0g5vfq2jkcrkk1hsjkr571bfg7hpqmhhk0wxm5i8wi4y8j1o');
-    }
+   // }
 
     function openSupportWindow() {
         if (window.plugins && window.plugins.Hipmob) {
@@ -70,6 +70,10 @@
             alert('Hipmob plugin not available/ready.');
         }
     }
+
+   // function initInAppPurchases() {
+            
+    //}
     </script>
 </head>
 <body>
@@ -122,13 +126,84 @@
     <script type="text/javascript">
         app.initialize();
         loadScroll();
-        initConcierge();
+        //initConcierge();
+        //initInAppPurchases();
 
         window.onerror = function (err) { 
             alert(err);
         };
 
         dbHelper.init();
+
+        shareKeySKU = 'Myfileitsharekeyannual';
+        
+        IAP = {
+            list: [shareKeySKU]
+        };
+
+        IAP.load = function () {
+            alert('loading inapp module');
+            // Check availability of the storekit plugin
+            if (!window.storekit) {
+                alert("In-App Purchases not available");
+                return;
+            }
+
+            // Initialize
+            storekit.init({
+                debug: true, // Enable IAP messages on the console
+                ready: IAP.onReady,
+                purchase: IAP.onPurchase,
+                restore: IAP.onRestore,
+                error: IAP.onError
+            });
+
+            IAP.onReady = function () {
+                storekit.load(IAP.list, function (products, invalidIds) {
+                    IAP.products = products;
+                    IAP.loaded = true;
+                    for (var i = 0; i < invalidIds.length; ++i) {
+                        alert("Error: could not load " + invalidIds[i]);
+                    }
+                });
+            };
+
+            IAP.onPurchase = function (transactionId, productId, receipt) {
+                if (productId === shareKeySKU) {
+                    loadShareKey(transactionId, productId, receipt);
+                }
+            };
+
+            IAP.onRestore = function (transactionId, productId, transactionReceipt) {
+                if (productId == shareKeySKU) {
+                    //Code to remove ads for the user
+                    loadShareKey(transactionId, productId, receipt);
+                }
+            };
+
+            IAP.onError = function (errorCode, errorMessage) {
+                console.log(errorCode);
+                console.log(errorMessage);
+                window.onerror(errorCode + errorMessage);
+            };
+
+            IAP.buy = function (productId) {
+                storekit.purchase(productId);
+            };
+
+            IAP.restore = function () {
+                storekit.restore();
+            };
+
+            function loadShareKey(transactionId, productId, receipt) {
+                alert(transactionId);
+                alert(productId);
+                alert(receipt);
+            }
+
+        };
+
+
     </script>
 </body>
 </html>

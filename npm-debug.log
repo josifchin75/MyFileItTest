@@ -1,0 +1,73 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Program Files (x86)\\nodejs\\\\node.exe',
+1 verbose cli   'C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install',
+1 verbose cli   'cc.fovea.plugins.inapppurchase' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink C:\Program Files (x86)\nodejs\\node.exe
+5 verbose cache add [ 'cc.fovea.plugins.inapppurchase', null ]
+6 verbose cache add name=undefined spec="cc.fovea.plugins.inapppurchase" args=["cc.fovea.plugins.inapppurchase",null]
+7 verbose parsed url { protocol: null,
+7 verbose parsed url   slashes: null,
+7 verbose parsed url   auth: null,
+7 verbose parsed url   host: null,
+7 verbose parsed url   port: null,
+7 verbose parsed url   hostname: null,
+7 verbose parsed url   hash: null,
+7 verbose parsed url   search: null,
+7 verbose parsed url   query: null,
+7 verbose parsed url   pathname: 'cc.fovea.plugins.inapppurchase',
+7 verbose parsed url   path: 'cc.fovea.plugins.inapppurchase',
+7 verbose parsed url   href: 'cc.fovea.plugins.inapppurchase' }
+8 silly lockFile 68c5e3ab-cc-fovea-plugins-inapppurchase cc.fovea.plugins.inapppurchase
+9 verbose lock cc.fovea.plugins.inapppurchase C:\Users\josif_000\AppData\Roaming\npm-cache\68c5e3ab-cc-fovea-plugins-inapppurchase.lock
+10 silly lockFile 68c5e3ab-cc-fovea-plugins-inapppurchase cc.fovea.plugins.inapppurchase
+11 silly lockFile 68c5e3ab-cc-fovea-plugins-inapppurchase cc.fovea.plugins.inapppurchase
+12 verbose addNamed [ 'cc.fovea.plugins.inapppurchase', '' ]
+13 verbose addNamed [ null, '*' ]
+14 silly lockFile 3b9659bc-cc-fovea-plugins-inapppurchase cc.fovea.plugins.inapppurchase@
+15 verbose lock cc.fovea.plugins.inapppurchase@ C:\Users\josif_000\AppData\Roaming\npm-cache\3b9659bc-cc-fovea-plugins-inapppurchase.lock
+16 silly addNameRange { name: 'cc.fovea.plugins.inapppurchase',
+16 silly addNameRange   range: '*',
+16 silly addNameRange   hasData: false }
+17 verbose request where is /cc.fovea.plugins.inapppurchase
+18 verbose request registry https://registry.npmjs.org/
+19 verbose request id 3f818be26a16183d
+20 verbose url raw /cc.fovea.plugins.inapppurchase
+21 verbose url resolving [ 'https://registry.npmjs.org/',
+21 verbose url resolving   './cc.fovea.plugins.inapppurchase' ]
+22 verbose url resolved https://registry.npmjs.org/cc.fovea.plugins.inapppurchase
+23 verbose request where is https://registry.npmjs.org/cc.fovea.plugins.inapppurchase
+24 info trying registry request attempt 1 at 20:36:04
+25 http GET https://registry.npmjs.org/cc.fovea.plugins.inapppurchase
+26 http 404 https://registry.npmjs.org/cc.fovea.plugins.inapppurchase
+27 silly registry.get cb [ 404,
+27 silly registry.get   { 'content-type': 'application/json',
+27 silly registry.get     'cache-control': 'max-age=0',
+27 silly registry.get     'content-length': '2',
+27 silly registry.get     'accept-ranges': 'bytes',
+27 silly registry.get     date: 'Thu, 24 Mar 2016 00:36:04 GMT',
+27 silly registry.get     via: '1.1 varnish',
+27 silly registry.get     age: '0',
+27 silly registry.get     connection: 'keep-alive',
+27 silly registry.get     'x-served-by': 'cache-atl6229-ATL',
+27 silly registry.get     'x-cache': 'MISS',
+27 silly registry.get     'x-cache-hits': '0',
+27 silly registry.get     'x-timer': 'S1458779764.066529,VS0,VE358' } ]
+28 silly lockFile 3b9659bc-cc-fovea-plugins-inapppurchase cc.fovea.plugins.inapppurchase@
+29 silly lockFile 3b9659bc-cc-fovea-plugins-inapppurchase cc.fovea.plugins.inapppurchase@
+30 error 404 Not Found
+30 error 404
+30 error 404 'cc.fovea.plugins.inapppurchase' is not in the npm registry.
+30 error 404 You should bug the author to publish it
+30 error 404
+30 error 404 Note that you can also install from a
+30 error 404 tarball, folder, or http url, or git url.
+31 error System Windows_NT 6.2.9200
+32 error command "C:\\Program Files (x86)\\nodejs\\\\node.exe" "C:\\Program Files (x86)\\nodejs\\node_modules\\npm\\bin\\npm-cli.js" "install" "cc.fovea.plugins.inapppurchase"
+33 error cwd C:\Development\PhoneGap\BuildDeviceTest\BuildDeviceTest
+34 error node -v v0.10.33
+35 error npm -v 1.4.28
+36 error code E404
+37 verbose exit [ 1, true ]
