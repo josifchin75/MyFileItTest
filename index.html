@@ -160,6 +160,8 @@
 
             IAP.onReady = function () {
                 storekit.load(IAP.list, function (products, invalidIds) {
+                    alert('ready');
+                    alert(products);
                     IAP.products = products;
                     IAP.loaded = true;
                     for (var i = 0; i < invalidIds.length; ++i) {
@@ -169,6 +171,7 @@
             };
 
             IAP.onPurchase = function (transactionId, productId, receipt) {
+                alert('onpurchase');
                 if (productId === shareKeySKU) {
                     loadShareKey(transactionId, productId, receipt);
                 }
@@ -182,8 +185,8 @@
             };
 
             IAP.onError = function (errorCode, errorMessage) {
-                console.log(errorCode);
-                console.log(errorMessage);
+                alert(errorCode);
+                alert(errorMessage);
                 window.onerror(errorCode + errorMessage);
             };
 
@@ -196,15 +199,15 @@
                 storekit.restore();
             };
 
-            function loadShareKey(transactionId, productId, receipt) {
-                alert(transactionId);
-                alert(productId);
-                alert(receipt);
-            }
+           
 
         };
 
-
+        function loadShareKey(transactionId, productId, receipt) {
+            alert(transactionId);
+            alert(productId);
+            alert(receipt);
+        }
     </script>
 </body>
 </html>

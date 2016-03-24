@@ -33,9 +33,9 @@ angular.module('app.directives', [])
                     if (typeof id == 'undefined') {
                         id = FileItService.currentUser().ID;
                     }
-                    alert(shareKeySKU);
-                    alert(JSON.stringify(IAP));
-                    alert(IAP.buy);
+                    //alert(shareKeySKU);
+                    //alert(JSON.stringify(IAP));
+                    //alert(IAP.buy);
                     IAP.buy(shareKeySKU);
                     return;
                     
