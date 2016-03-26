@@ -141,8 +141,9 @@
             list: [shareKeySKU]
         };
 
+        alert(device.platform);
         IAP.load = function () {
-            alert('loading inapp module');
+            //alert('loading inapp module');
             // Check availability of the storekit plugin
             if (!window.storekit) {
                 alert("In-App Purchases not available");
@@ -157,9 +158,8 @@
                 restore: IAP.onRestore,
                 error: IAP.onError
             });
-            alert('before onready');
+            //alert('before onready');
             IAP.onReady = function () {
-                alert('in onReady');
                 storekit.load(IAP.list, function (products, invalidIds) {
                     alert('ready');
                     alert(products);

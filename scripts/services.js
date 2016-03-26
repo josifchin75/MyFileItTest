@@ -162,7 +162,7 @@ angular.module('app.services', [])
                     }
                     callback(result);
                 }
-                
+
                 var sql = 'Select Documents from MyFileItDocument where AppUserId = ?';
                 var pars = [appUserId];
                 dbHelper.executeSql(sql, pars, dataIsRead);
@@ -897,6 +897,23 @@ angular.module('app.services', [])
                 pass: this.adminPass(),
                 appUserId: appUserId,
                 shareKeyId: shareKeyId
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        //MyFileItResult AddShareKey(string user, string pass, int primaryAppUserId, DateTime purchaseDate, string promoCode, string last4Digits, decimal amount, int salesRepId, int numKeys)
+        addShareKey: function (primaryAppUserId, purchaseDate, promoCode, last4Digits, amount, salesRepId, numKeys) {
+            var routeUrl = 'AddShareKey';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                primaryAppUserId: appUserId,
+                purchaseDate: purchaseDate,
+                promoCode: promoCode,
+                last4Digits: last4Digits,
+                amount: amount,
+                salesRepId: salesRepId,
+                numKeys: numKeys
             };
 
             return this.basePost(routeUrl, data, success, fail);

@@ -33,9 +33,17 @@ angular.module('app.directives', [])
                     if (typeof id == 'undefined') {
                         id = FileItService.currentUser().ID;
                     }
+                    var promoCode = '';
+                    var last4Digits = '';
+                    var amount = 5.99;
+                    var salesRepId = null;
+                    var numKeys = 1;
                     //alert(shareKeySKU);
                     //alert(JSON.stringify(IAP));
                     //alert(IAP.buy);
+                    function shareKeySuccess() {
+                        FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys);
+                    };
                     IAP.buy(shareKeySKU);
                     return;
                     
