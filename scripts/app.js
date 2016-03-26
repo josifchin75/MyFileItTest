@@ -22,6 +22,8 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             // org.apache.cordova.statusbar required
             StatusBar.styleDefault();
         }
+
+        alert(app.platform());
         if (typeof IAP.load == 'function') {
             IAP.load();
         }
@@ -57,9 +59,16 @@ var app = {
         // alert('load');
         //$('.splash').slideUp('slow');
         console.log('Received Event: ' + id);
+    },
+    platform: function () {
+        return getPlatform();
     }
 };
 
+function getPlatform() {
+    var deviceType = (navigator.userAgent.match(/iPad/i)) == "iPad" ? "iOS" : (navigator.userAgent.match(/iPhone/i)) == "iPhone" ? "iOS" : (navigator.userAgent.match(/Android/i)) == "Android" ? "Android" : (navigator.userAgent.match(/BlackBerry/i)) == "BlackBerry" ? "BlackBerry" : "web";
+    return deviceType;
+}
 
 
 //window.onerror = function (message, url, line, col, error) {
