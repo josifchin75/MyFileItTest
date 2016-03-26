@@ -41,15 +41,16 @@ angular.module('app.directives', [])
                     //alert(shareKeySKU);
                     //alert(JSON.stringify(IAP));
                     //alert(IAP.buy);
-                    function shareKeySuccess() {
-                        FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys);
-                    };
-                    IAP.buy(shareKeySKU);
-                    return;
-                    
-                    var url = 'https://myfileit.net/Processing/?UId=' + id;
-                    window.open(url, '_system', 'location=yes');
-                    //window.open('http://my123filit.com/Pages/IFrame.aspx?UId=' + id, '_system', 'location=yes');
+                    if (app.platform() == 'iOS') {
+                        function shareKeySuccess() {
+                            FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys);
+                        };
+                        IAP.buy(shareKeySKU);
+                    } else {
+                        var url = 'https://myfileit.net/Processing/?UId=' + id;
+                        window.open(url, '_system', 'location=yes');
+                        //window.open('http://my123filit.com/Pages/IFrame.aspx?UId=' + id, '_system', 'location=yes');
+                    }
                     return false;
                 }
             }
