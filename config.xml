@@ -2,7 +2,7 @@
 <widget xmlns:cdv="http://cordova.apache.org/ns/1.0"
         xmlns:vs="http://schemas.microsoft.com/appx/2014/htmlapps"
         id="com.myfileit.app"
-        version="1.0.1"
+        version="1.0.2"
         xmlns="http://www.w3.org/ns/widgets">
   <name>MyFileIT Documents</name>
   <description>MyFileIT document sharing and storage.</description>
@@ -20,7 +20,7 @@
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
-  
+
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
   <plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" />
   
@@ -36,7 +36,7 @@
 
   <!--<splash src="splash.png" />-->
   <vs:splash src="splash.png" />
-  
+
   <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
 
 
@@ -44,9 +44,9 @@
     <icon src="icon.png" />
   </platform>
   <platform name="ios">
-   <icon src="resources/images/icons/ios/MyFileIt_icon72_72.png" width="72"  height="72"  />
+    <icon src="resources/images/icons/ios/MyFileIt_icon72_72.png.png" width="72"  height="72"  />
     <icon src="resources/images/icons/ios/MyFileIT_icon57_57.png"  width="57" height="57"/>
-    <icon src="resources/images/icons/ios/MyFileIt_icon72_72.png" width="76"  height="76"  />
+    <icon src="resources/images/icons/ios/MyFileIt_icon72_72.png.png" width="76"  height="76"  />
     <icon src="resources/images/icons/ios/MyFileIT_icon120_120.png"  width="120" height="120"/>
     <icon src="resources/images/icons/ios/MyFileIT_icon120_120.png"  width="152" height="152"/>
     <icon src="icon.png" />

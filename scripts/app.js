@@ -23,7 +23,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
             StatusBar.styleDefault();
         }
 
-        alert(app.platform());
+        //alert(app.platform());
         if (typeof IAP.load == 'function') {
             IAP.load();
         }

@@ -42,9 +42,10 @@ angular.module('app.directives', [])
                     //alert(JSON.stringify(IAP));
                     //alert(IAP.buy);
                     if (app.platform() == 'iOS') {
-                        function shareKeySuccess() {
+                        function shareKeySuccess(productId) {
                             FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys);
                         };
+                        IAP.purchaseCallback = shareKeySuccess; //send a callback to be removed after purchase
                         IAP.buy(shareKeySKU);
                     } else {
                         var url = 'https://myfileit.net/Processing/?UId=' + id;
