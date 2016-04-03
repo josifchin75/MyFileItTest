@@ -24,7 +24,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
         }
 
         //alert(app.platform());
-        if (typeof IAP.load == 'function') {
+        if (typeof IAP != 'undefined' && typeof IAP.load == 'function') {
             IAP.load();
         }
 
