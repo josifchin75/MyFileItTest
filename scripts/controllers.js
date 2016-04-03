@@ -1237,7 +1237,7 @@ angular.module('app.controllers', [])
     $scope.init();
 })
 
-.controller('forgotPasswordCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper) {
+.controller('forgotPasswordCtrl', function ($scope, FileItService, $ionicPopup, $state, EmailHelper, StateHelper) {
     $scope.data = {
         emailAddress: ''
     };
@@ -1265,6 +1265,7 @@ angular.module('app.controllers', [])
                 template: 'Please enter an email address.'
             });
         }
+        StateHelper.refresh($state);
     };
 })
 

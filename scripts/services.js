@@ -27,6 +27,14 @@ angular.module('app.services', [])
 
 }])
 
+    .service('StateHelper', [function () {
+        return {
+            refresh: function (state) {
+                state.go(state.current.name);
+            }
+        };
+    }])
+
 
 
 .service('AppUser', ['$window', 'FileItService', function ($window, FileItService) {
