@@ -41,10 +41,20 @@ angular.module('app.directives', [])
                     //alert(shareKeySKU);
                     //alert(JSON.stringify(IAP));
                     //alert(IAP.buy);
+
+                    function addShareSuccess() {
+                        alert('added share key');
+                    }
+
+                    function addShareFail(message) {
+                        alert('failed to add sahre key');
+                        alert(message);
+                    }
+
                     if (app.platform() == 'iOS') {
                         function shareKeySuccess(productId) {
-                           // alert('add share key');
-                            FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys);
+                            alert('add share key');
+                            FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys, addShareSuccess, addShareFail);
                         };
                         IAP.purchaseCallback = shareKeySuccess; //send a callback to be removed after purchase
                         IAP.buy(shareKeySKU);

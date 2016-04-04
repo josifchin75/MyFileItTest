@@ -910,7 +910,7 @@ angular.module('app.services', [])
             return this.basePost(routeUrl, data, success, fail);
         },
         //MyFileItResult AddShareKey(string user, string pass, int primaryAppUserId, DateTime purchaseDate, string promoCode, string last4Digits, decimal amount, int salesRepId, int numKeys)
-        addShareKey: function (primaryAppUserId, purchaseDate, promoCode, last4Digits, amount, salesRepId, numKeys) {
+        addShareKey: function (primaryAppUserId, purchaseDate, promoCode, last4Digits, amount, salesRepId, numKeys, success, fail) {
             var routeUrl = 'AddShareKey';
             var data = {
                 user: this.adminUser(),
