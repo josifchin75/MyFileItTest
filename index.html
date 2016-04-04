@@ -161,7 +161,7 @@
             IAP.onReady = function () {
                 storekit.load(IAP.list, function (products, invalidIds) {
                     //alert('ready');
-                    alert(products);
+                    //alert(products);
                     IAP.products = products;
                     IAP.loaded = true;
                     for (var i = 0; i < invalidIds.length; ++i) {

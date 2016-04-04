@@ -43,6 +43,7 @@ angular.module('app.directives', [])
                     //alert(IAP.buy);
                     if (app.platform() == 'iOS') {
                         function shareKeySuccess(productId) {
+                           // alert('add share key');
                             FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys);
                         };
                         IAP.purchaseCallback = shareKeySuccess; //send a callback to be removed after purchase
