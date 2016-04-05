@@ -36,29 +36,28 @@ angular.module('app.directives', [])
                     var promoCode = '';
                     var last4Digits = '';
                     var amount = 5.99;
-                    var salesRepId = null;
+                    var salesRepId = 1;
                     var numKeys = 1;
                     //alert(shareKeySKU);
                     //alert(JSON.stringify(IAP));
                     //alert(IAP.buy);
 
                     function addShareSuccess() {
-                        alert('added share key');
+                        alert('Your share key has been added to MyFileIT!');
                     }
 
                     function addShareFail(message) {
-                        alert('failed to add sahre key');
-                        alert(message);
+                        alert('Failed to add share key. Please contact MyFileIT support.');
+                        //alert(message);
                     }
 
                     if (app.platform() == 'iOS') {
                         function shareKeySuccess(productId) {
-                            alert('add share key');
                             FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys, addShareSuccess, addShareFail);
                         };
                         IAP.purchaseCallback = shareKeySuccess; //send a callback to be removed after purchase
-                        shareKeySuccess();
-                        //IAP.buy(shareKeySKU);
+                        //shareKeySuccess();
+                        IAP.buy(shareKeySKU);
                     } else {
                         var url = 'https://myfileit.net/Processing/?UId=' + id;
                         window.open(url, '_system', 'location=yes');
