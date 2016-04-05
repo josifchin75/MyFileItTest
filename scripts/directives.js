@@ -57,7 +57,8 @@ angular.module('app.directives', [])
                             FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys, addShareSuccess, addShareFail);
                         };
                         IAP.purchaseCallback = shareKeySuccess; //send a callback to be removed after purchase
-                        IAP.buy(shareKeySKU);
+                        shareKeySuccess();
+                        //IAP.buy(shareKeySKU);
                     } else {
                         var url = 'https://myfileit.net/Processing/?UId=' + id;
                         window.open(url, '_system', 'location=yes');
