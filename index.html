@@ -171,8 +171,9 @@
             };
 
             IAP.onPurchase = function (transactionId, productId, receipt) {
-                //alert('onpurchase');
+                alert('onpurchase');
                 if (productId === shareKeySKU) {
+                    alert(IAP.puchaseCallback);
                     if (IAP.purchaseCallback) {
                         IAP.purchaseCallback(productId);
                         delete IAP.purchaseCallback;
