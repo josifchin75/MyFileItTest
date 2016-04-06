@@ -6,7 +6,7 @@
         xmlns="http://www.w3.org/ns/widgets">
   <name>MyFileIT Documents</name>
   <description>MyFileIT document sharing and storage.</description>
-  <author href="http://cordova.io" email="dev@cordova.apache.org">J Osifchin</author>
+  <author href="http://cordova.io" email="dev@cordova.apache.org">J. Osifchin</author>
   <content src="index.html" />
 
   <access origin="*" />
