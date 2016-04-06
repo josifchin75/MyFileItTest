@@ -160,15 +160,16 @@
                 debug: true, // Enable IAP messages on the console
                 ready: IAP.onReady,
                 purchase: function (transactionId, productId, receipt) {
-                    alert('onpurchase' + productId);
-                    if (productId === shareKeySKU) {
-                        alert(IAP.puchaseCallback);
+                    //alert('onpurchase' + productId);
+                    //if (productId === shareKeySKU) {
+                        //alert(IAP.puchaseCallback);
                         if (IAP.purchaseCallback) {
                             IAP.purchaseCallback(productId);
                             delete IAP.purchaseCallback;
                         }
+                        
                         //loadShareKey(transactionId, productId, receipt);
-                    }
+                    //}
                 },
                 restore: IAP.onRestore,
                 error: IAP.onError
@@ -187,15 +188,15 @@
             };
 
             IAP.onPurchase = function (transactionId, productId, receipt) {
-                alert('onpurchase' + productId);
-                if (productId === shareKeySKU) {
-                    alert(IAP.puchaseCallback);
+                //alert('onpurchase' + productId);
+                //if (productId === shareKeySKU) {
+                   // alert(IAP.puchaseCallback);
                     if (IAP.purchaseCallback) {
                         IAP.purchaseCallback(productId);
                         delete IAP.purchaseCallback;
                     }
                     //loadShareKey(transactionId, productId, receipt);
-                }
+               // }
             };
 
             IAP.onRestore = function (transactionId, productId, transactionReceipt) {

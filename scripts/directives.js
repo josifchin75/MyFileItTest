@@ -21,7 +21,7 @@ angular.module('app.directives', [])
                 templateUrl: 'templates/fileit-login-header.html'
             };
         })
-    .directive('sharekeyUrl', function (FileItService) {
+    .directive('sharekeyUrl', function (FileItService, $ionicPopup) {
         return {
             restrict: 'E',
             scope: {
@@ -44,7 +44,12 @@ angular.module('app.directives', [])
                     //alert(IAP.buy);
 
                     function addShareSuccess() {
-                        alert('Your share key has been added to MyFileIT!');
+                        var message = 'Your share key has been added to MyFileIT!';
+                        //alert(message);
+                        var alertPopup = $ionicPopup.alert({
+                            title: 'Share key purchases!',
+                            template: message
+                        });
                     }
 
                     function addShareFail(message) {
