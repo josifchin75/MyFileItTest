@@ -38,6 +38,7 @@ angular.module('app.directives', [])
                     var amount = 5.99;
                     var salesRepId = 1;
                     var numKeys = 1;
+                    var numberShareKeys = FileItService.currentUser().NumberOfPurchasedShareKeys;
                     //alert(shareKeySKU);
                     //alert(JSON.stringify(IAP));
                     //alert(IAP.buy);
@@ -51,13 +52,13 @@ angular.module('app.directives', [])
                         //alert(message);
                     }
 
-                    if (app.platform() == 'iOS') {
-                        function shareKeySuccess(productId) {
+                    if (app.platform() == 'iOS' || 1==1) {
+                        var shareKeySuccess = function(productId) {
                             FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys, addShareSuccess, addShareFail);
                         };
                         IAP.purchaseCallback = shareKeySuccess; //send a callback to be removed after purchase
                         //shareKeySuccess();
-                        IAP.buy(shareKeySKU);
+                        IAP.buy(shareKeyBaseSKU + ((numberShareKeys * 1) + 1));
                     } else {
                         var url = 'https://myfileit.net/Processing/?UId=' + id;
                         window.open(url, '_system', 'location=yes');
