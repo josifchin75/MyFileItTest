@@ -52,7 +52,7 @@ angular.module('app.directives', [])
                         //alert(message);
                     }
 
-                    if (app.platform() == 'iOS' || 1==1) {
+                    if (app.platform() == 'iOS') {
                         var shareKeySuccess = function(productId) {
                             FileItService.addShareKey(id, new Date(), promoCode, last4Digits, amount, salesRepId, numKeys, addShareSuccess, addShareFail);
                         };
