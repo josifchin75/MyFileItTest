@@ -36,44 +36,44 @@
     -->
 
     <script type="text/javascript">
-    var myScroll;
-    function loadScroll() {
-        setTimeout(function () {
-            //debugger;
-            //alert('scroll');
-            myScroll = new iScroll('wrapper',
-            { zoom: true, zoomMax: 4 });
-        }, 1000);
-    }
-
-    document.addEventListener('DOMContentLoaded', loadScroll, false);
-
-    //function initConcierge() {
-        //concierge.setApplicationKey('MTQyOTs1Nzg=-1d2nf8bvvrlxqnvd0g5vfq2jkcrkk1hsjkr571bfg7hpqmhhk0wxm5i8wi4y8j1o');
-   // }
-
-    function openSupportWindow() {
-        if (window.plugins && window.plugins.Hipmob) {
-            var hipmob_app_id = '62f5b89ea9424be79419e8935a4354be';
-            var Hipmob = window.plugins.Hipmob;
-
-            Hipmob.openHelpdeskSearch(hipmob_app_id, {
-                'title': 'Help',
-                'query': 'Android',
-                'user': '<hipmob user id>',
-                'name': 'Femi',
-                'email': 'femi@hipmob.com',
-                'context': 'shopping for shoes',
-                'location': 'At home'
-            });
-        } else {
-            alert('Hipmob plugin not available/ready.');
+        var myScroll;
+        function loadScroll() {
+            setTimeout(function () {
+                //debugger;
+                //alert('scroll');
+                myScroll = new iScroll('wrapper',
+                { zoom: true, zoomMax: 4 });
+            }, 1000);
         }
-    }
 
-   // function initInAppPurchases() {
-            
-    //}
+        document.addEventListener('DOMContentLoaded', loadScroll, false);
+
+        //function initConcierge() {
+        //concierge.setApplicationKey('MTQyOTs1Nzg=-1d2nf8bvvrlxqnvd0g5vfq2jkcrkk1hsjkr571bfg7hpqmhhk0wxm5i8wi4y8j1o');
+        // }
+
+        function openSupportWindow() {
+            if (window.plugins && window.plugins.Hipmob) {
+                var hipmob_app_id = '62f5b89ea9424be79419e8935a4354be';
+                var Hipmob = window.plugins.Hipmob;
+
+                Hipmob.openHelpdeskSearch(hipmob_app_id, {
+                    'title': 'Help',
+                    'query': 'Android',
+                    'user': '<hipmob user id>',
+                    'name': 'Femi',
+                    'email': 'femi@hipmob.com',
+                    'context': 'shopping for shoes',
+                    'location': 'At home'
+                });
+            } else {
+                alert('Hipmob plugin not available/ready.');
+            }
+        }
+
+        // function initInAppPurchases() {
+
+        //}
     </script>
 </head>
 <body>
@@ -129,7 +129,7 @@
         //initConcierge();
         //initInAppPurchases();
 
-        window.onerror = function (err) { 
+        window.onerror = function (err) {
             alert(err);
         };
 
@@ -137,10 +137,10 @@
 
         shareKeySKU = 'Myfileitsharekeyannual1';
         shareKeyBaseSKU = 'Myfileitsharekeyuser';
-        
+
         IAP = {
             //list: [shareKeySKU]
-            list:[]
+            list: []
         };
 
         for (var i = 1; i < 16; i++) {
@@ -148,7 +148,6 @@
         }
 
         IAP.load = function () {
-            //alert('loading inapp module');
             // Check availability of the storekit plugin
             if (!window.storekit) {
                 //alert("In-App Purchases not available");
@@ -160,25 +159,17 @@
                 debug: true, // Enable IAP messages on the console
                 ready: IAP.onReady,
                 purchase: function (transactionId, productId, receipt) {
-                    //alert('onpurchase' + productId);
-                    //if (productId === shareKeySKU) {
-                        //alert(IAP.puchaseCallback);
-                        if (IAP.purchaseCallback) {
-                            IAP.purchaseCallback(productId);
-                            delete IAP.purchaseCallback;
-                        }
-                        
-                        //loadShareKey(transactionId, productId, receipt);
-                    //}
+                    if (IAP.purchaseCallback) {
+                        IAP.purchaseCallback(productId);
+                        delete IAP.purchaseCallback;
+                    }
                 },
                 restore: IAP.onRestore,
                 error: IAP.onError
             });
-            //alert('before onready');
+
             IAP.onReady = function () {
                 storekit.load(IAP.list, function (products, invalidIds) {
-                    //alert('ready');
-                    //alert(products);
                     IAP.products = products;
                     IAP.loaded = true;
                     for (var i = 0; i < invalidIds.length; ++i) {
@@ -187,20 +178,20 @@
                 });
             };
 
-            IAP.onPurchase = function (transactionId, productId, receipt) {
+            /*IAP.onPurchase = function (transactionId, productId, receipt) {
                 //alert('onpurchase' + productId);
                 //if (productId === shareKeySKU) {
-                   // alert(IAP.puchaseCallback);
-                    if (IAP.purchaseCallback) {
-                        IAP.purchaseCallback(productId);
-                        delete IAP.purchaseCallback;
-                    }
-                    //loadShareKey(transactionId, productId, receipt);
-               // }
-            };
+                // alert(IAP.puchaseCallback);
+                if (IAP.purchaseCallback) {
+                    IAP.purchaseCallback(productId);
+                    delete IAP.purchaseCallback;
+                }
+                //loadShareKey(transactionId, productId, receipt);
+                // }
+            };*/
 
             IAP.onRestore = function (transactionId, productId, transactionReceipt) {
-               // alert('onRestore');
+                // alert('onRestore');
                 if (productId == shareKeySKU) {
                     //Code to remove ads for the user
                     loadShareKey(transactionId, productId, receipt);
@@ -214,8 +205,6 @@
             };
 
             IAP.buy = function (productId) {
-                alert('in buy method' + productId)
-                alert(IAP.onPurchase);
                 storekit.purchase(productId);
             };
 
@@ -230,11 +219,11 @@
         function loadShareKey(transactionId, productId, receipt) {
             //sharekey resides on db service when user logs in
             //alert(transactionId);
-           // alert(productId);
+            // alert(productId);
             //alert(receipt);
         }
 
-      
+
     </script>
 </body>
 </html>
