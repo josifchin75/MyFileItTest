@@ -2229,7 +2229,7 @@ angular.module('app.controllers', [])
     .controller('aboutCtrl', function ($scope) {
         $scope.init = function () {
             var data = {
-                version: "1.0.4"
+                version: "1.0.5"
             };
             $scope.data = data;
         };

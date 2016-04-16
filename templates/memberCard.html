@@ -1,39 +1,33 @@
 ﻿<ion-view title="Main">
     <ion-nav-title>
-        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}}" hide-logout="false"></fileit-header>
+        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}} - {{data.familyUser.RelationShipType}}" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <form class="list">
             <div class="member-card">
-                <div ng-hide="isCoachVerifying()">
+                <!--<div ng-hide="isCoachVerifying()">
                     <div style="text-align: right;"
                         <button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>
-                    <!--<a href="#" class="member-link" ng-click="editMemberProfile()" ng-hide="data.IsCoach">Edit</a>-->
-                </div>
-                </div>
-                <div class="header">
+                    </div>
+                </div>-->
+                <!--<div class="header">
                     <h3>{{data.familyUser.FIRSTNAME}}&nbsp;{{data.familyUser.LASTNAME}}</h3>
                     <h4>{{data.familyUser.USERNAME}}</h4>
                     <h5>{{data.familyUser.RelationShipType}} ({{data.familyUser.AppUserStatus}})</h5>
                 </div>
                 <i class="large-icon ion-man sex" ng-show="showSex(data.familyUser, 'M')"></i>
-                <i class="large-icon ion-woman sex" ng-show="showSex(data.familyUser, 'F')"></i>
-                <!--<div class="member-thumbs">
-                    <ion-item ng-repeat="document in data.documents" class="member-thumb">
-                        <a href="#" ng-click="showModal(document)">
-                            <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
-                        </a>
-                        <div class="item-checkbox image-list">
-                            <label class="checkbox">
-                                <input type="checkbox"
-                                       name="selectedImages[]"
-                                       value="{{document.ID}}"
-                                       ng-model="document.selected">
-                            </label>
-                        </div>
-                    </ion-item>
+                <i class="large-icon ion-woman sex" ng-show="showSex(data.familyUser, 'F')"></i>-->
 
-                </div>-->
+                <div>
+                    <div class="left">
+                        <a href="#" ui-sref="main" class="button button-icon icon ion-android-home"></a>
+                        <!--<a href="#" ui-sref="main" class="icon-left ion-android-home">Home</a>-->
+                    </div>
+                    <div ng-hide="isCoachVerifying()" class="right right-text">
+                        <a ng-click="editMemberProfile()" class="button button-icon icon ion-edit"></a>
+                            <!--<button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>-->
+                    </div>
+                </div>
 
                 <div class="member-thumb add">
                     <a href="#" ng-click="getDocument()">

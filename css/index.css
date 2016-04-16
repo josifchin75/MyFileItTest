@@ -177,6 +177,10 @@
     float: right;
 }
 
+.right-text {
+    text-align: right;
+}
+
 .width-75 {
     width: 75%;
 }
