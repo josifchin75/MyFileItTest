@@ -935,10 +935,16 @@ angular.module('app.controllers', [])
         };
 
         $scope.showVerify = function (obj) {
+            if (typeof $scope.data.currentUser.verifying == 'undefined') {
+                $scope.data.currentUser.verifying = false;
+            }
             return obj.VerifiedAppUserId == null && $scope.data.currentUser.verifying;//$scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.ID;
         };
 
         $scope.isCoachVerifying = function () {
+            if (typeof $scope.data.currentUser.verifying == 'undefined') {
+                $scope.data.currentUser.verifying = false;
+            }
             return $scope.data.currentUser.verifying;// $scope.data.currentUser.IsCoach == true && $scope.data.currentUser.ID != $scope.data.familyUser.PRIMARYAPPUSERID;
         };
 
