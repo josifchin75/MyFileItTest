@@ -490,6 +490,7 @@ angular.module('app.services', [])
             var deferred = $q.defer();
             var promise = deferred.promise;
             var url = this.baseUrl() + routeUrl;
+            obj.timeout = 10000;
 
             loadingService.show();
             $http.post(url, obj)
