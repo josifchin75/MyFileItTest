@@ -173,10 +173,10 @@ angular.module('app.services', [])
 
                 var sql = 'Select Documents from MyFileItDocument where AppUserId = ?';
                 var pars = [appUserId];
-                //dbHelper.executeSql(sql, pars, dataIsRead);
+                dbHelper.executeSql(sql, pars, dataIsRead);
 
                 //this has no data calls
-                callback([]);
+                //callback([]);
 
                 //var result = window.localStorage.getItem('localDocuments');
                 //if (typeof result != 'undefined' && result != null && result != '') {
