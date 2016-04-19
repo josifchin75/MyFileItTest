@@ -223,6 +223,7 @@ angular.module('app.services', [])
                 loadUserDocuments: function (appUserId, teamEventId, onSuccess) {
                     var viewDoc = this;
                     function successGetAll(data) {
+                        alert(JSON.stringify(data));
                         docs = data.Documents;
                         if (typeof onSuccess == 'function') {
                             onSuccess();
