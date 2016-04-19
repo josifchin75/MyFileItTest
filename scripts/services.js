@@ -679,7 +679,8 @@ angular.module('app.services', [])
                     pass: servicePass,
                     appUserId: appUserId,
                     teamEventId: teamEventId,
-                    downloadedDocumentIds: downloadedDocumentIds
+                    downloadedDocumentIds: downloadedDocumentIds,
+                    thumbsOnly: true
                 };
 
                 function retainDocuments(data) {
