@@ -223,7 +223,7 @@ angular.module('app.services', [])
                 loadUserDocuments: function (appUserId, teamEventId, onSuccess) {
                     var viewDoc = this;
                     function successGetAll(data) {
-                        alert(JSON.stringify(data));
+                        //alert(JSON.stringify(data));
                         docs = data.Documents;
                         if (typeof onSuccess == 'function') {
                             onSuccess();
@@ -665,13 +665,15 @@ angular.module('app.services', [])
 
             return this.basePost(routeUrl, data, success, fail);
         },
-
+        //FileCabinetDocumentDTO GetSingleDocument(string user, string pass, FileCabinetDocumentSingleDTO lookup)
+        //MyFileItResult GetAppUserDocumentsList(string user, string pass, int appUserId, int? teamEventId)
         getAppUserDocuments: function (appUserId, teamEventId, success, fail) {
             var routeUrl = 'GetAppUserDocuments';
             var serviceUser = this.adminUser();
             var servicePass = this.adminPass();
             var svc = this;
             var downloadedDocsVar;
+            var finalDocumentArray = []
 
             function mainAppGet(downloadedDocumentIds) {
                 var data = {
@@ -684,6 +686,17 @@ angular.module('app.services', [])
                 };
 
                 function retainDocuments(data) {
+                    documentList = [];
+                    for (var i = 0; i < data.Documents.length; i++) {
+                        var obj = {};
+                        for (var par in data.Documents[i]) {
+                            obj[par] = data.Documents[i][par];
+                        }
+                        documentList.push(obj);
+                    }
+                    documentList = documentList.reverse();
+
+                    data.Documents = [];
                     //keep any documents not found already 
                     //also add the existing ones to the response
                     //data.Documents
@@ -708,14 +721,69 @@ angular.module('app.services', [])
                         loadingService.hide();
                     }
 
-                    LocalDocuments.getLocalDocuments(appUserId, processRetained);
+                    function successGetLocalDocs(localDocs) {
+                        finalDocumentArray = localDocs;
+                        processSingleImages();
+                    }
+
+                    function processSingleImages() {
+                        if (documentList.length > 0) {
+                            getImage(documentList.pop());
+                        } else {
+                            processRetained(finalDocumentArray);
+                        }
+                    }
+
+                    function getImage(doc) {
+                        //call the get single image
+                        function addImageObject(result) {
+                            data.Documents.push(result);
+                            //finalDocumentArray.push(result);
+                            processSingleImages();
+                        }
+
+                        svc.getSingleDocument(doc.ID, doc.TeamEventDocumentId, doc.VerifiedAppUserId, addImageObject, fail)
+                    }
+
+                    LocalDocuments.getLocalDocuments(appUserId, successGetLocalDocs);//processRetained);
                 }
 
-                return svc.basePost(routeUrl, data, retainDocuments, fail);
+                return svc.getAppUserDocumentsList(appUserId, teamEventId, downloadedDocumentIds, retainDocuments, fail);
+                //return svc.basePost(routeUrl, data, retainDocuments, fail);
             }
 
             LocalDocuments.getLocalDocumentsIdList(appUserId, mainAppGet);
         },
+        //FileCabinetDocumentDTO GetSingleDocument(string user, string pass, FileCabinetDocumentSingleDTO lookup)
+        getSingleDocument: function (fileCabinetDocumentId, teamEventDocumentId, verifiedAppUserId, success, fail) {
+            var routeUrl = 'GetSingleDocument';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                lookup: {
+                    FILECABINETDOCUMENTID: fileCabinetDocumentId,
+                    TEAMEVENTDOCUMENTID: teamEventDocumentId,
+                    VerifiedAppUserId: verifiedAppUserId
+                }
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+        
+        //MyFileItResult GetAppUserDocumentsList(string user, string pass, int appUserId, int? teamEventId)
+        getAppUserDocumentsList: function (appUserId, teamEventId, downloadedDocumentIds, success, fail) {
+            var routeUrl = 'GetAppUserDocumentsList';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                teamEventId: teamEventId,
+                downloadedDocumentIds: downloadedDocumentIds
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+
         //DeleteAppUserDocument(string user, string pass, int appUserId, string documentId)
         deleteAppUserDocument: function (appUserId, documentId, success, fail) {
             var routeUrl = 'DeleteAppUserDocument';
