@@ -6,12 +6,16 @@ Description: 	control to handle database calls
 ***************************/
 var dbHelper = {
     dbContext: {},
+    enabled: false,
     init: function () {
-        var db = window.openDatabase("myfileit", "1.0", "myfileit", 1000000);
-        this.dbContext = db;
+        if (typeof window.openDatabase != 'undefined') {
+            var db = window.openDatabase("myfileit", "1.0", "myfileit", 1000000);
+            this.dbContext = db;
 
-        var sql = 'CREATE TABLE IF NOT EXISTS MyFileItDocument (AppUserId PRIMARY KEY, Documents);';
-        dbHelper.executeSql(sql, []);
+            var sql = 'CREATE TABLE IF NOT EXISTS MyFileItDocument (AppUserId PRIMARY KEY, Documents);';
+            dbHelper.executeSql(sql, []);
+            this.enabled = true;
+        }
     },
     executeSql: function (sql, pars, callback) {
         dbHelper.dbContext.transaction(function (tx) {
