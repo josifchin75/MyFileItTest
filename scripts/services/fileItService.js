@@ -274,6 +274,57 @@
 
             LocalDocuments.getLocalDocumentsIdList(appUserId, mainAppGet);
         },
+        getAppUserDocumentsSimple: function (appUserId, teamEventId, success, fail) {
+            var routeUrl = 'GetAppUserDocuments';
+            var serviceUser = this.adminUser();
+            var servicePass = this.adminPass();
+            var svc = this;
+            var downloadedDocsVar;
+            var finalDocumentArray = []
+
+            function mainAppGet(downloadedDocumentIds) {
+                downloadedDocumentIds = [];
+                var data = {
+                    user: serviceUser,
+                    pass: servicePass,
+                    appUserId: appUserId,
+                    teamEventId: teamEventId,
+                    downloadedDocumentIds: downloadedDocumentIds,
+                    thumbsOnly: true
+                };
+
+                function retainDocuments(data) {
+                    documentList = [];
+                    for (var i = 0; i < data.Documents.length; i++) {
+                        var obj = {};
+                        for (var par in data.Documents[i]) {
+                            obj[par] = data.Documents[i][par];
+                        }
+                        documentList.push(obj);
+                    }
+                    documentList = documentList.reverse();
+
+                    function postSaveDocs() {
+                        if (typeof success == 'function') {
+                            var response = {
+                                Documents: documentList
+                            };
+
+                            success(response);
+                        }
+                        loadingService.hide();
+                    }
+
+                    postSaveDocs();
+                    //Documents.setSimpleListObject(documentList);
+                }
+
+                return svc.getAppUserDocumentsList(appUserId, teamEventId, downloadedDocumentIds, retainDocuments, fail);
+                //return svc.basePost(routeUrl, data, retainDocuments, fail);
+            }
+
+            LocalDocuments.getLocalDocumentsIdList(appUserId, mainAppGet);
+        },
         //FileCabinetDocumentDTO GetSingleDocument(string user, string pass, FileCabinetDocumentSingleDTO lookup)
         getSingleDocument: function (fileCabinetDocumentId, teamEventDocumentId, verifiedAppUserId, success, fail) {
             var routeUrl = 'GetSingleDocument';
@@ -289,10 +340,22 @@
 
             return this.basePost(routeUrl, data, success, fail);
         },
-        
+
+        //GetAppUserDocumentsThumbs(string user, string pass, List<int?> lookupDocumentIds)
+        getAppUserDocumentsThumbs: function (documentIds, success, fail) {
+            var routeUrl = 'GetAppUserDocumentsThumbs';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                lookupDocumentIds: documentIds
+            };
+
+            return this.basePost(routeUrl, data, success, fail);
+        },
+
         //MyFileItResult GetAppUserDocumentsList(string user, string pass, int appUserId, int? teamEventId)
         getAppUserDocumentsList: function (appUserId, teamEventId, downloadedDocumentIds, success, fail) {
-            var routeUrl = 'GetAppUserDocumentsList';
+            var routeUrl = 'GetAppUserDocumentsListNoImages';
             var data = {
                 user: this.adminUser(),
                 pass: this.adminPass(),

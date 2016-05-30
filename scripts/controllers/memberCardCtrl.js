@@ -4,18 +4,21 @@
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
                 documents: Documents.getObject(),
+                simpleDocuments: Documents.getSimpleListObject(),
                 availableShareKeys: AvailableShareKeys.getObject(),
                 promocode: '',
                 currentUser: FileItService.currentUser()
             };
             if ($scope.data.documents.length == 0) {
-                Documents.loadUserDocuments();
+                //taken out for debug
+                // Documents.loadUserDocuments();
             }
         };
 
         //insure that it refreshes!
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.data.documents = Documents.getObject();
+            $scope.data.simpleDocuments = Documents.getSimpleListObject();
             $scope.data.familyUser = FamilyUser.getObject();
             $scope.imageSrc = '';
             $scope.data.currentUser = FileItService.currentUser();
@@ -54,6 +57,30 @@
             $scope.imageSrc = "data:image/png;base64," + image.Base64Image;
             return;
         }
+
+        $scope.showModalCall = function (document) {
+            function gotImage(doc) {
+                document = doc;
+                for (var i = 0; i < $scope.data.simpleDocuments.length; i++) {
+                    if ($scope.data.simpleDocuments[i].ID == doc.ID) {
+                        $scope.data.simpleDocuments[i].Base64Image = doc.Base64Image;
+                        $scope.data.simpleDocuments[i].Base64ImageThumb = doc.Base64ImageThumb;
+                        break;
+                    }
+                }
+               
+                $scope.showModal(doc);
+            }
+            function fail() {
+
+            }
+            //if the image has already been show, just retain it.
+            if (document.Base64Image == null) {
+                FileItService.getSingleDocument(document.ID, document.TeamEventDocumentId, document.VerifiedAppUserId, gotImage, fail);
+            } else {
+                $scope.showModal(document);
+            }
+        };
 
         // Close the modal
         $scope.closeModal = function () {
@@ -94,8 +121,37 @@
         };
 
         $scope.shareDocuments = function () {
-            if ($scope.setViewDocument()) {
-                $state.go('shareEventSelect');
+            function onCompleteShareDocuments(data) {
+                if (data != null) {
+                    //retain any thumbs or images retrieved
+                    for (var i = 0; i < data.Documents.length; i++) {
+                        for (var j = 0; j < $scope.data.simpleDocuments.length; j++) {
+                            if ($scope.data.simpleDocuments[j].ID == data.Documents[i].ID) {
+                                $scope.data.simpleDocuments[j].Base64Image = data.Documents[i].Base64Image;
+                                $scope.data.simpleDocuments[j].Base64ImageThumb = data.Documents[i].Base64ImageThumb;
+                                break;
+                            }
+                        }
+                    }
+                }
+                if ($scope.setViewDocument()) {
+                    $state.go('shareEventSelect');
+                }
+            }
+            function fail() { }
+
+            var documentIds = [];
+            var allDocs = $scope.selectedImages();
+            for (var i = 0; i < allDocs.length; i++) {
+                if (allDocs[i].selected && allDocs[i].Base64ImageThumb == null) {
+                    documentIds.push(allDocs[i].ID);
+                }
+            }
+
+            if (documentIds.length > 0) {
+                FileItService.getAppUserDocumentsThumbs(documentIds, onCompleteShareDocuments, fail);
+            } else {
+                onCompleteShareDocuments(null);
             }
         };
 
@@ -106,7 +162,7 @@
                     familyUserId: $scope.data.familyUser.ID,
                     selectedImages: $scope.selectedImages(),
                     selectDocumentIds: [],
-                    images: Documents.getObject()
+                    images: Documents.getSimpleListObject()
                 };
                 ViewDocument.setObject(obj);
                 ViewDocument.searchEvents($scope.data.familyUser.ID, null, '');
@@ -262,7 +318,7 @@
         };
 
         $scope.goToMemberCard = function () {
-            $state.go('memberCard');
+            $state.go('memberCardSimple');
         };
 
         $scope.selectShareKey = function (shareKeyId) {
@@ -292,12 +348,13 @@
         };
 
         $scope.goToMainCard = function () {
-            $state.go('memberCard');
+            $state.go('memberCardSimple');
         };
 
         /*****************************************/
         $scope.selectedImages = function selectedImages() {
-            return $filter('filter')($scope.data.documents, { selected: true });
+            return $filter('filter')($scope.data.simpleDocuments, { selected: true });
+           // return $filter('filter')($scope.data.documents, { selected: true });
         };
 
         $scope.associatedDocuments = function associatedDocuments() {

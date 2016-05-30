@@ -130,11 +130,14 @@
                 FamilyUser.setObject(user);
                 function onSuccess() {
                     $scope.data.currentUser.verifying = true;
-                    $state.go('memberCard');
+                    $state.go('memberCardSimple');
+                    //simplify thumb view
+                    //$state.go('memberCard');
                 }
                 //need to get appuser
-
-                Documents.loadUserDocuments(user.ID, $scope.data.teamEvent.ID, onSuccess);
+                //simplify thumb view
+                Documents.loadUserDocumentsSimple(user.ID, $scope.data.teamEvent.ID, onSuccess);
+                //Documents.loadUserDocuments(user.ID, $scope.data.teamEvent.ID, onSuccess);
             }
             function getUserFail() { }
 

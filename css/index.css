@@ -144,7 +144,8 @@
 
 #image-list-emergency {
     background-color: #ffffff;
-    height: 5em;
+    /*height: 5em;*/
+    height: auto;
     padding: .2em;
 }
 

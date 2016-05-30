@@ -1,5 +1,5 @@
 ﻿mainApp
-.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter, $ionicSlideBoxDelegate) {
+.controller('viewYourDocumentsCtrl', function ($scope, ViewDocument, FileItService, $ionicPopup, $state, $filter, $ionicSlideBoxDelegate, $timeout) {
     $scope.init = function () {
         $scope.data = ViewDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
@@ -112,7 +112,6 @@
     };
 
     $scope.associateImage = function (eventDocumentId) {
-        //alert(eventDocumentId);
         //$scope.getEventDocument(eventDocumentId).show = true;
         //$scope.navigateAndSave('documentSlider');
         $scope.data.associatedImages = $scope.data.selectedImages;
@@ -121,36 +120,40 @@
         var title = 'Select an Image';
         var message = eventDocumentId;
 
-        var alertPopup = $ionicPopup.show({
-            title: title,
-            templateUrl: 'templates/documentSlider.html',
-            cssClass: 'document-slider',
-            scope: $scope,
-            cache: false,
-            buttons: [
-                 {
-                     text: 'Cancel',
-                     onTap: function (e) {
-                         $scope.data.associatedImageId = -1;
-                         return $scope.data.associatedImageId;
-                     }
-                 },
-                 {
-                     text: '<b>Associate</b>',
-                     type: 'button-positive',
-                     onTap: function (e) {
-                         //e.preventDefault();
-                         return $scope.data.associatedImageId;
-                     }
-                 }]
-        });
-        alertPopup.then(function (res) {
-            var eventDoc = $scope.getEventDocument(eventDocumentId);
-            eventDoc.associatedId = res;
-            eventDoc.associated = res > -1;
-            eventDoc.associatedAllowUndo = res > -1;
-            eventDoc.Base64ImageThumb = $scope.getSelectedImageBase64Thumb(res);
-        });
+        function openDialog() {
+            var alertPopup = $ionicPopup.show({
+                title: title,
+                templateUrl: 'templates/documentSlider.html',
+                cssClass: 'document-slider',
+                scope: $scope,
+                cache: false,
+                buttons: [
+                     {
+                         text: 'Cancel',
+                         onTap: function (e) {
+                             $scope.data.associatedImageId = -1;
+                             return $scope.data.associatedImageId;
+                         }
+                     },
+                     {
+                         text: '<b>Associate</b>',
+                         type: 'button-positive',
+                         onTap: function (e) {
+                             //e.preventDefault();
+                             return $scope.data.associatedImageId;
+                         }
+                     }]
+            });
+            alertPopup.then(function (res) {
+                var eventDoc = $scope.getEventDocument(eventDocumentId);
+                eventDoc.associatedId = res;
+                eventDoc.associated = res > -1;
+                eventDoc.associatedAllowUndo = res > -1;
+                eventDoc.Base64ImageThumb = $scope.getSelectedImageBase64Thumb(res);
+            });
+        }
+
+        $timeout(openDialog);
         /*
         setTimeout(function () {
             $ionicSlideBoxDelegate.update();
@@ -210,7 +213,7 @@
     $scope.resendDocuments = function () {
         function resendSuccess() {
             $scope.showError("Success", "Your documents have been resent.");
-            $state.go('memberCard');
+            $state.go('memberCardSimple');
         }
 
         function resendFail() { }
@@ -268,7 +271,7 @@
     };
 
     $scope.goToMemberCard = function () {
-        $state.go('memberCard');
+        $state.go('memberCardSimple');
     };
 
     $scope.goToSelectUser = function () {
@@ -383,7 +386,7 @@
             }
 
             function goToMemberCard() {
-                $scope.navigateAndSave('memberCard');
+                $scope.navigateAndSave('memberCardSimple');
             }
 
             var allDocs = $scope.data.eventDocuments;

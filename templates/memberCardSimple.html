@@ -1,0 +1,97 @@
+﻿<ion-view title="Main">
+    <ion-nav-title>
+        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}} - {{data.familyUser.RelationShipType}}" hide-logout="false"></fileit-header>
+    </ion-nav-title>
+    <ion-content padding="'true'" class="has-header">
+        <form class="list">
+            <div class="member-card">
+              
+                <div>
+                    <div class="left">
+                        <a href="#" ui-sref="main" class="button button-icon icon ion-android-home"></a>
+                        <!--<a href="#" ui-sref="main" class="icon-left ion-android-home">Home</a>-->
+                    </div>
+                    <div ng-hide="isCoachVerifying()" class="right right-text">
+                        <a ng-click="editMemberProfile()" class="button button-icon icon ion-edit"></a>
+                            <!--<button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>-->
+                    </div>
+                </div>
+
+                <div class="member-thumb add">
+                    <a href="#" ng-click="getDocument()">
+                        <i class="large-icon ion-android-add-circle"></i>
+                        <h5>Add Document</h5>
+                    </a>
+                    <span ng-hide="isCoachVerifying()">
+                        <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser)">
+                            <i class="large-icon ion-android-share-alt"></i>
+                            <h5>Share Selected</h5>
+                        </a>
+                        <a href="#" ng-click="associateKey()" ng-hide="hasShareKey(data.familyUser)">
+                            <i class="large-icon ion-key"></i>
+                            <h5>Add Sharing Key</h5>
+                        </a>
+                    </span>
+                    <a href="#" ng-click="emergencyShare()">
+                        <i class="large-icon ion-ios-medkit red"></i>
+                        <h5>Emergency Share</h5>
+                    </a>
+                </div>
+                <div class="clear"></div>
+
+                <h5>Click on an image to enlarge it here.</h5>
+                <div drag-content="false">
+                    <div id="wrapper" ng-show="showLargeImage()">
+                        <img ng-src="{{imageSrc}}" class="big-image" />
+                    </div>
+                </div>
+                <div ng-show="showLargeImage()">
+                    Pinch and drag to zoom and move the image. Double tap to revert to regular size.
+                </div>
+                <ion-list>
+                    <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments">
+                        <div class="item-checkbox image-list">
+
+                            <label class="checkbox image-checkbox">
+                                <input type="checkbox"
+                                       name="selectedImages[]"
+                                       value="{{document.ID}}"
+                                       ng-model="document.selected">
+                            </label>
+                            <span ng-click="showModalCall(document)">
+                                <!--<a href="#" ng-click="showModal(document)">
+            <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
+        </a>-->
+                                <h2>{{document.DocumentTypeName}}</h2>
+                                <p>{{document.COMMENT}}</p>
+                                <span ng-show="document.VerifiedAppUserName != null">Verified By: {{document.VerifiedAppUserName}}</span>
+                                <div class="verify-icon">
+                                    <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
+                                        <!--<i class="ion-thumbsup medium-icon"></i>-->
+                                        Verify
+                                    </button>
+                                    <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
+                                        <!--<i class="ion-thumbsdown medium-icon"></i>-->
+                                        Reject
+                                    </button>
+                                    <button ng-click="deleteDocument(document.DOCUMENTID)" class="verify-icon" ng-show="document.CanDelete">
+                                        <!--<i class="ion-thumbsdown medium-icon"></i>-->
+                                        Remove
+                                    </button>
+                                    <h3 class="green" ng-hide="document.CanDelete">Associated Document</h3>
+                                </div>
+                            </span>
+                        </div>
+                        
+                    </ion-item>
+
+                </ion-list>
+
+            </div>
+        </form>
+        <a menu-close=""
+           href="#/teamviewplayers"
+           ng-show="isCoachVerifying()"
+           class="button button-energized button-block  icon-left ion-person-stalker">Set Up Team and Players</a>
+    </ion-content>
+</ion-view>

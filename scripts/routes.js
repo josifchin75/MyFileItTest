@@ -92,6 +92,12 @@ angular.module('app.routes', [])
              controller: 'memberCardCtrl'
          })
 
+        .state('memberCardSimple', {
+            url: '/membercard',
+            templateUrl: 'templates/memberCardSimple.html',
+            controller: 'memberCardCtrl'
+        })
+
          //.state('tabsController.memberCard', {
          //    url: '/membercard',
          //    views: {

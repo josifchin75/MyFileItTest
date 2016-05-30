@@ -35,9 +35,9 @@
             FamilyUser.setObject(obj);
             function onSuccess() {
                 $scope.data.currentUser.verifying = false;
-                $state.go('memberCard');
+                $state.go('memberCardSimple');
             }
-            Documents.loadUserDocuments(obj.ID, null, onSuccess);
+            Documents.loadUserDocumentsSimple(obj.ID, null, onSuccess);
         };
 
 
