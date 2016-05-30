@@ -13,7 +13,7 @@
         //$scope.data.username = 'johndoe@gmail.com';
         //$scope.data.password = 'johndoe12';
 
-        // $scope.data.username = 'johndemo@gmail.com';
+         //$scope.data.username = 'johndemo@gmail.com';
         // $scope.data.password = 'demo12';
     }
 
