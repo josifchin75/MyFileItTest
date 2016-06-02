@@ -7,7 +7,8 @@
                 simpleDocuments: Documents.getSimpleListObject(),
                 availableShareKeys: AvailableShareKeys.getObject(),
                 promocode: '',
-                currentUser: FileItService.currentUser()
+                currentUser: FileItService.currentUser(),
+                showThumbs: false
             };
             if ($scope.data.documents.length == 0) {
                 //taken out for debug
@@ -121,6 +122,24 @@
         };
 
         $scope.shareDocuments = function () {
+            function onSuccess() {
+                if ($scope.setViewDocument()) {
+                    $state.go('shareEventSelect');
+                }
+            }
+
+            var documentIds = [];
+            var allDocs = $scope.selectedImages();
+            for (var i = 0; i < allDocs.length; i++) {
+                if (allDocs[i].selected && allDocs[i].Base64ImageThumb == null) {
+                    documentIds.push(allDocs[i].ID);
+                }
+            }
+
+            $scope.loadThumbsFromList(documentIds, onSuccess);
+        };
+
+        $scope.loadThumbsFromList = function (documentIds, success) {
             function onCompleteShareDocuments(data) {
                 if (data != null) {
                     //retain any thumbs or images retrieved
@@ -134,19 +153,11 @@
                         }
                     }
                 }
-                if ($scope.setViewDocument()) {
-                    $state.go('shareEventSelect');
+                if (typeof success == 'function') {
+                    success(data);
                 }
             }
             function fail() { }
-
-            var documentIds = [];
-            var allDocs = $scope.selectedImages();
-            for (var i = 0; i < allDocs.length; i++) {
-                if (allDocs[i].selected && allDocs[i].Base64ImageThumb == null) {
-                    documentIds.push(allDocs[i].ID);
-                }
-            }
 
             if (documentIds.length > 0) {
                 FileItService.getAppUserDocumentsThumbs(documentIds, onCompleteShareDocuments, fail);
@@ -378,7 +389,21 @@
                 });
             }
         }, true);
-        /************************************************/
+
+        $scope.$watch('data.showThumbs', function (nv) {
+            if (nv) {
+                var documentIds = [];
+                var allDocs = $scope.data.simpleDocuments;
+                for (var i = 0; i < allDocs.length; i++) {
+                    if (allDocs[i].Base64ImageThumb == null) {
+                        documentIds.push(allDocs[i].ID);
+                    }
+                }
+
+                $scope.loadThumbsFromList(documentIds);
+            }
+        });
+                /************************************************/
 
         $scope.init();
     });
