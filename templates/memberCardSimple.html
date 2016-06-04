@@ -5,7 +5,7 @@
     <ion-content padding="'true'" class="has-header">
         <form class="list">
             <div class="member-card">
-              
+
                 <div>
                     <div class="left">
                         <a href="#" ui-sref="main" class="button button-icon icon ion-android-home"></a>
@@ -13,7 +13,7 @@
                     </div>
                     <div ng-hide="isCoachVerifying()" class="right right-text">
                         <a ng-click="editMemberProfile()" class="button button-icon icon ion-edit"></a>
-                            <!--<button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>-->
+                        <!--<button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>-->
                     </div>
                 </div>
 
@@ -38,61 +38,62 @@
                     </a>
                 </div>
                 <div class="clear"></div>
-
-                <h5>Click on an image to enlarge it here.</h5>
-                <div drag-content="false">
-                    <div id="wrapper" ng-show="showLargeImage()">
-                        <img ng-src="{{imageSrc}}" class="big-image" />
+                <div id="large-image-viewer">
+                    <!--<h5>Click on an image to enlarge it here.</h5>-->
+                    <a class="button button-icon icon ion-android-arrow-dropdown-circle close-large-image positive" href="#" ng-click="hideLargeImage()"></a>
+                    <div drag-content="false">
+                        <div id="wrapper" ng-show="showLargeImage()">
+                            <img ng-src="{{imageSrc}}" class="big-image" />
+                        </div>
+                    </div>
+                    <div ng-show="showLargeImage()" class="large-image-description">
+                        Pinch and drag to zoom and move the image. Double tap to revert to regular size.
                     </div>
                 </div>
-                <div ng-show="showLargeImage()">
-                    Pinch and drag to zoom and move the image. Double tap to revert to regular size.
-                </div>
-               
-                    <ion-checkbox ng-model="data.showThumbs">View thumbnails</ion-checkbox>
-       
-                    <ion-list>
-                        <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments">
-                            <div class="item-checkbox image-list">
+                <ion-checkbox ng-model="data.showThumbs">View thumbnails</ion-checkbox>
 
-                                <label class="checkbox image-checkbox">
-                                    <input type="checkbox"
-                                           name="selectedImages[]"
-                                           value="{{document.ID}}"
-                                           ng-model="document.selected">
-                                </label>
-                                <span ng-click="showModalCall(document)">
-                                    <a href="#" ng-click="showModal(document)" ng-show="data.showThumbs">
-                                        <img src="data:image/png;base64,{{document.Base64ImageThumb}}" />
-                                    </a>
-                                    <h2>{{document.DocumentTypeName}}</h2>
-                                    <div>{{document.COMMENT}}</div>
-                                   
-                                    <span ng-show="document.VerifiedAppUserName != null">Verified By: {{document.VerifiedAppUserName}}</span>
-                                    <div class="verify-icon">
-                                        <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
-                                            <!--<i class="ion-thumbsup medium-icon"></i>-->
-                                            Verify
-                                        </button>
-                                        <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
-                                            <!--<i class="ion-thumbsdown medium-icon"></i>-->
-                                            Reject
-                                        </button>
-                                        <button ng-click="deleteDocument(document.DOCUMENTID)" class="verify-icon" ng-show="document.CanDelete">
-                                            <!--<i class="ion-thumbsdown medium-icon"></i>-->
-                                            Remove
-                                        </button>
-                                        <h3 class="green" ng-hide="document.CanDelete">Associated Document</h3>
-                                    </div>
-                                    <div> <a href="#">View Full Image</a></div>
-                                </span>
-                            </div>
+                <ion-list>
+                    <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments">
+                        <div class="item-checkbox image-list" id="document-{{document.ID}}">
 
-                        </ion-item>
+                            <label class="checkbox image-checkbox">
+                                <input type="checkbox"
+                                       name="selectedImages[]"
+                                       value="{{document.ID}}"
+                                       ng-model="document.selected">
+                            </label>
+                            <span ng-click="showModalCall(document)">
+                                <a href="#" ng-click="showModal(document)" ng-show="data.showThumbs">
+                                    <img class="thumbnail" src="data:image/png;base64,{{document.Base64ImageThumb}}" />
+                                </a>
+                                <h2>{{document.DocumentTypeName}}</h2>
+                                <div>{{document.COMMENT}}</div>
 
-                    </ion-list>
+                                <span ng-show="document.VerifiedAppUserName != null">Verified By: {{document.VerifiedAppUserName}}</span>
+                                <div class="verify-icon">
+                                    <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
+                                        <!--<i class="ion-thumbsup medium-icon"></i>-->
+                                        Verify
+                                    </button>
+                                    <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
+                                        <!--<i class="ion-thumbsdown medium-icon"></i>-->
+                                        Reject
+                                    </button>
+                                    <button ng-click="deleteDocument(document.DOCUMENTID)" class="verify-icon" ng-show="document.CanDelete">
+                                        <!--<i class="ion-thumbsdown medium-icon"></i>-->
+                                        Remove
+                                    </button>
+                                    <h3 class="green" ng-hide="document.CanDelete">Associated Document</h3>
+                                </div>
+                                <div> <a href="#">View Full Size</a></div>
+                            </span>
+                        </div>
 
-</div>
+                    </ion-item>
+
+                </ion-list>
+
+            </div>
         </form>
         <a menu-close=""
            href="#/teamviewplayers"

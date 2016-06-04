@@ -1,5 +1,5 @@
 ﻿mainApp
-    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys, LocalDocuments) {
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys, LocalDocuments, $timeout) {
         $scope.init = function () {
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
@@ -23,6 +23,8 @@
             $scope.data.familyUser = FamilyUser.getObject();
             $scope.imageSrc = '';
             $scope.data.currentUser = FileItService.currentUser();
+
+            $scope.hideLargeImage();
             myScroll = new iScroll('wrapper',
                 { zoom: true, zoomMax: 6 });
         });
@@ -56,6 +58,7 @@
         $scope.showModal = function (image) {
             var templateUrl = 'templates/image-popover.html';
             $scope.imageSrc = "data:image/png;base64," + image.Base64Image;
+            $timeout(function () { $('#large-image-viewer').show('slow'); }, 500);
             return;
         }
 
@@ -69,18 +72,31 @@
                         break;
                     }
                 }
-               
+
                 $scope.showModal(doc);
             }
             function fail() {
 
             }
+            //move the larege viewer to the correct thumb
+            var obj = $('#large-image-viewer');
+            var thumbObj = $('#document-' + document.ID).parent();
+
+            $(obj).hide('slow', function () {
+                $(obj).detach();
+                $(obj).prependTo(thumbObj);
+            });
+
             //if the image has already been show, just retain it.
             if (document.Base64Image == null) {
                 FileItService.getSingleDocument(document.ID, document.TeamEventDocumentId, document.VerifiedAppUserId, gotImage, fail);
             } else {
                 $scope.showModal(document);
             }
+        };
+
+        $scope.hideLargeImage = function () {
+            $('#large-image-viewer').hide('slow');
         };
 
         // Close the modal
@@ -365,7 +381,7 @@
         /*****************************************/
         $scope.selectedImages = function selectedImages() {
             return $filter('filter')($scope.data.simpleDocuments, { selected: true });
-           // return $filter('filter')($scope.data.documents, { selected: true });
+            // return $filter('filter')($scope.data.documents, { selected: true });
         };
 
         $scope.associatedDocuments = function associatedDocuments() {
@@ -403,7 +419,7 @@
                 $scope.loadThumbsFromList(documentIds);
             }
         });
-                /************************************************/
+        /************************************************/
 
         $scope.init();
     });

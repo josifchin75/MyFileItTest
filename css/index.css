@@ -155,7 +155,7 @@
         margin-right: .2em;
     }
 
-.image-list img {
+.image-list .thumbnail {
     width: 6em;
     float: left;
     margin-right: .2em;
@@ -164,6 +164,34 @@
 .image-list a {
     float: left;
     margin-right: .2em;
+}
+
+.large-image-description {
+    width: auto;
+    white-space: normal;
+    font-style: italic;
+    margin-bottom: 1em;
+    font-size: .9em;
+}
+
+.item-icon-right {
+    padding-right: 0px !important; 
+}
+
+/*overload to ionic to handle the checkbox centering*/
+.item-checkbox .checkbox {
+    bottom: 3.5em !important;
+    top: auto !important;
+}
+
+.item-icon-right {
+    padding-right: 14px !important; 
+}
+
+.close-large-image {
+    z-index: 9999;
+    /*top: -6.5em !important;
+    right: .6em !important;*/
 }
 
 .coach-item {
@@ -224,6 +252,7 @@
     height: 3em !important;
     margin-top: 2px;
 }
+
 .verify-icon-button {
     display: block;
 }
