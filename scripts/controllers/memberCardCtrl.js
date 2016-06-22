@@ -23,6 +23,7 @@
             $scope.data.familyUser = FamilyUser.getObject();
             $scope.imageSrc = '';
             $scope.data.currentUser = FileItService.currentUser();
+            $scope.data.showThumbs = false;
 
             $scope.hideLargeImage();
             myScroll = new iScroll('wrapper',

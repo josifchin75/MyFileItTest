@@ -99,7 +99,7 @@
             }).then(refreshDocs);
 
             function onSuccessAlertClosed() {
-                $state.go('memberCard');
+                $state.go('memberCardSimple');
             }
 
             function refreshDocs() {

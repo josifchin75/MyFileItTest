@@ -14,7 +14,7 @@
         //$scope.data.password = 'Sandy12';
 
         //$scope.data.username = 'Johndoe@gmail.com';
-        //$scope.data.password = 'johndoe12';
+        //$scope.data.password = 'johndoe12'; 
 
         //$scope.data.username = 'johndemo@gmail.com';
         // $scope.data.password = 'demo12';

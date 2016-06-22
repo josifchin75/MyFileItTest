@@ -1,6 +1,7 @@
 ﻿<ion-view title="Add Family Members">
     <ion-nav-title>
-        <fileit-header fileit-title="Add Family Members" hide-logout="false"></fileit-header>
+        <fileit-header ng-show="data.adding" fileit-title="Add Family Members" hide-logout="false"></fileit-header>
+        <fileit-header  ng-hide="data.adding" fileit-title="Update Family Members" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <form class="list">
@@ -22,7 +23,7 @@
             <label class="item item-select" name="relationship">
                 <span class="input-label">Relationship</span>
                 <select ng-model="data.relationShipTypeId">
-                    <option ng-repeat="relationShipType in data.relationShipTypes" value="{{relationShipType.Key}}">{{relationShipType.Value}}</option>
+                    <option ng-repeat="relationShipType in data.relationShipTypes" ng-selected="relationShipType.Key == data.relationShipTypeId" value="{{relationShipType.Key}}">{{relationShipType.Value}}</option>
                 </select>
             </label>
             <label class="item item-input" name="phonenumber">

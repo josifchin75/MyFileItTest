@@ -17,6 +17,7 @@
                 sex: '',
                 adding: true
             };
+
             function loadObject() {
                 if (typeof obj != 'undefined') {
                     obj = FamilyUser.getObject();
@@ -196,9 +197,8 @@
 
                 FamilyUsers.loadFamilyUsers($scope.data.currentUser.ID, onLoadFamily);
             } else {
-                $state.go($scope.data.adding ? 'main' : 'memberCard');
+                $state.go($scope.data.adding ? 'main' : 'memberCardSimple');
             }
-
         };
 
         $scope.init();
