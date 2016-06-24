@@ -175,7 +175,7 @@
 }
 
 .item-icon-right {
-    padding-right: 0px !important; 
+    padding-right: 0px !important;
 }
 
 /*overload to ionic to handle the checkbox centering*/
@@ -185,7 +185,7 @@
 }
 
 .item-icon-right {
-    padding-right: 14px !important; 
+    padding-right: 14px !important;
 }
 
 .close-large-image {
@@ -327,6 +327,14 @@
     .document-slider img {
         width: 20em;
     }
+
+.slide-box-footer {
+    text-align: center;
+    font-size: 1.25em;
+    background-color: yellow;
+    padding: .25em;
+    border: 1px solid #000000;
+}
 
 #mainCards fieldset {
     background-color: #ffffff;
