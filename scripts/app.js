@@ -69,7 +69,7 @@ var app = {
         return getPlatform();
     },
     deviceReadyCallback: function () {
-        
+        loadAdMob();
     }
 };
 

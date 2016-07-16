@@ -167,7 +167,7 @@
     <script type="text/javascript">
         app.initialize();
         loadScroll();
-        loadAdMob();
+        //loadAdMob();
 
         //initConcierge();
         //initInAppPurchases();
@@ -266,7 +266,8 @@
         }
 
         function loadAdMob() {
-            if (0==1 && typeof admob != 'undefined') {
+            alert(typeof admob);
+            if (typeof admob != 'undefined') {
                 admob.setOptions({
                     publisherId: "ca-app-pub-9515441170983746/9209311317" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
                     // interstitialAdId: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII",  // Optional
