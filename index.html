@@ -266,7 +266,6 @@
         }
 
         function loadAdMob() {
-            alert(typeof admob);
             if (typeof admob != 'undefined') {
                 admob.setOptions({
                     publisherId: "ca-app-pub-9515441170983746/9209311317" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
@@ -278,6 +277,7 @@
 
                 // Start showing banners (atomatic when autoShowBanner is set to true)
                 admob.createBannerView();
+				admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
             } else {
                 alert('admob not found');
             }
