@@ -268,24 +268,24 @@
         function loadAdMob() {
             if (typeof admob != 'undefined') {
                 var options = {
-                    publisherId: "ca-app-pub-9515441170983746/3162777713 ",//"ca-app-pub-9515441170983746/9209311317",
+                    publisherId: "ca-app-pub-9515441170983746/9209311317",
                     autoShowBanner: true
                 };
 
                 admob.setOptions({
-                    publisherId: "ca-app-pub-9515441170983746/9209311317" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
+                    publisherId: "ca-app-pub-9515441170983746/3162777713" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
                     // interstitialAdId: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII",  // Optional
                     //tappxIdiOs: "/XXXXXXXXX/Pub-XXXX-iOS-IIII",            // Optional
                     // tappxIdAndroid: "/XXXXXXXXX/Pub-XXXX-Android-AAAA",        // Optional
                     //tappxShare: 0.5                                        // Optional
                 });
-				
-				document.addEventListener(admob.events.onAdLoaded, function (e) {
-                    alert('Ad loaded' + e);
+
+                document.addEventListener(admob.events.onAdLoaded, function (e) {
+                    //alert('Ad loaded' + e);
                 });
 
                 document.addEventListener(admob.events.onAdFailedToLoad, function (e, c, r) {
-                    alert('Ad FAILED LOAD=' + e + c + r);
+                    //alert('Ad FAILED LOAD=' + e + c + r);
                 });
 
                 // Start showing banners (atomatic when autoShowBanner is set to true)
