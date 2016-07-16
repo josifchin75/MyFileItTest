@@ -59,9 +59,30 @@ var app = {
         // alert('load');
         //$('.splash').slideUp('slow');
         console.log('Received Event: ' + id);
+
+        switch (id) {
+            case 'deviceready':
+                app.deviceReadyCallback();
+        }
     },
     platform: function () {
         return getPlatform();
+    },
+    deviceReadyCallback: function () {
+        if (typeof admob != 'undefined') {
+            admob.setOptions({
+                publisherId: "ca-app-pub-9515441170983746/9209311317" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
+               // interstitialAdId: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII",  // Optional
+                //tappxIdiOs: "/XXXXXXXXX/Pub-XXXX-iOS-IIII",            // Optional
+               // tappxIdAndroid: "/XXXXXXXXX/Pub-XXXX-Android-AAAA",        // Optional
+                //tappxShare: 0.5                                        // Optional
+            });
+
+            // Start showing banners (atomatic when autoShowBanner is set to true)
+            admob.createBannerView();
+        } else {
+            alert('admob not found');
+        }
     }
 };
 

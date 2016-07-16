@@ -1,17 +1,23 @@
 ﻿mainApp
-.controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera, AppUser, FamilyUsers) {
+.controller('loginCtrl', function ($scope, FileItService, $ionicPopup, $state, Camera, AppUser, FamilyUsers, AlertService) {
     $scope.init = function () {
         $scope.data = {};
 
         //debug
-       // $scope.data.username = 'josifchin75@gmail.com';
-       // $scope.data.password = 'jopass12';
+        // $scope.data.username = 'josifchin75@gmail.com';
+        // $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'sandy@synergysportsclub.com'
         //$scope.data.password = 'synergy1';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
+
+        //$scope.data.username = 'ben.franklin@myoata.com';
+        //$scope.data.password = 'ben.franlklin1234';
+
+        //$scope.data.username = 'James.Dory@myoata.com';
+        //$scope.data.password = 'james123';
 
         //$scope.data.username = 'Johndoe@gmail.com';
         //$scope.data.password = 'johndoe12'; 
@@ -22,6 +28,11 @@
 
     $scope.$on('$ionicView.beforeEnter', function () {
         AppUser.logout();
+        if (typeof admob != 'undefined') {
+            admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
+        } else {
+            AlertService.showMessage('Admob', 'admob not found');
+        }
     });
 
     $scope.login = function () {
@@ -36,7 +47,16 @@
                 $state.go('main', { appUserId: user.ID });
             }
 
-            FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
+            function initFamily() {
+                FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
+            }
+
+            if (user.RemindUserForSignUp) {
+                $scope.RemindUserForShareKeys(user, initFamily);
+            } else {
+                initFamily();
+                //FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
+            }
         }
         function failCallback() {
             var alertPopup = $ionicPopup.alert({
@@ -58,6 +78,12 @@
              });
          });*/
     }
+
+    $scope.RemindUserForShareKeys = function (user, callback) {
+        //show the message
+        var message = 'Don\'t forget to purchase a sharekey to share your documents!<sharekey-url user-id="' + user.ID + '"></sharekey-url>';
+        AlertService.showMessage("MyFileIT", message, callback);
+    };
 
     $scope.init();
 

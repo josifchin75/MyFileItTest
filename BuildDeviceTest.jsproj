@@ -263,6 +263,7 @@
     <Content Include="scripts\fileHelper.js" />
     <Content Include="scripts\routes.js" />
     <Content Include="scripts\services.js" />
+    <Content Include="scripts\services\alertService.js" />
     <Content Include="scripts\services\appUserService.js" />
     <Content Include="scripts\services\availableShareKeysService.js" />
     <Content Include="scripts\services\dateHelperService.js" />
