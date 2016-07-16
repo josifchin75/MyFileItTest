@@ -28,11 +28,11 @@
 
     $scope.$on('$ionicView.beforeEnter', function () {
         AppUser.logout();
-        if (typeof admob != 'undefined') {
-            admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
-        } else {
-            AlertService.showMessage('Admob', 'admob not found');
-        }
+        //if (typeof admob != 'undefined') {
+        //    admob.showBanner(admob.BannerSize.BANNER, admob.Position.BOTTOM_APP);
+        //} else {
+        //    AlertService.showMessage('Admob', 'admob not found');
+        //}
     });
 
     $scope.login = function () {
