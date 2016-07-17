@@ -269,16 +269,17 @@
             if (typeof admob != 'undefined') {
                 var options = {
                     publisherId: "ca-app-pub-9515441170983746/3162777713 ",
-                    autoShowBanner: true
+                    autoShowBanner: true,
+                    bannerAtTop: true
                 };
 
-                admob.setOptions({
-                    publisherId: "ca-app-pub-9515441170983746/3162777713" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
-                    // interstitialAdId: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII",  // Optional
-                    //tappxIdiOs: "/XXXXXXXXX/Pub-XXXX-iOS-IIII",            // Optional
-                    // tappxIdAndroid: "/XXXXXXXXX/Pub-XXXX-Android-AAAA",        // Optional
-                    //tappxShare: 0.5                                        // Optional
-                });
+                //admob.setOptions({
+                //    publisherId: "ca-app-pub-9515441170983746/3162777713" //"ca-app-pub-XXXXXXXXXXXXXXXX/BBBBBBBBBB",  // Required
+                //    // interstitialAdId: "ca-app-pub-XXXXXXXXXXXXXXXX/IIIIIIIIII",  // Optional
+                //    //tappxIdiOs: "/XXXXXXXXX/Pub-XXXX-iOS-IIII",            // Optional
+                //    // tappxIdAndroid: "/XXXXXXXXX/Pub-XXXX-Android-AAAA",        // Optional
+                //    //tappxShare: 0.5                                        // Optional
+                //});
 
                 document.addEventListener(admob.events.onAdLoaded, function (e) {
                     //alert('Ad loaded' + e);
@@ -298,9 +299,7 @@
                         //alert('failed to create banner view' + a + b + c);
                     }
 					)
-            } else {
-                alert('admob not found');
-            }
+            } 
         }
 
 
