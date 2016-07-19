@@ -1,5 +1,5 @@
 ﻿mainApp
-    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys, LocalDocuments, $timeout) {
+    .controller('memberCardCtrl', function ($scope, FileItService, FamilyUser, $state, Documents, ScanDocument, $ionicModal, ViewDocument, $filter, $ionicPopup, AvailableShareKeys, LocalDocuments, $timeout, AlertService) {
         $scope.init = function () {
             $scope.data = {
                 familyUser: FamilyUser.getObject(),
@@ -139,21 +139,37 @@
         };
 
         $scope.shareDocuments = function () {
-            function onSuccess() {
-                if ($scope.setViewDocument()) {
-                    $state.go('shareEventSelect');
-                }
-            }
+            //test if they have a trial key or a valid share key
+            var currentUser = $scope.data.currentUser;
+            if (currentUser.DaysLeftInTrial < 0 && !$scope.hasShareKey($scope.data.familyUser)) {
+                $scope.remindAboutTrial();
+            } else {
 
-            var documentIds = [];
-            var allDocs = $scope.selectedImages();
-            for (var i = 0; i < allDocs.length; i++) {
-                if (allDocs[i].selected && allDocs[i].Base64ImageThumb == null) {
-                    documentIds.push(allDocs[i].ID);
+                function onSuccess() {
+                    if ($scope.setViewDocument()) {
+                        $state.go('shareEventSelect');
+                    }
                 }
-            }
 
-            $scope.loadThumbsFromList(documentIds, onSuccess);
+                var documentIds = [];
+                var allDocs = $scope.selectedImages();
+                for (var i = 0; i < allDocs.length; i++) {
+                    if (allDocs[i].selected && allDocs[i].Base64ImageThumb == null) {
+                        documentIds.push(allDocs[i].ID);
+                    }
+                }
+
+                $scope.loadThumbsFromList(documentIds, onSuccess);
+            }
+        };
+
+        $scope.remindAboutTrial = function () {
+            var message = '<sharekey-url user-id="' + $scope.data.currentUser.ID + '"></sharekey-url>';
+            message += '  <p>MyFile-It is free to upload and save your and families personal documents. There is small per user charge for unlimited sharing their personal documents for a year. MyFile-IT App allows you a 90 day trial period to enjoy all the features including sharing. When you pay for an annual share key subscription you will also get a no ad version.</p>';
+            message += '<p>You have 0 days left.   MyFile-It is free to upload and save your and families personal documents. There is small per user charge for unlimited sharing their personal documents for a year. MyFile-IT App allows you a 90 day trial period to enjoy all the features including sharing. When you pay for an annual share key subscription you will also get a no ad version.</p>';
+            message += '<h3>You have 0 days left.</h3>';
+           
+            AlertService.showMessage("Trial expired", message, null);
         };
 
         $scope.loadThumbsFromList = function (documentIds, success) {

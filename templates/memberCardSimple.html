@@ -23,7 +23,7 @@
                         <h5>Add Document</h5>
                     </a>
                     <span ng-hide="isCoachVerifying()">
-                        <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser)">
+                        <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser) || 0==0">
                             <i class="large-icon ion-android-share-alt"></i>
                             <h5>Share Selected</h5>
                         </a>
