@@ -5,7 +5,7 @@
 
         //debug
         // $scope.data.username = 'josifchin75@gmail.com';
-        // $scope.data.password = 'jopass12';
+       //  $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'sandy@synergysportsclub.com'
         //$scope.data.password = 'synergy1';
@@ -51,12 +51,17 @@
                 FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
             }
 
-            if (user.RemindUserForSignUp) {
-                $scope.RemindUserForShareKeys(user, initFamily);
-            } else {
+            //don't show the ads if they have sharekeys
+            if (!user.ShowAds && typeof admob != 'undefined') {
+                admob.destroyBannerView();
+            }
+
+            //if (user.RemindUserForSignUp) {
+               // $scope.RemindUserForShareKeys(user, initFamily);
+            //} else {
                 initFamily();
                 //FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
-            }
+            //}
         }
         function failCallback() {
             var alertPopup = $ionicPopup.alert({
