@@ -21,7 +21,7 @@
   <preference name="Fullscreen" value="false" />
   
   <plugin name="cordova-plugin-whitelist" version="1"/>
-  <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
+ <!--  <vs:plugin name="cordova-plugin-inappbrowser" source="npm" /> -->
    <plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" />
    
 <!--   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
