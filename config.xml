@@ -20,9 +20,14 @@
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
   
-<!--   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
+  <plugin name="cordova-plugin-whitelist" version="1"/>
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
-  <plugin name="phonegap-admob" source="npm"/> -->
+  
+<!--   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
+  
+  <plugin name="phonegap-admob" source="npm"/>
+
+  -->
   
   <!--<plugin name="com.admob.google" spec="4.0.8" source="pgb" />-->
  <!-- <plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />-->
@@ -30,7 +35,7 @@
   
   <vs:platformSpecificValues />
 
-  <plugin name="cordova-plugin-whitelist" version="1"/>
+  
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
