@@ -25,18 +25,14 @@
   <!--  <plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" /> -->
   
    <vs:plugin name="org.apache.cordova.camera" />
-   <plugin name="com.admob.google" spec="4.0.8" source="pgb" />
-  <!-- <plugin name="phonegap-admob" source="npm"/> -->
+   <!-- <plugin name="com.admob.google" spec="4.0.8" source="pgb" /> -->
 
  <!--DO NOT USE -->
   <!-- <vs:plugin name="org.apache.cordova.camera" version="0.3.2" /> -->
-
  <!-- <plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />-->
-  <!-- -->
   
   <vs:platformSpecificValues />
 
-  
   <allow-intent href="http://*/*"/>
   <allow-intent href="https://*/*"/>
   <allow-intent href="tel:*"/>
@@ -46,9 +42,7 @@
 
   <!--<splash src="splash.png" />-->
   <vs:splash src="splash.png" />
-
   <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
-
 
   <platform name="android">
     <icon src="icon.png" />
