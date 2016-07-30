@@ -26,14 +26,13 @@
   <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
 	<param name="BILLING_KEY" value=""/>
   </vs:plugin>
-<!--   <vs:plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" /> -->
-   <!-- <plugin name="com.admob.google" spec="4.0.8" source="pgb" /> -->
-   <!-- <plugin name="phonegap-admob" source="npm"/>  -->
     <vs:plugin name="phonegap-admob" source="npm" /> 
 
  <!--DO NOT USE -->
   <!-- <vs:plugin name="org.apache.cordova.camera" version="0.3.2" /> -->
  <!-- <plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />-->
+ <!--   <vs:plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" /> -->
+   <!-- <plugin name="com.admob.google" spec="4.0.8" source="pgb" /> -->
   
   <vs:platformSpecificValues />
 
@@ -44,9 +43,9 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-  <splash src="splash.png" />
-<!--   <vs:splash src="splash.png" /> -->
-<!--   <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" /> -->
+  <!--<splash src="splash.png" />-->
+  <vs:splash src="splash.png" />
+  <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
 
   <platform name="android">
     <icon src="icon.png" />
