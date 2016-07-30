@@ -44,9 +44,9 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-  <!--<splash src="splash.png" />-->
-  <vs:splash src="splash.png" />
-  <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
+  <splash src="splash.png" />
+<!--   <vs:splash src="splash.png" /> -->
+<!--   <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" /> -->
 
   <platform name="android">
     <icon src="icon.png" />
