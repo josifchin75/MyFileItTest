@@ -23,7 +23,9 @@
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
   <vs:plugin name="org.apache.cordova.camera" />
-  <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" />
+  <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
+	<param name="BILLING_KEY" value=""/>
+  </vs:plugin>
 <!--   <vs:plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" /> -->
    <!-- <plugin name="com.admob.google" spec="4.0.8" source="pgb" /> -->
    <!-- <plugin name="phonegap-admob" source="npm"/>  -->
