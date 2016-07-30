@@ -288,7 +288,7 @@
                 });
 
                 document.addEventListener(admob.events.onAdFailedToLoad, function (e, c, r) {
-                    if (debug) { alert('Ad FAILED LOAD=' + e + c + r); }
+                    if (debug) { alert('Ad FAILED LOAD=' + JSON.stringify(e) + c + r); }
                 });
 
                 // Start showing banners (atomatic when autoShowBanner is set to true)
