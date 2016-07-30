@@ -22,7 +22,7 @@
   <vs:plugin name="org.apache.cordova.camera" version="0.3.2" />
 
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
-  <plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" />
+  <!-- <plugin name="cc.fovea.plugins.inapppurchase" spec="3.4.0" source="pgb" /> -->
   <plugin name="phonegap-admob" source="npm"/>
   <!--<plugin name="com.admob.google" spec="4.0.8" source="pgb" />-->
  <!-- <plugin name="ch.zhaw.sqlite" spec="2.0.0" source="pgb" />-->
