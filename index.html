@@ -284,7 +284,7 @@
                 //});
 
                 document.addEventListener(admob.events.onAdLoaded, function (e) {
-                    if (debug) { alert('Ad loaded' + e); }
+                    //if (debug) { alert('Ad loaded' + e); }
                 });
 
                 document.addEventListener(admob.events.onAdFailedToLoad, function (e, c, r) {
@@ -295,7 +295,7 @@
                 admob.createBannerView(
                     options,
 					function (a, b, c) {
-					    if (debug) { alert(a + b + c); }
+					    //if (debug) { alert(a + b + c); }
 					},
                     function (a, b, c) {
                         if (debug) { alert('failed to create banner view' + a + b + c); }
