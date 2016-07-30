@@ -26,6 +26,8 @@
   
    <vs:plugin name="org.apache.cordova.camera" />
    <!-- <plugin name="com.admob.google" spec="4.0.8" source="pgb" /> -->
+   <!-- <plugin name="phonegap-admob" source="npm"/>  -->
+    <vs:plugin name="phonegap-admob" source="npm" /> 
 
  <!--DO NOT USE -->
   <!-- <vs:plugin name="org.apache.cordova.camera" version="0.3.2" /> -->
