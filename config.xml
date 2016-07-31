@@ -48,7 +48,7 @@
   <vs:splash src="splash.png" />
   <vs:splash src="splash.png" vs:platform="ios" width="640" height="1136" />
   
-  <vs:splash vs:platform="ios" src="splash.png" width="750" height="1334"/>
+<!--   <vs:splash vs:platform="ios" src="splash.png" width="750" height="1334"/>
   <vs:splash vs:platform="ios" src="splash.png" width="1242" height="2208"/>
   <vs:splash vs:platform="ios" src="splash.png" width="2208" height="1242"/>
   <vs:splash vs:platform="ios" src="splash.png" width="2048" height="1536"/>
@@ -56,7 +56,7 @@
   <vs:splash vs:platform="ios" src="splash.png" width="1536" height="2048"/>
   <vs:splash vs:platform="ios" src="splash.png" width="768" height="1024"/>
   <vs:splash vs:platform="ios" src="splash.png" width="640" height="960"/>
-  <vs:splash vs:platform="ios" src="splash.png" width="320" height="480"/>
+  <vs:splash vs:platform="ios" src="splash.png" width="320" height="480"/> -->
 
   <platform name="android">
     <icon src="icon.png" />
