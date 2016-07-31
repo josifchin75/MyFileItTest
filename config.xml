@@ -21,12 +21,13 @@
   <preference name="Fullscreen" value="false" />
   
   <plugin name="cordova-plugin-whitelist" version="1"/>
+  <plugin name="org.apache.cordova.splashscreen" spec="1.0.0" source="pgb" />
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
   <vs:plugin name="org.apache.cordova.camera" />
   <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
 	<param name="BILLING_KEY" value=""/>
   </vs:plugin>
-    <vs:plugin name="phonegap-admob" source="npm" /> 
+  <vs:plugin name="phonegap-admob" source="npm" /> 
 
  <!--DO NOT USE -->
   <!-- <vs:plugin name="org.apache.cordova.camera" version="0.3.2" /> -->
