@@ -10,9 +10,9 @@
   <content src="index.html" />
 
   <access origin="*" />
-  <preference name="SplashScreen" value="splash" />
+ <!--  <preference name="SplashScreen" value="splash" />
   <preference name="AutoHideSplashScreen" value="true" />
-  <preference name="SplashScreenDelay" value="1" /> 
+  <preference name="SplashScreenDelay" value="1" />  -->
 
   <preference name="deployment-target" value="6.1" />
   <preference name="windows-target-version" value="8.0" />
@@ -44,10 +44,10 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-  <!--<splash src="splash.png" />-->
-  <vs:splash src="splash.png" />
-  <vs:splash src="resources/splash.png" vs:platform="ios" width="640" height="1136" />
-  
+  <splash src="splash.png" />
+  <!-- <vs:splash src="splash.png" /> -->
+  <!-- <vs:splash src="resources/splash.png" vs:platform="ios" width="640" height="1136" /> -->
+  <!-- <splash src="resources/splash.png" platform="ios" width="640" height="1136" /> -->
 <!--   <vs:splash vs:platform="ios" src="splash.png" width="750" height="1334"/>
   <vs:splash vs:platform="ios" src="splash.png" width="1242" height="2208"/>
   <vs:splash vs:platform="ios" src="splash.png" width="2208" height="1242"/>
