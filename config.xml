@@ -20,10 +20,10 @@
   <preference name="windows-phone-target-version" value="8.1" />
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
-   <preference name="phonegap-version" value="3.0.0" />
+  <!--  <preference name="phonegap-version" value="3.0.0" /> -->
   
   <plugin name="cordova-plugin-whitelist" version="1"/>
-<!--   <plugin name="org.apache.cordova.splashscreen" spec="1.0.0" source="pgb" /> -->
+   <plugin name="org.apache.cordova.splashscreen" spec="1.0.0" source="pgb" /> 
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
   <vs:plugin name="org.apache.cordova.camera" />
   <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
@@ -47,6 +47,9 @@
   <allow-intent href="geo:*"/>
 
   <vs:splash src="splash.png" />
+  
+  <vs:splash src="resources/splash.png" gap:platform="android" />
+  
 <!--       <vs:splash src="res/screens/android/screen-ldpi-portrait.png"       vs:platform="android" vs:qualifier="port-ldpi" />
     <vs:splash src="res/screens/android/screen-mdpi-portrait.png"       vs:platform="android" vs:qualifier="port-mdpi" />
     <vs:splash src="res/screens/android/screen-hdpi-portrait.png"       vs:platform="android" vs:qualifier="port-hdpi" />
