@@ -46,9 +46,22 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
+  <!--SPLASH SCREENS-->
   <vs:splash src="splash.png" />
-  
+  <!--Android-->
   <vs:splash src="resources/splash.png" vs:platform="android" />
+  <!-- iOS-->
+  <vs:splash src="resources/splash.png"
+        vs:platform="ios" width="320" height="480" />
+    <vs:splash src="resources/splash.png"
+        vs:platform="ios" width="640" height="960" />
+    <vs:splash src="resources/splash.png"
+        vs:platform="ios" width="768" height="1024" />
+    <vs:splash src="resources/splash.png"
+        vs:platform="ios" width="1024" height="768" />
+<!-- WinPhone -->
+    <vs:splash src="resources/splash.png"
+        vs:platform="winphone" />
   
 <!--       <vs:splash src="res/screens/android/screen-ldpi-portrait.png"       vs:platform="android" vs:qualifier="port-ldpi" />
     <vs:splash src="res/screens/android/screen-mdpi-portrait.png"       vs:platform="android" vs:qualifier="port-mdpi" />
