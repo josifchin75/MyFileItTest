@@ -184,6 +184,7 @@
     <Content Include="lib\iScroll\iscroll.js" />
     <Content Include="lib\jquery\jquery-2.1.4.min.js" />
     <Content Include="lib\moment\moment.js" />
+    <Content Include="res\icon.png" />
     <Content Include="res\icons\android\icon-36-ldpi.png" />
     <Content Include="res\icons\android\icon-48-mdpi.png" />
     <Content Include="res\icons\android\icon-72-hdpi.png" />
@@ -235,10 +236,12 @@
     <Content Include="res\screens\ios\screen-iphone-portrait-667h.png" />
     <Content Include="res\screens\ios\screen-iphone-portrait-736h.png" />
     <Content Include="res\screens\ios\screen-iphone-portrait.png" />
+    <Content Include="res\screens\ios\splash.png" />
     <Content Include="res\screens\windows\SplashScreen.scale-100.png" />
     <Content Include="res\screens\windows\SplashScreen.scale-240.png" />
     <Content Include="res\screens\windows\SplashScreenPhone.scale-240.png" />
     <Content Include="res\screens\wp8\SplashScreenImage.jpg" />
+    <Content Include="res\splash.png" />
     <Content Include="scripts\app.js" />
     <Content Include="scripts\controllers.js" />
     <Content Include="scripts\controllers\aboutCtrl.js" />
