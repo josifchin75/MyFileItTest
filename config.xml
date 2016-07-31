@@ -51,10 +51,10 @@
   <!--Android-->
   <vs:splash src="resources/splash.png" vs:platform="android" />
   <!-- iOS-->
-  <vs:splash src="resources/splash.png" vs:platform="ios" width="320" height="480" />
-<vs:splash src="resources/splash.png" vs:platform="ios" width="640" height="960" />
-<vs:splash src="resources/splash.png" vs:platform="ios" width="768" height="1024" />
-<vs:splash src="resources/splash.png" vs:platform="ios" width="1024" height="768" />
+  <vs:splash src="splash.png" vs:platform="ios" width="320" height="480" />
+<vs:splash src="splash.png" vs:platform="ios" width="640" height="960" />
+<vs:splash src="splash.png" vs:platform="ios" width="768" height="1024" />
+<vs:splash src="splash.png" vs:platform="ios" width="1024" height="768" />
 <!-- 
 <vs:splash src="res/screen/ios/screen-iphone-portrait.png" vs:platform="ios" width="320" height="480" />
 <vs:splash src="res/screen/ios/screen-iphone-portrait-2x.png" vs:platform="ios" width="640" height="960" />
