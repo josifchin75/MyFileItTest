@@ -69,7 +69,7 @@ var app = {
         return getPlatform();
     },
     deviceReadyCallback: function () {
-		setTimeout(loadAdMob, 1000);
+        setTimeout(loadAdMob, 500);
     }
 };
 

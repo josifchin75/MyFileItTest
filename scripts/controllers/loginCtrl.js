@@ -4,15 +4,16 @@
         $scope.data = {};
 
         //debug
-        // $scope.data.username = 'josifchin75@gmail.com';
-       //  $scope.data.password = 'jopass12';
+         //$scope.data.username = 'josifchin75@gmail.com';
+        //$scope.data.username = 'jono@gmail.com'
+        //$scope.data.password = 'jopass12';
 
         //$scope.data.username = 'sandy@synergysportsclub.com'
         //$scope.data.password = 'synergy1';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
-
+         
         //$scope.data.username = 'ben.franklin@myoata.com';
         //$scope.data.password = 'ben.franlklin1234';
 
@@ -24,6 +25,9 @@
 
         //$scope.data.username = 'johndemo@gmail.com';
         // $scope.data.password = 'demo12';
+
+        //$scope.data.username = 'Mike.Army@myoata.com';
+        //$scope.data.password = 'marmy12';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
@@ -88,6 +92,10 @@
         //show the message
         var message = 'Don\'t forget to purchase a sharekey to share your documents!<sharekey-url user-id="' + user.ID + '"></sharekey-url>';
         AlertService.showMessage("MyFileIT", message, callback);
+    };
+
+    $scope.tryAdMob = function () {
+        loadAdMob();
     };
 
     $scope.init();
