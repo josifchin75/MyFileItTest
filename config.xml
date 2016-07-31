@@ -58,6 +58,7 @@
     <icon src="resources/images/icons/ios/MyFileIT_icon120_120.png"  width="120" height="120"/>
     <icon src="resources/images/icons/ios/MyFileIT_icon120_120.png"  width="152" height="152"/>
     <icon src="icon.png" />
+	<splash src="splash.png"/>
   </platform>
   <platform name="winphone">
     <icon src="icon.png" />
