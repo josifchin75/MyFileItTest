@@ -20,6 +20,7 @@
   <preference name="windows-phone-target-version" value="8.1" />
   <preference name="Orientation" value="portrait" />
   <preference name="Fullscreen" value="false" />
+   <preference name="phonegap-version" value="3.0.0" />
   
   <plugin name="cordova-plugin-whitelist" version="1"/>
 <!--   <plugin name="org.apache.cordova.splashscreen" spec="1.0.0" source="pgb" /> -->
