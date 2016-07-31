@@ -291,7 +291,10 @@
                 });
 
                 document.addEventListener(admob.events.onAdFailedToLoad, function (e, c, r) {
-                    if (debug) { alert('Ad FAILED LOAD=' + e + c + r); }
+                    if (debug) { alert('Ad FAILED LOAD=' + JSON.stringify(e) + c + r); }
+                    if (adMobAttempts < 10) {
+                        setTimeout(loadAdMob, 500);
+                    }
                 });
 
                 // Start showing banners (atomatic when autoShowBanner is set to true)
@@ -302,9 +305,7 @@
 					},
                     function (a, b, c) {
                         if (debug) { alert('failed to create banner view' + a + b + c); }
-                        if (adMobAttempts < 10) {
-                            setTimeout(loadAdMob, 500);
-                        }
+                      
                     }
 					)
             } 
