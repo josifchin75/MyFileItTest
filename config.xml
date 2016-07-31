@@ -46,10 +46,10 @@
   <allow-intent href="geo:*"/>
 
   <vs:splash src="splash.png" />
-      <vs:splash src="res/screens/android/screen-ldpi-portrait.png"       vs:platform="android" vs:qualifier="port-ldpi" />
+<!--       <vs:splash src="res/screens/android/screen-ldpi-portrait.png"       vs:platform="android" vs:qualifier="port-ldpi" />
     <vs:splash src="res/screens/android/screen-mdpi-portrait.png"       vs:platform="android" vs:qualifier="port-mdpi" />
     <vs:splash src="res/screens/android/screen-hdpi-portrait.png"       vs:platform="android" vs:qualifier="port-hdpi" />
-    <vs:splash src="res/screens/android/screen-xhdpi-portrait.png"      vs:platform="android" vs:qualifier="port-xhdpi" />
+    <vs:splash src="res/screens/android/screen-xhdpi-portrait.png"      vs:platform="android" vs:qualifier="port-xhdpi" /> -->
   <!-- iPhone 6 -->
 <!-- <splash src="resources/splash.png" platform="ios" width="750" height="1334" />
 <splash src="resources/splash.png" platform="ios" width="1242" height="2208" />
