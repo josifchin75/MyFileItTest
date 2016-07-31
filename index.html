@@ -265,7 +265,10 @@
             //alert(receipt);
         }
 
+        var adMobAttempts = 0;
+
         function loadAdMob() {
+            adMobAttempts++;
             if (typeof admob != 'undefined') {
                 var debug = true;
 
@@ -299,6 +302,9 @@
 					},
                     function (a, b, c) {
                         if (debug) { alert('failed to create banner view' + a + b + c); }
+                        if (adMobAttempts < 10) {
+                            setTimeout(loadAdMob, 500);
+                        }
                     }
 					)
             } 
