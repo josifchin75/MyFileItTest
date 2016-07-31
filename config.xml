@@ -55,7 +55,7 @@
 <vs:splash src="splash.png" vs:platform="ios" width="640" height="960" />
 <vs:splash src="splash.png" vs:platform="ios" width="768" height="1024" />
 <vs:splash src="splash.png" vs:platform="ios" width="1024" height="768" />
-<vs:splash src="splash.png" vs:platform="ios" width="750" height="1334" />
+<vs:splash src="res/screens/ios/splash_iphone6.png" vs:platform="ios" width="750" height="1334" />
 
 
 <!-- 
