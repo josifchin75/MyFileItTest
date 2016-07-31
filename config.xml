@@ -99,17 +99,6 @@
     <icon src="resources/images/icons/ios/MyFileIT_icon120_120.png"  width="120" height="120"/>
     <icon src="resources/images/icons/ios/MyFileIT_icon120_120.png"  width="152" height="152"/>
     <icon src="icon.png" />
-	
-	<splash src="resources/splash.png" width="320" height="480"/>
-    <splash src="resources/splash.png" width="640" height="960"/>
-    <splash src="resources/splash.png" width="768" height="1024"/>
-    <splash src="resources/splash.png" width="1536" height="2048"/>
-    <splash src="resources/splash.png" width="1024" height="768"/>
-    <splash src="resources/splash.png" width="2048" height="1536"/>
-    <splash src="resources/splash.png" width="640" height="1136"/>
-    <splash src="resources/splash.png" width="750" height="1334"/>
-    <splash src="resources/splash.png" width="1242" height="2208"/>
-    <splash src="resources/splash.png" width="2208" height="1242"/>
   </platform>
   <platform name="winphone">
     <icon src="icon.png" />
