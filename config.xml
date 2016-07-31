@@ -46,28 +46,30 @@
   <allow-intent href="mailto:*"/>
   <allow-intent href="geo:*"/>
 
-  <!--SPLASH SCREENS-->
-  <vs:splash src="splash.png" />
-  <!--Android-->
-  <vs:splash src="resources/splash.png" vs:platform="android" />
-  <!-- iOS-->
-  <vs:splash src="splash.png" vs:platform="ios" width="320" height="480" />
-<vs:splash src="splash.png" vs:platform="ios" width="640" height="960" />
-<vs:splash src="splash.png" vs:platform="ios" width="768" height="1024" />
-<vs:splash src="splash.png" vs:platform="ios" width="1024" height="768" />
-<vs:splash src="res/screens/ios/splash_iphone6.png" vs:platform="ios" width="750" height="1334" />
+	<!--SPLASH SCREENS-->
+	<vs:splash src="splash.png" />
+	<!--Android-->
+	<vs:splash src="resources/splash.png" vs:platform="android" />
+	
+	<!-- iOS-->
+	<!--iphone6-->
+	<vs:splash src="res/screens/ios/splash_iphone6.png" vs:platform="ios" width="750" height="1334" />
+	<!--iphone6+-->
+	<vs:splash src="res/screens/ios/splash_iphone6plus.png" vs:platform="ios" width="1242" height="2208" />
+	<!--iphone5-->
+	<vs:splash src="res/screens/ios/splash_iphone5.png" vs:platform="ios" width="640" height="1136" />
+	<!--ipad non-retina -->
+	<vs:splash src="res/screens/ios/splash_ipad.png" vs:platform="ios" width="768" height="1024" />
+	<!--ipad retina -->
+	<vs:splash src="res/screens/ios/splash_ipadretina.png" vs:platform="ios" width="1536" height="2048" />
+	<!--ipod non-retina -->
+	<vs:splash src="res/screens/ios/splash_ipod.png" vs:platform="ios" width="320" height="480" />
+	<!--ipod non-retina -->
+	<vs:splash src="res/screens/ios/splash_ipodretina.png" vs:platform="ios" width="640" height="960" />
 
-
-<!-- 
-<vs:splash src="res/screen/ios/screen-iphone-portrait.png" vs:platform="ios" width="320" height="480" />
-<vs:splash src="res/screen/ios/screen-iphone-portrait-2x.png" vs:platform="ios" width="640" height="960" />
-<vs:splash src="res/screen/ios/screen-ipad-portrait.png" vs:platform="ios" width="768" height="1024" />
-<vs:splash src="res/screen/ios/screen-ipad-landscape.png" sv:platform="ios" width="1024" height="768" /> -->
-<!-- WinPhone -->
+	<!-- WinPhone -->
     <vs:splash src="resources/splash.png" vs:platform="winphone" />
   
-
-
   <platform name="android">
     <icon src="icon.png" />
   </platform>
