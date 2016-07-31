@@ -28,7 +28,7 @@
   <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
 	<param name="BILLING_KEY" value=""/>
   </vs:plugin>
-<!--   <vs:plugin name="phonegap-admob" source="npm" />  -->
+  <vs:plugin name="phonegap-admob" source="npm" /> 
 
  <!--DO NOT USE -->
   <!-- <vs:plugin name="org.apache.cordova.camera" version="0.3.2" /> -->
