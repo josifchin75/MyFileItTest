@@ -5,7 +5,7 @@
         version="1.0.7"
         xmlns="http://www.w3.org/ns/widgets">
 
-  <name>MyFileIT Documents</name>
+  <name>MyFileIT PE Documents</name>
   <description>MyFileIT document sharing and storage.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">J. Osifchin</author>
   <content src="index.html" />
@@ -23,7 +23,7 @@
   <!--  <preference name="phonegap-version" value="3.0.0" /> -->
   
   <plugin name="cordova-plugin-whitelist" version="1"/>
-  <plugin name="org.apache.cordova.splashscreen" spec="1.0.0" source="pgb" /> 
+  <plugin name="org.apache.cordova.splashscreen" spec="1.0.0" source="npm" /> 
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
   <vs:plugin name="org.apache.cordova.camera" />
   <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
