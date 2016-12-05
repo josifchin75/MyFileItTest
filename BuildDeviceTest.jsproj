@@ -184,6 +184,12 @@
     <Content Include="lib\iScroll\iscroll.js" />
     <Content Include="lib\jquery\jquery-2.1.4.min.js" />
     <Content Include="lib\moment\moment.js" />
+    <Content Include="resources\images\icons\ios\MyFileIT_icon120_120.png" />
+    <Content Include="resources\images\icons\ios\MyFileIT_icon152_152.png" />
+    <Content Include="resources\images\icons\ios\MyFileIT_icon57_57.png" />
+    <Content Include="resources\images\icons\ios\MyFileIt_icon72_72.png" />
+    <Content Include="resources\images\icons\ios\MyFileIT_icon76_76.png" />
+    <Content Include="resources\splash.png" />
     <Content Include="res\icon.png" />
     <Content Include="res\icons\android\icon-36-ldpi.png" />
     <Content Include="res\icons\android\icon-48-mdpi.png" />

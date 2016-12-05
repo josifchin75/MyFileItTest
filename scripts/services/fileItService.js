@@ -3,7 +3,7 @@
     var currentUser;
     //var baseUrl = 'http://fileit.cloudapp.net/MyFileItService/MyFileItAppService.svc/rest/';
     //var baseUrl = 'http://myfileit.net/MyFileItService/MyFileItAppService.svc/rest/';
-    var baseUrl = 'https://myfileit.net/MyFileItService/MyFileItAppService.svc/rest/';
+    var baseUrl = 'https://myfileit.net/MyFileItPEService/MyFileItPEMainService.svc/rest/';
     var referenceLists = {};
     //baseUrl = 'http://localhost:37533/MyFileItAppService.svc/rest';
     return {
@@ -12,8 +12,9 @@
             var promise = deferred.promise;
             var url = this.baseUrl() + routeUrl;
             obj.timeout = 10000;
-
+            
             loadingService.show();
+            
             $http.post(url, obj)
                 .success(function (response) {
                     loadingService.hide();
@@ -27,7 +28,7 @@
                         successCallback(response);
                     }
                 })
-                .error(function (response) {
+                .error(function (response,a,b,c) {
                     alert(response);
                     loadingService.hide();
                 });
@@ -280,7 +281,7 @@
             var servicePass = this.adminPass();
             var svc = this;
             var downloadedDocsVar;
-            var finalDocumentArray = []
+            var finalDocumentArray = [];
 
             function mainAppGet(downloadedDocumentIds) {
                 downloadedDocumentIds = [];

@@ -47,7 +47,7 @@
             }
 
             function successUserRef(data) {
-                var lookup = 'User/Player';
+                var lookup = 'Client';
                 for (var i = 0; i < data.KeyValueData.length; i++) {
                     if (data.KeyValueData[i].Value == lookup) {
                         // $scope.data.appUserTypes = data.KeyValueData[i];

@@ -2,7 +2,7 @@
     .controller('aboutCtrl', function ($scope) {
         $scope.init = function () {
             var data = {
-                version: "1.0.7"
+                version: "1.0.0"
             };
             $scope.data = data;
         };

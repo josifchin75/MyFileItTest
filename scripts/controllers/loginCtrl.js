@@ -4,9 +4,9 @@
         $scope.data = {};
 
         //debug
-         //$scope.data.username = 'josifchin75@gmail.com';
+         $scope.data.username = 'josifchin75@gmail.com';
         //$scope.data.username = 'jono@gmail.com'
-        //$scope.data.password = 'jopass12';
+        $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'sandy@synergysportsclub.com'
         //$scope.data.password = 'synergy1';
@@ -26,8 +26,8 @@
         //$scope.data.username = 'johndemo@gmail.com';
         // $scope.data.password = 'demo12';
 
-        //$scope.data.username = 'Mike.Army@myoata.com';
-        //$scope.data.password = 'marmy12';
+        //$scope.data.username = 'sbutcher1@gmail.com';
+        //$scope.data.password = 'sandy9451';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
