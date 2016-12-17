@@ -374,14 +374,16 @@
     $scope.goToConfirm = function () {
         var valid = true;
 
-        if ($scope.associatedDocuments().length == 0) {
-            valid = false;
-            $scope.showError("Incomplete", "Please associate some documents to share.");
-        }
+        //if ($scope.associatedDocuments().length == 0) {
+        //    valid = false;
+        //    $scope.showError("Incomplete", "Please associate some documents to share.");
+        //}
 
         if (valid) {
             function goToConfirm() {
-                $scope.data.associatedCount = $scope.associatedDocuments().length;
+                // $scope.data.associatedCount = $scope.associatedDocuments().length;
+                $scope.data.organizationName = $scope.data.organizations[0].NAME;
+                $scope.data.eventName = $scope.data.events[0].NAME;
                 $scope.navigateAndSave('confirmDocumentShare');
             }
 
@@ -389,43 +391,19 @@
                 $scope.navigateAndSave('memberCardSimple');
             }
 
-            var allDocs = $scope.data.eventDocuments;
-            var allAssociated = true;
-            for (var i = 0; i < allDocs.length; i++) {
-                if (allDocs[i].associated == false) {
-                    allAssociated = false;
-                    break;
-                }
-            }
-
-            if (!allAssociated) {
-                var confirmPopup = $ionicPopup.confirm({
-                    title: 'Associate',
-                    template: 'Not all of your documents are associated. Would you still like to continue?'
-                });
-
-                confirmPopup.then(function (res) {
-                    if (res) {
-                        goToConfirm();
-                    } else {
-                        // goToMemberCard();
-                    }
-                });
-            } else {
-                goToConfirm();
-            }
+            goToConfirm();
         }
     };
 
     $scope.allDocumentsAreAssociated = function () {
         var allAssociated = true;
-        for (var i = 0; i < $scope.data.eventDocuments.length; i++) {
-            var document = $scope.data.eventDocuments[i];
-            if (!document.alreadyAssociated) {
-                allAssociated = false;
-                break;
-            }
-        }
+        //for (var i = 0; i < $scope.data.eventDocuments.length; i++) {
+        //    var document = $scope.data.eventDocuments[i];
+        //    if (!document.alreadyAssociated) {
+        //        allAssociated = false;
+        //        break;
+        //    }
+        //}
         return allAssociated;
     };
 
@@ -442,11 +420,9 @@
         }
         //confirmDocumentShare
         var data = [];
-        var associated = $scope.associatedDocuments();
-        for (var i = 0; i < associated.length; i++) {
-            if (associated[i].alreadyAssociated != true) {
-                data.push($scope.generateAssociateDocumentDTO(associated[i]))
-            }
+        var images = $scope.selectedImages();
+        for (var i = 0; i < images.length; i++) {
+            data.push($scope.generateAssociateDocumentDTO(images[i]))
         }
         //shareSuccess();
         FileItService.associateDocumentsToTeamEventDocuments(data, shareSuccess);
@@ -460,8 +436,8 @@
         var result = {
             appUserId: $scope.data.familyUserId,
             organizationId: $scope.data.organizationId,
-            fileCabinetDocumentId: obj.associatedId,
-            teamEventDocumentId: obj.ID,
+            fileCabinetDocumentId: obj.ID,
+            teamEventId: $scope.data.eventId,
             comment: (typeof $scope.data.comment != 'undefined') ? $scope.data.comment + '' : '',
             emergency: false,
             remove: false

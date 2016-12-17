@@ -438,7 +438,7 @@
 
         .member-thumb.add a {
             float: left;
-            width: 32%;
+            width: 24%;
             text-decoration: none;
         }
 
@@ -486,4 +486,9 @@
     position: fixed;
     right: 0;
     top: 0;
+}
+
+.user-documents td {
+    text-align:left;
+    font-size: .75em;
 }

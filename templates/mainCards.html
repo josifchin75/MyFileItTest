@@ -17,9 +17,19 @@
                             </div>
                             <div class="bg">
                                 <h3>{{familyUser.FIRSTNAME}}<br />{{familyUser.LASTNAME}}</h3>
+                                
                             </div>
                         </a>
-
+                        <table class="user-documents">
+                            <tr>
+                                <td>Total Docs:</td>
+                                <td>{{familyUser.TotalDocuments}}</td>
+                            </tr>
+                            <tr>
+                                <td>Total Docs (YTD):</td>
+                                <td>{{familyUser.TotalDocumentsYTD}}</td>
+                            </tr>
+                        </table>
                     </ion-item>
 
                     <ion-item class="family-card">
@@ -53,7 +63,7 @@
            href="#/teamselectevent"
            class="button button-energized button-block  icon-left ion-person-stalker"
            ng-show="data.currentUser.IsCoach">
-            Set Up Team and Players
+           Organization Staff View
         </a>
         <a menu-close="" href="#/invitefriend" class="button button-positive button-block  icon-left ion-android-add">Invite a Friend</a>
         

@@ -6,7 +6,7 @@
         //debug
          $scope.data.username = 'josifchin75@gmail.com';
         //$scope.data.username = 'jono@gmail.com'
-        $scope.data.password = 'jopass12';
+        $scope.data.password = 'jopass34';
 
         //$scope.data.username = 'sandy@synergysportsclub.com'
         //$scope.data.password = 'synergy1';
