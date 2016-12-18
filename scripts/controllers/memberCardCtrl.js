@@ -47,11 +47,12 @@
         };
 
         $scope.doFilter = function (document) {
-            var result =  ($scope.data.documentTypeFilterId == null || $scope.data.documentTypeFilterId == document.DOCUMENTTYPEID);
+            var result = ($scope.data.documentTypeFilterId == null || $scope.data.documentTypeFilterId == "" || $scope.data.documentTypeFilterId == document.DOCUMENTTYPEID);
             var start = $scope.data.startDateFilter;
             var end = $scope.data.endDateFilter;
-            if (result) {
+            if (result && moment(start).isValid() && moment(end).isValid()) {
                 //check the dates
+                result = moment(document.DOCUMENTDATE).isBetween(start, end)
             }
             return result;
         };

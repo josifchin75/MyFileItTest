@@ -58,6 +58,7 @@
                             Document Type
                         </div>
                         <select ng-model="data.documentTypeFilterId">
+                            <option value=""></option>
                             <option ng-repeat="documentType in data.documentTypes" value="{{documentType.Key}}">{{documentType.Value}}</option>
                         </select>
                     </label>
@@ -66,8 +67,8 @@
                         <input type="date" ng-model="data.startDateFilter">
                     </label>
                     <label class="item item-input">
-                        <span class="input-label" ng-model="data.endDateFilter">End Date</span>
-                        <input type="date">
+                        <span class="input-label">End Date</span>
+                        <input type="date" ng-model="data.endDateFilter">
                     </label>
                 </div>
                 <ion-list>
