@@ -8,12 +8,21 @@
                 availableShareKeys: AvailableShareKeys.getObject(),
                 promocode: '',
                 currentUser: FileItService.currentUser(),
-                showThumbs: false
+                showThumbs: false,
+                documentTypeFilterId: null,
+                startDateFilter: null,
+                endDateFilter: null
             };
             if ($scope.data.documents.length == 0) {
                 //taken out for debug
                 // Documents.loadUserDocuments();
             }
+            function successGetDocumentTypes(data) {
+                $scope.data.documentTypes = data.KeyValueData;
+            }
+
+            FileItService.getReferenceData('DocumentType', successGetDocumentTypes, null);
+           
         };
 
         //insure that it refreshes!
@@ -24,6 +33,9 @@
             $scope.imageSrc = '';
             $scope.data.currentUser = FileItService.currentUser();
             $scope.data.showThumbs = false;
+            $scope.data.documentTypeFilterId = null;
+            $scope.data.startDateFilter = null;
+            $scope.data.endDateFilter = null;
 
             $scope.hideLargeImage();
             myScroll = new iScroll('wrapper',
@@ -32,6 +44,16 @@
 
         $scope.showSex = function (obj, sex) {
             return obj.SEX == sex;
+        };
+
+        $scope.doFilter = function (document) {
+            var result =  ($scope.data.documentTypeFilterId == null || $scope.data.documentTypeFilterId == document.DOCUMENTTYPEID);
+            var start = $scope.data.startDateFilter;
+            var end = $scope.data.endDateFilter;
+            if (result) {
+                //check the dates
+            }
+            return result;
         };
 
         $scope.showVerify = function (obj) {
@@ -440,3 +462,4 @@
 
         $scope.init();
     });
+

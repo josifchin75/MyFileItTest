@@ -51,9 +51,27 @@
                     </div>
                 </div>
                 <ion-checkbox ng-model="data.showThumbs">View thumbnails</ion-checkbox>
+                <div class="list">
 
+                    <label class="item item-input item-select">
+                        <div class="input-label">
+                            Document Type
+                        </div>
+                        <select ng-model="data.documentTypeFilterId">
+                            <option ng-repeat="documentType in data.documentTypes" value="{{documentType.Key}}">{{documentType.Value}}</option>
+                        </select>
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label">Start Date</span>
+                        <input type="date" ng-model="data.startDateFilter">
+                    </label>
+                    <label class="item item-input">
+                        <span class="input-label" ng-model="data.endDateFilter">End Date</span>
+                        <input type="date">
+                    </label>
+                </div>
                 <ion-list>
-                    <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments">
+                    <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments | filter:doFilter">
                         <div class="item-checkbox image-list" id="document-{{document.ID}}">
 
                             <label class="checkbox image-checkbox">
