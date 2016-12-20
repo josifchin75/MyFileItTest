@@ -11,6 +11,10 @@
                     <option ng-repeat="documentType in data.documentTypes" value="{{documentType.Key}}">{{documentType.Value}}</option>
                 </select>
             </label>
+            <label class="item" name="amount">
+                <span class="input-label">Amount(value):</span>
+                <input ng-model="data.amount" type="text"/>
+            </label>
 
             <label class="item item-input" name="ScanComment">
                 <span class="input-label">Comment</span><textarea placeholder="" ng-model="data.comment"> </textarea>

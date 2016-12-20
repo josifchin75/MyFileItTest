@@ -3,6 +3,7 @@
     $scope.init = function () {
         $scope.data = ScanDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
+       
 
         function successRef(data) {
             $scope.data.documentTypes = data.KeyValueData;
@@ -123,8 +124,9 @@
             DOCUMENTDATE: getDate(),
             DOCUMENTSTATUSID: 0,
             DATECREATED: getDate(),
-            VERIFIEDDATE: getDate(),
-            VERIFIEDAPPUSERID: $scope.data.failAddAppUser
+            AMOUNT: $scope.data.amount * 100
+            //VERIFIEDDATE: getDate(),
+            //VERIFIEDAPPUSERID: $scope.data.failAddAppUser
         };
         /*
         VERIFIEDDATE = fileCabinetDocumentEF.VERIFIEDDATE;
@@ -189,6 +191,10 @@
                 message += "Please select a family user to upload for.</br>";
                 result = false;
             }
+            if (data.amount == undefined || data.amount.length == 0) {
+                message += "Please enter an amount.</br>";
+                result = false;
+            }
             //if (data.comment == undefined || data.comment.length == 0) {
             //    message += "Please enter a brief comment for your own reference.</br>";
             //    result = false;
@@ -199,6 +205,9 @@
             message += "Please select an image to upload.</br>";
             result = false;
         }
+
+
+
 
         if (!result) {
             var alertPopup = $ionicPopup.alert({
