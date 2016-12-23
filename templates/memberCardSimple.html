@@ -34,7 +34,7 @@
                     </span>
                     <a href="#" ng-click="emergencyShare()">
                         <i class="large-icon ion-ios-medkit red"></i>
-                        <h5>Emergency Share</h5>
+                        <h5>Out of Network</h5>
                     </a>
                 </div>
                 <div class="clear"></div>
@@ -59,7 +59,7 @@
                         </div>
                         <select ng-model="data.documentTypeFilterId">
                             <option value=""></option>
-                            <option ng-repeat="documentType in data.documentTypes" value="{{documentType.Key}}">{{documentType.Value}}</option>
+                            <option ng-repeat="documentType in data.documentTypes | filter: documentTypesFilter" value="{{documentType.Key}}">{{documentType.Value}}</option>
                         </select>
                     </label>
                     <label class="item item-input">
@@ -86,8 +86,9 @@
                                     <img class="thumbnail" src="data:image/png;base64,{{document.Base64ImageThumb}}" />
                                 </a>
                                 <h2>{{document.DocumentTypeName}}</h2>
+                                <h3>{{displayAmount(document.AMOUNT)}}</h3>
                                 <div>{{document.COMMENT}}</div>
-
+                               
                                 <span ng-show="document.VerifiedAppUserName != null">Verified By: {{document.VerifiedAppUserName}}</span>
                                 <div class="verify-icon">
                                     <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">

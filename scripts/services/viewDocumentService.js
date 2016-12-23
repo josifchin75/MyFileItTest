@@ -106,6 +106,9 @@
         },
         init: function () {
             documentDTO = {};
+        },
+        displayAmount: function (amount) {
+            return "$" + (amount > 0 ? (amount / 100) : '0.00');
         }
     };
 }]);

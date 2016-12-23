@@ -22,7 +22,7 @@
             }
 
             FileItService.getReferenceData('DocumentType', successGetDocumentTypes, null);
-           
+
         };
 
         //insure that it refreshes!
@@ -55,6 +55,22 @@
                 result = moment(document.DOCUMENTDATE).isBetween(start, end)
             }
             return result;
+        };
+
+        $scope.documentTypesFilter = function (type) {
+            var documents = $scope.data.simpleDocuments;
+            var result = false;
+            for (var loop = 0; loop < documents.length; loop++) {
+                if (type.Key == documents[loop].DOCUMENTTYPEID) {
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        };
+
+        $scope.displayAmount = function (amount) {
+            return ViewDocument.displayAmount(amount);
         };
 
         $scope.showVerify = function (obj) {
@@ -191,7 +207,7 @@
             message += '  <p>MyFile-It is free to upload and save your and families personal documents. There is small per user charge for unlimited sharing their personal documents for a year. MyFile-IT App allows you a 90 day trial period to enjoy all the features including sharing. When you pay for an annual share key subscription you will also get a no ad version.</p>';
             message += '<p>You have 0 days left.   MyFile-It is free to upload and save your and families personal documents. There is small per user charge for unlimited sharing their personal documents for a year. MyFile-IT App allows you a 90 day trial period to enjoy all the features including sharing. When you pay for an annual share key subscription you will also get a no ad version.</p>';
             message += '<h3>You have 0 days left.</h3>';
-           
+
             AlertService.showMessage("Trial expired", message, null);
         };
 

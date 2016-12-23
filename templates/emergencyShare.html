@@ -1,14 +1,15 @@
 <ion-view title="Confirm Upload Document">
     <ion-nav-title>
-        <fileit-header fileit-title="Emergency Share" hide-logout="false"></fileit-header>
+        <fileit-header fileit-title="Out Of Network" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <!-- fix simple thumb display-->
         <div id="image-list-emergency">
             <ul>
                 <li ng-repeat="image in data.selectedImages">
-                    <p><strong>{{image.DocumentTypeName}}</strong><br/>
+                    <p><strong>{{image.DocumentTypeName}}</strong>{{displayAmount(image.AMOUNT)}}<br/>
                     {{image.COMMENT}}</p>
+                    
                 </li>
             </ul>
             <!--<div ng-repeat="image in data.selectedImages">
@@ -20,7 +21,7 @@
             <ion-list>
                 <label class="item item-input" name="emergencyEmail">
                     <span class="input-label">Email</span>
-                    <input type="text" placeholder="Emergency Email" ng-model="data.emergencyEmailAddress">
+                    <input type="text" placeholder="Email address" ng-model="data.emergencyEmailAddress">
                 </label>
                 <span class="input-label">Message</span>
                 <label class="item item-input" name="emergencyMessage">
@@ -32,16 +33,16 @@
 
         <div class="confirm-box clear">
             <ion-checkbox ng-model="data.confirmed">
-                <div>IN CASE OF EMERGENCY -If this box is marked you are declaring a state of emergency and you may email anyone your documents in or out of this protected environment of Myfileit. This should only be used In case of an emergency</div>
+                <div>You understand and agree that organization or persons not part of MyFileIT Network Your Images that you are sending via email may not be in a protected environment.</div>
             </ion-checkbox>
         </div>
 
-        <a menu-close="" href="#" class="button button-assertive button-block icon-left ion-alert-circled" ng-click="sendEmergencyShare()">Send Emergency Share</a>
+        <a menu-close="" href="#" class="button button-assertive button-block icon-left ion-alert-circled" ng-click="sendEmergencyShare()">Send Out of Network Share</a>
         <!--<a menu-close="" href="#/main" class="button button-positive button-block ">Back</a>-->
         <p>*The above check box must be checked</p>
         <div>
             <p>
-                *You must have a Share Key to use this option unless the above box is marked that there's a state of emergency. You will be able to share documents with out paying but you will be billed per user per year for a share key.
+                *You must have a Share Key to use this option unless the above box is marked that you are sending an image out of the MyFileIT Network. You will be able to share documents with out paying but you will be billed per user per year for a share key.
             </p>
         </div>
     </ion-content>

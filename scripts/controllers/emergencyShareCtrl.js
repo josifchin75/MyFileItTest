@@ -35,6 +35,10 @@
         }
     };
 
+    $scope.displayAmount = function (amount) {
+        return ViewDocument.displayAmount(amount);
+    };
+
     $scope.validEmergencyShare = function () {
         var result = true;
         var message = '';
