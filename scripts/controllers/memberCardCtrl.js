@@ -248,7 +248,7 @@
                     images: Documents.getSimpleListObject()
                 };
                 ViewDocument.setObject(obj);
-                ViewDocument.searchEvents($scope.data.familyUser.ID, null, '');
+                //ViewDocument.searchEvents($scope.data.familyUser.ID, null, '');
                 valid = true;
             }
             return valid;

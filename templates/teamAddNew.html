@@ -1,13 +1,13 @@
 ﻿<ion-view title="Add Player To Team">
     <ion-nav-title>
-        <fileit-header fileit-title="Add Player To Team" hide-logout="false"></fileit-header>
+        <fileit-header fileit-title="Add Client" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <h3>{{data.organization.NAME}}</h3>
         <h4>{{data.teamEvent.NAME}}</h4>
         <h5>{{displayDate(data.teamEvent.STARTDATE)}} - {{displayDate(data.teamEvent.EXPIRESDATE)}}</h5>
         <form class="list">
-            <p>Search for a player to add to the team.</p>
+            <p>Search for a client to add.</p>
             <ion-list>
                 <label class="item item-input" name="FirstName">
                     <input type="text" placeholder="First Name" ng-model="data.firstNameSearch" ng-change="searchMembers()">
@@ -24,7 +24,7 @@
                     </select>
                 </label>
                 <label class="item item-input" name="ParentEmailAddress'">
-                    <input type="text" placeholder="Parent's Email Address'" ng-model="data.emailSearch" ng-change="searchMembers()">
+                    <input type="text" placeholder="Email Address'" ng-model="data.emailSearch" ng-change="searchMembers()">
                 </label>
                 <h3>Search Results</h3>
                 <form class="list">

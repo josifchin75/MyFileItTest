@@ -5,6 +5,8 @@
         $scope.data.currentUser = FileItService.currentUser();
         $scope.data.associatedImageId = -1;
         $scope.data.selectedEventDocumentId = -1;
+        //$scope.data.organizations = [];
+        //$scope.data.events = [];
     }
 
     $scope.initFull = function () {
@@ -81,8 +83,8 @@
         }
 
         function failSearch(data) {
-
         }
+
         if (typeof $scope.data.organizationSearch == 'undefined' || $scope.data.organizationSearch == null) {
             $scope.data.organizationSearch = '';
         }
@@ -90,6 +92,8 @@
             FileItService.getOrganizations(null, $scope.data.organizationSearch, successSearch, failSearch);
         } else {
             $scope.data.organizations = [];
+            $scope.data.events = [];
+            $scope.data.organizationId = -1;
             ViewDocument.clearEvents();
         }
     };

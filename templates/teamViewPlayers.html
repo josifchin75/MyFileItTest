@@ -4,20 +4,20 @@
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <div class="button-bar">
-            <a menu-close="" href="#" class="button button-stable button-block" ng-click="goUploadPlayers()">
+            <!--<a menu-close="" href="#" class="button button-stable button-block" ng-click="goUploadPlayers()">
                 <div class="ion-android-add-circle large-icon"></div>
-                <h5>Add Player</h5>
+                <h5>Add Client</h5>
                 <h5>Already Uploaded</h5>
-            </a>
+            </a>-->
             <a menu-close="" href="#/teamaddnew" class="button button-stable button-block">
                 <div class="ion-android-search large-icon"></div>
-                <h5>Find Player</h5>
+                <h5>Find Client</h5>
             </a>
         </div>
         <h3>{{data.organization.NAME}}</h3>
         <h4>{{data.teamEvent.NAME}}</h4>
         <h5>{{displayDate(data.teamEvent.STARTDATE)}} - {{displayDate(data.teamEvent.EXPIRESDATE)}}</h5>
-        <div class="italic"><i class="medium-icon icon-left ion-wrench">&nbsp;</i> indicates that a user requires document verification.</div>
+        <!--<div class="italic"><i class="medium-icon icon-left ion-wrench">&nbsp;</i> indicates that a user requires document verification.</div>-->
         <form class="list">
             <ion-item ng-repeat="player in data.players">
                 <div>

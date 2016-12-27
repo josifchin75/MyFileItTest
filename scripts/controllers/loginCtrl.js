@@ -4,16 +4,15 @@
         $scope.data = {};
 
         //debug
-         $scope.data.username = 'josifchin75@gmail.com';
-        //$scope.data.username = 'jono@gmail.com'
+        $scope.data.username = 'josifchin75@gmail.com';
         $scope.data.password = 'jopass34';
 
-        //$scope.data.username = 'sandy@synergysportsclub.com'
-        //$scope.data.password = 'synergy1';
+        $scope.data.username = 'jono@gmail.com'
+        $scope.data.password = 'jopass12';
 
         //$scope.data.username = 'skbutcher1@yahoo.com';
         //$scope.data.password = 'Sandy12';
-         
+
         //$scope.data.username = 'ben.franklin@myoata.com';
         //$scope.data.password = 'ben.franlklin1234';
 
@@ -61,10 +60,10 @@
             }
 
             //if (user.RemindUserForSignUp) {
-               // $scope.RemindUserForShareKeys(user, initFamily);
+            // $scope.RemindUserForShareKeys(user, initFamily);
             //} else {
-                initFamily();
-                //FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
+            initFamily();
+            //FamilyUsers.loadFamilyUsers(primaryAppUserId, onLoadFamily);
             //}
         }
         function failCallback() {

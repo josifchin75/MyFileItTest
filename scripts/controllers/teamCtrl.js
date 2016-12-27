@@ -176,7 +176,7 @@
 
         $scope.viewPlayers = function () {
             if ($scope.data.teamEvent == null) {
-                $scope.showMessage('Incomplete', 'Please select a team event.');
+                $scope.showMessage('Incomplete', 'Please select an event.');
             } else {
                 function navigateTeam() {
                     TeamPlayer.setObject($scope.data);
