@@ -4,7 +4,7 @@
         id="com.myfileit.app"
         version="1.0.7"
         xmlns="http://www.w3.org/ns/widgets">
-  <name>MyFileIT Documents PE</name>
+  <name>MyFileIT PE</name>
   <description>MyFileIT document sharing and storage. Personal and expenses.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">J Osifchin</author>
   <content src="index.html" />
