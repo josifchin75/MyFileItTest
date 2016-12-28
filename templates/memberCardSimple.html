@@ -1,6 +1,6 @@
 ﻿<ion-view title="Main">
     <ion-nav-title>
-        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}} - {{data.familyUser.RelationShipType}}" hide-logout="false"></fileit-header>
+        <fileit-header fileit-title="{{data.familyUser.FIRSTNAME}} {{data.familyUser.LASTNAME}}" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
         <form class="list">
@@ -9,20 +9,18 @@
                 <div>
                     <div class="left">
                         <a href="#" ui-sref="main" class="button button-icon icon ion-android-home"></a>
-                        <!--<a href="#" ui-sref="main" class="icon-left ion-android-home">Home</a>-->
                     </div>
                     <div ng-hide="isCoachVerifying()" class="right right-text">
                         <a ng-click="editMemberProfile()" class="button button-icon icon ion-edit"></a>
-                        <!--<button class="button member-link" ng-click="editMemberProfile()" ng-hide="isCoachVerifying()">Edit</button>-->
                     </div>
                 </div>
 
                 <div class="member-thumb add">
-                    <a href="#" ng-click="getDocument()">
-                        <i class="large-icon ion-android-add-circle"></i>
-                        <h5>Add Document</h5>
-                    </a>
                     <span ng-hide="isCoachVerifying()">
+                        <a href="#" ng-click="getDocument()">
+                            <i class="large-icon ion-android-add-circle"></i>
+                            <h5>Add Document</h5>
+                        </a>
                         <a href="#" ng-click="shareDocuments()" ng-show="hasShareKey(data.familyUser) || 0==0">
                             <i class="large-icon ion-android-share-alt"></i>
                             <h5>Share Selected</h5>
@@ -36,6 +34,19 @@
                         <i class="large-icon ion-ios-medkit red"></i>
                         <h5>Out of Network</h5>
                     </a>
+                    <span class="right" ng-show="isCoachVerifying()">
+
+                        <table>
+                            <tr>
+                                <td align="left"><strong>Total Amount:</strong></td>
+                                <td align="right">{{totalAmountSelected()}}</td>
+                            </tr>
+                            <tr>
+                                <td align="left"><strong>Amount Selected:</strong></td>
+                                <td align="right">{{amountSelected}}</td>
+                            </tr>
+                        </table>
+                    </span>
                 </div>
                 <div class="clear"></div>
                 <div id="large-image-viewer">
@@ -62,14 +73,16 @@
                             <option ng-repeat="documentType in data.documentTypes | filter: documentTypesFilter" value="{{documentType.Key}}">{{documentType.Value}}</option>
                         </select>
                     </label>
-                    <label class="item item-input">
-                        <span class="input-label">Start Date</span>
-                        <input type="date" ng-model="data.startDateFilter">
-                    </label>
-                    <label class="item item-input">
-                        <span class="input-label">End Date</span>
-                        <input type="date" ng-model="data.endDateFilter">
-                    </label>
+                    <span ng-hide="isCoachVerifying()">
+                        <label class="item item-input">
+                            <span class="input-label">Start Date</span>
+                            <input type="date" ng-model="data.startDateFilter">
+                        </label>
+                        <label class="item item-input">
+                            <span class="input-label">End Date</span>
+                            <input type="date" ng-model="data.endDateFilter">
+                        </label>
+                    </span>
                 </div>
                 <ion-list>
                     <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments | filter:doFilter">
@@ -79,34 +92,18 @@
                                 <input type="checkbox"
                                        name="selectedImages[]"
                                        value="{{document.ID}}"
-                                       ng-model="document.selected">
+                                       ng-model="document.selected"
+                                       ng-change="setAmountSelected()">
                             </label>
                             <span ng-click="showModalCall(document)">
                                 <a href="#" ng-click="showModal(document)" ng-show="data.showThumbs">
                                     <img class="thumbnail" src="data:image/png;base64,{{document.Base64ImageThumb}}" />
                                 </a>
+                                <h2 class="right">{{displayAmount(document.AMOUNT)}}</h2>
                                 <h2>{{document.DocumentTypeName}}</h2>
-                                <h3>{{displayAmount(document.AMOUNT)}}</h3>
-                                <div>{{document.COMMENT}}</div>
-                               
-                                <span ng-show="document.VerifiedAppUserName != null">Verified By: {{document.VerifiedAppUserName}}</span>
-                                <div class="verify-icon">
-                                    <button ng-click="verifyDocument(document.ID, document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
-                                        <!--<i class="ion-thumbsup medium-icon"></i>-->
-                                        Verify
-                                    </button>
-                                    <button ng-click="rejectDocument(document.TeamEventDocumentId)" class="verify-icon" ng-show="showVerify(document)">
-                                        <!--<i class="ion-thumbsdown medium-icon"></i>-->
-                                        Reject
-                                    </button>
-                                    <button ng-click="deleteDocument(document.DOCUMENTID)" class="verify-icon" ng-show="document.CanDelete">
-                                        <!--<i class="ion-thumbsdown medium-icon"></i>-->
-                                        Remove
-                                    </button>
 
-                                </div>
+                                <div>{{document.COMMENT}}</div>
                                 <div>
-                                    <h3 class="green" ng-hide="document.CanDelete">Associated Document</h3>
                                     <span><a href="#">View Full Size</a></span>
                                 </div>
                             </span>

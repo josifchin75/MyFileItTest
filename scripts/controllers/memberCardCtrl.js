@@ -37,6 +37,8 @@
             $scope.data.startDateFilter = null;
             $scope.data.endDateFilter = null;
 
+            $scope.setAmountSelected();
+
             $scope.hideLargeImage();
             myScroll = new iScroll('wrapper',
                 { zoom: true, zoomMax: 6 });
@@ -71,6 +73,24 @@
 
         $scope.displayAmount = function (amount) {
             return ViewDocument.displayAmount(amount);
+        };
+
+        $scope.setAmountSelected = function () {
+            var amount = 0;
+            var selected = $scope.selectedImages();
+            for (var i = 0; i < selected.length; i++) {
+                amount += selected[i].AMOUNT;
+            }
+            $scope.amountSelected = $scope.displayAmount(amount);
+        };
+
+        $scope.totalAmountSelected = function () {
+            var amount = 0;
+            for (var i = 0; i < $scope.data.simpleDocuments.length; i++) {
+                amount += $scope.data.simpleDocuments[i].AMOUNT;
+            }
+            
+            return $scope.displayAmount(amount);
         };
 
         $scope.showVerify = function (obj) {
