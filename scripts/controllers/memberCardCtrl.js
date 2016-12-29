@@ -18,10 +18,16 @@
                 // Documents.loadUserDocuments();
             }
             function successGetDocumentTypes(data) {
-                $scope.data.documentTypes = data.KeyValueData;
+                $scope.data.documentTypes = [];
+                for (var i = 0; i < data.DocumentTypes.length; i++) {
+                    $scope.data.documentTypes.push({
+                        Key: data.DocumentTypes[i].ID,
+                        Value: data.DocumentTypes[i].NAME
+                    });
+                }
             }
-
-            FileItService.getReferenceData('DocumentType', successGetDocumentTypes, null);
+            FileItService.getDocumentTypes(currentUser.ID, successGetDocumentTypes, null);
+            //FileItService.getReferenceData('DocumentType', successGetDocumentTypes, null);
 
         };
 
@@ -89,7 +95,7 @@
             for (var i = 0; i < $scope.data.simpleDocuments.length; i++) {
                 amount += $scope.data.simpleDocuments[i].AMOUNT;
             }
-            
+
             return $scope.displayAmount(amount);
         };
 

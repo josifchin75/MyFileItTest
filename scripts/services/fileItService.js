@@ -12,9 +12,9 @@
             var promise = deferred.promise;
             var url = this.baseUrl() + routeUrl;
             obj.timeout = 10000;
-            
+
             loadingService.show();
-            
+
             $http.post(url, obj)
                 .success(function (response) {
                     loadingService.hide();
@@ -28,7 +28,7 @@
                         successCallback(response);
                     }
                 })
-                .error(function (response,a,b,c) {
+                .error(function (response, a, b, c) {
                     alert(response);
                     loadingService.hide();
                 });
@@ -59,6 +59,38 @@
                 }
                 return this.basePost(routeUrl, data, keepRefData, fail);
             }
+        },
+        getDocumentTypes: function (appUserId, successCallback, failCallback) {
+            var routeUrl = 'GetDocumentTypes';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId
+            };
+
+            return this.basePost(routeUrl, data, successCallback, failCallback);
+        },
+        addDocumentType: function (appUserId, documentType, successCallback, failCallback) {
+            var routeUrl = 'AddDocumentType';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                appUserId: appUserId,
+                documentType: documentType
+            };
+
+            return this.basePost(routeUrl, data, successCallback, failCallback);
+        },
+        updateDocumentType: function (id, documentType, successCallback, failCallback) {
+            var routeUrl = 'UpdateDocumentType';
+            var data = {
+                user: this.adminUser(),
+                pass: this.adminPass(),
+                id: id,
+                documentType: documentType
+            };
+
+            return this.basePost(routeUrl, data, successCallback, failCallback);
         },
         //GetOrganizations(string user, string pass, int? organizationId, string nameLookup)
         getOrganizations: function (organizationId, lookup, successCallback, failCallback) {

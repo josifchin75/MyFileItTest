@@ -424,6 +424,12 @@ angular.module('app.routes', [])
          controller: 'aboutCtrl'
      })
 
+     .state('documentType', {
+         url: '/documentType',
+         templateUrl: 'templates/documentType.html',
+         controller: 'documentTypeCtrl'
+     })
+
     //.state('memberCard', {
     //    url: '/membercard',
     //    templateUrl: 'templates/memberCard.html',

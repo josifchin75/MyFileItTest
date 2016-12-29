@@ -6,7 +6,14 @@
        
 
         function successRef(data) {
-            $scope.data.documentTypes = data.KeyValueData;
+            $scope.data.documentTypes = [];
+            for (var i = 0; i < data.DocumentTypes.length; i++) {
+                $scope.data.documentTypes.push({
+                    Key: data.DocumentTypes[i].ID,
+                    Value: data.DocumentTypes[i].NAME
+                });
+            }
+            //$scope.data.documentTypes = data.KeyValueData;
             function successGetFamily(data) {
                 $scope.data.familyUsers = data.AppUsers;
             }
@@ -17,8 +24,8 @@
 
         function failRef(data) {
         }
-
-        FileItService.getReferenceData('DocumentType', successRef, failRef);
+        FileItService.getDocumentTypes(currentUser.ID, successRef, failRef);
+        //FileItService.getReferenceData('DocumentType', successRef, failRef);
     };
 
     $scope.$on('$ionicView.beforeEnter', function () {

@@ -1,0 +1,17 @@
+﻿<ion-view title="Add Family Members">
+    <ion-nav-title>
+        <fileit-header fileit-title="Document Types" hide-logout="false"></fileit-header>
+    </ion-nav-title>
+    <ion-content padding="'true'" class="has-header">
+        <ion-list>
+            <ion-item ng-repeat="item in data.documentTypes">
+                {{item.NAME}}
+            </ion-item>
+        </ion-list>
+        <label class="item item-input">
+            <!--<span class="input-label">New Document Type</span>-->
+            <input type="text" ng-model="data.newDocumentType" placeholder="New Document Type">
+        </label>
+        <a menu-close="" href="#" class="button button-positive button-block " ng-click="addDocumentType()">Add Document Type</a>
+    </ion-content>
+</ion-view>
