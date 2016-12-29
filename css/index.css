@@ -181,7 +181,7 @@
 /*overload to ionic to handle the checkbox centering*/
 .item-checkbox .checkbox {
     bottom: 3.5em !important;
-    top: auto !important;
+    /*top: auto !important;*/
 }
 
 .item-icon-right {
@@ -209,6 +209,14 @@
 .right-text {
     text-align: right;
 }
+
+.relative {
+    position: relative;
+}
+
+    .relative .image-checkbox {
+        left: -5px;
+    }
 
 .width-75 {
     width: 75%;

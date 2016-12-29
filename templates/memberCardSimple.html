@@ -61,7 +61,7 @@
                         Pinch and drag to zoom and move the image. Double tap to revert to regular size.
                     </div>
                 </div>
-                <ion-checkbox ng-model="data.showThumbs">View thumbnails</ion-checkbox>
+               
                 <div class="list">
 
                     <label class="item item-input item-select">
@@ -83,10 +83,11 @@
                             <input type="date" ng-model="data.endDateFilter">
                         </label>
                     </span>
+                    <ion-checkbox ng-model="data.showThumbs">View thumbnails</ion-checkbox>
                 </div>
                 <ion-list>
                     <ion-item class="item-icon-right" ng-repeat="document in data.simpleDocuments | filter:doFilter">
-                        <div class="item-checkbox image-list" id="document-{{document.ID}}">
+                        <div class="item-checkbox image-list relative" id="document-{{document.ID}}">
 
                             <label class="checkbox image-checkbox">
                                 <input type="checkbox"
