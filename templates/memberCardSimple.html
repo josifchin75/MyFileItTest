@@ -34,8 +34,8 @@
                         <i class="large-icon ion-ios-medkit red"></i>
                         <h5>Out of Network</h5>
                     </a>
-                    <span class="right" ng-show="isCoachVerifying()">
-
+                    <!--ng-show="isCoachVerifying()"-->
+                    <span class="right">
                         <table>
                             <tr>
                                 <td align="left"><strong>Total Amount:</strong></td>
@@ -70,6 +70,7 @@
                         </div>
                         <select ng-model="data.documentTypeFilterId">
                             <option value=""></option>
+                            <option value="-999">All Documents</option>
                             <option ng-repeat="documentType in data.documentTypes | filter: documentTypesFilter" value="{{documentType.Key}}">{{documentType.Value}}</option>
                         </select>
                     </label>

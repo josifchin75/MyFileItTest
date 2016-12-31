@@ -108,7 +108,11 @@
             documentDTO = {};
         },
         displayAmount: function (amount) {
-            return "$" + (amount > 0 ? (amount / 100) : '0.00');
+            function formatDecimal(amount, places) {
+                return parseFloat(Math.round(amount * 100) / 100).toFixed(places)
+            }
+
+            return "$" + (amount > 0 ? formatDecimal((amount / 100), 2) : '0.00');
         }
     };
 }]);

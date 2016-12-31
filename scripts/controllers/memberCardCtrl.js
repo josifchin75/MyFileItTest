@@ -55,12 +55,18 @@
         };
 
         $scope.doFilter = function (document) {
-            var result = ($scope.data.documentTypeFilterId == null || $scope.data.documentTypeFilterId == "" || $scope.data.documentTypeFilterId == document.DOCUMENTTYPEID);
+            //var result = ($scope.data.documentTypeFilterId == null || $scope.data.documentTypeFilterId == "" || $scope.data.documentTypeFilterId == document.DOCUMENTTYPEID);
+            //filter if blank
+            var result = ( $scope.data.documentTypeFilterId == "-999" || $scope.data.documentTypeFilterId == document.DOCUMENTTYPEID);
             var start = $scope.data.startDateFilter;
             var end = $scope.data.endDateFilter;
             if (result && moment(start).isValid() && moment(end).isValid()) {
                 //check the dates
                 result = moment(document.DOCUMENTDATE).isBetween(start, end)
+            }
+            if (!result && document.selected) {
+                document.selected = false;
+                $scope.setAmountSelected();
             }
             return result;
         };
@@ -93,7 +99,9 @@
         $scope.totalAmountSelected = function () {
             var amount = 0;
             for (var i = 0; i < $scope.data.simpleDocuments.length; i++) {
-                amount += $scope.data.simpleDocuments[i].AMOUNT;
+                if ($scope.doFilter($scope.data.simpleDocuments[i])) {
+                    amount += $scope.data.simpleDocuments[i].AMOUNT;
+                }
             }
 
             return $scope.displayAmount(amount);
