@@ -111,7 +111,8 @@
             }
 
             function refreshDocs() {
-                Documents.loadUserDocuments($scope.data.familyUserId, null, onSuccessAlertClosed);
+                Documents.loadUserDocumentsSimple($scope.data.familyUserId, null, onSuccessAlertClosed);
+                //Documents.loadUserDocuments($scope.data.familyUserId, null, onSuccessAlertClosed);
             }
         }
         function getDate() {
