@@ -169,7 +169,7 @@
         loadScroll();
         //loadAdMob();
 
-        //initConcierge();//test
+        //initConcierge();
         //initInAppPurchases();
 
         window.onerror = function (err) {
@@ -179,14 +179,14 @@
         dbHelper.init();
 
         shareKeySKU = 'Myfileitsharekeyannual1';
-        shareKeyBaseSKU = 'Myfilepeuserkey';//'Myfileitsharekeyuser';
+        shareKeyBaseSKU = 'Myfileitpeuserkey';//'Myfileitsharekeyuser';
 
         IAP = {
             //list: [shareKeySKU]
             list: []
         };
 
-        for (var i = 1; i < 10; i++) {
+        for (var i = 1; i < 11; i++) {
             IAP.list.push(shareKeyBaseSKU + i);
         }
 
@@ -301,7 +301,7 @@
                 admob.createBannerView(
                     options,
 					function (a, b, c) {
-					    if (debug) { alert(a + b + c); }
+					    //if (debug) { alert(a + b + c); }
 					},
                     function (a, b, c) {
                         if (debug) { alert('failed to create banner view' + a + b + c); }
