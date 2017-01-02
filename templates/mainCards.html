@@ -3,9 +3,7 @@
         <fileit-header fileit-title="Home" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
-        <div ng-show="showPromoImage()">
-            <img ng-src="{{data.currentUser.PromoCodeImage}}" class="promo-image">
-        </div>
+        
         <div id="mainCards">
             <fieldset>
                 <legend>Your Members</legend>
@@ -68,6 +66,8 @@
            Organization Staff View
         </a>
         <a menu-close="" href="#/invitefriend" class="button button-positive button-block  icon-left ion-android-add">Invite a Friend</a>
-        
+        <div ng-show="showPromoImage()">
+            <img ng-src="{{data.currentUser.PromoCodeImage}}" class="promo-image">
+        </div>
     </ion-content>
 </ion-view>

@@ -11,8 +11,7 @@
                 showThumbs: false,
                 documentTypeFilterId: null,
                 startDateFilter: null,
-                endDateFilter: null//,
-                //promoCodeImage: (typeof currentUser.ShareKeys != 'undefined' && currentUser.ShareKeys.length > 0) ? 'data:image/png;base64,' + currentUser.ShareKeys[0].ShareImageBase64 : null
+                endDateFilter: null
             };
             if ($scope.data.documents.length == 0) {
                 //taken out for debug
