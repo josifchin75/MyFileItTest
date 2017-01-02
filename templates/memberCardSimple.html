@@ -5,7 +5,7 @@
     <ion-content padding="'true'" class="has-header">
         <form class="list">
             <div class="member-card">
-
+               
                 <div>
                     <div class="left">
                         <a href="#" ui-sref="main" class="button button-icon icon ion-android-home"></a>
@@ -14,7 +14,9 @@
                         <a ng-click="editMemberProfile()" class="button button-icon icon ion-edit"></a>
                     </div>
                 </div>
-
+                <div ng-show="showPromoImage()">
+                    <img ng-src="{{data.currentUser.PromoCodeImage}}" class="promo-image">
+                </div>
                 <div class="member-thumb add">
                     <span ng-hide="isCoachVerifying()">
                         <a href="#" ng-click="getDocument()">

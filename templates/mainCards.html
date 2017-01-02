@@ -3,7 +3,9 @@
         <fileit-header fileit-title="Home" hide-logout="false"></fileit-header>
     </ion-nav-title>
     <ion-content padding="'true'" class="has-header">
-     
+        <div ng-show="showPromoImage()">
+            <img ng-src="{{data.currentUser.PromoCodeImage}}" class="promo-image">
+        </div>
         <div id="mainCards">
             <fieldset>
                 <legend>Your Members</legend>
@@ -46,7 +48,7 @@
                 </form>
             </fieldset>
         </div>
-     
+       
         <sharekey-url user-id="{{data.currentUser.ID}}"></sharekey-url>
         <div ng-show="data.currentUser.RemindUserForSignUp">
             <p>

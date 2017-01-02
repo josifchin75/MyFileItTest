@@ -30,6 +30,10 @@
             return obj.SEX == sex;
         };
 
+        $scope.showPromoImage = function () {
+            return $scope.data.currentUser.PromoCodeImage != null;
+        };
+
         $scope.selectUser = function (obj) {
             //alert(obj.ID);
             FamilyUser.setObject(obj);
