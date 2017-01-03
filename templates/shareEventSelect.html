@@ -10,7 +10,7 @@
                 <input type="text" placeholder="" ng-model="data.organizationSearch" ng-change="searchOrganizations()">
             </label>
         </form>
-        <form class="list">
+        <form class="list"> 
             <ion-list>
                 <label ng-repeat="organization in data.organizations">
                     <ion-radio ng-model="data.organizationId" ng-value="organization.ID" ng-change="searchEvents()">{{organization.NAME}}</ion-radio>
