@@ -65,9 +65,9 @@ angular.module('app.directives', [])
                         //shareKeySuccess();
                         IAP.buy(shareKeyBaseSKU + ((numberShareKeys * 1) + 1));
                     } else {
-                        var url = 'https://myfileit.net/Processing/?UId=' + id;
+                        var url = 'https://peclientportal.myfileit.net/Pages/Checkout.aspx?UId=' + id;
+                        //var url = 'https://myfileit.net/Processing/?UId=' + id;
                         window.open(url, '_system', 'location=yes');
-                        //window.open('http://my123filit.com/Pages/IFrame.aspx?UId=' + id, '_system', 'location=yes');
                     }
                     return false;
                 }

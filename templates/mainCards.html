@@ -50,11 +50,9 @@
         <sharekey-url user-id="{{data.currentUser.ID}}"></sharekey-url>
         <div ng-show="data.currentUser.RemindUserForSignUp">
             <p>
-                MyFile-It is free to upload and save your and families personal documents. There is small per user charge for unlimited sharing their personal documents for a year. MyFile-IT App allows you a 30 day trial period to enjoy all the features including sharing. When you pay for an annual share key subscription you will also get a no ad version.
+                MyFile-IT is free to install and upload and save your families personal documents. There is small per user charge for unlimited sharing for a year of your documents. This also includes 200 stored documents. If you need more document storage, just go back buy another subscription. MyFile-IT allows you a 30 day trial period to enjoy all the features including sharing and storing. You have {{data.currentUser.DaysLeftInTrial >= 0 ? data.currentUser.DaysLeftInTrial:0}} days left.
             </p>
-            <p>
-                You have {{data.currentUser.DaysLeftInTrial >= 0 ? data.currentUser.DaysLeftInTrial:0}} days left.   MyFile-It is free to upload and save your and families personal documents. There is small per user charge for unlimited sharing their personal documents for a year. MyFile-IT App allows you a 30 day trial period to enjoy all the features including sharing. When you pay for an annual share key subscription you will also get a no ad version.
-            </p>
+
             <h3>
                 You have {{data.currentUser.DaysLeftInTrial >= 0 ? data.currentUser.DaysLeftInTrial:0}} days left.
             </h3>
