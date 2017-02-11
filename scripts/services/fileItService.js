@@ -280,7 +280,7 @@
             var servicePass = this.adminPass();
             var svc = this;
             var downloadedDocsVar;
-            var finalDocumentArray = []
+            var finalDocumentArray = [];
 
             function mainAppGet(downloadedDocumentIds) {
                 downloadedDocumentIds = [];

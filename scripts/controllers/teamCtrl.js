@@ -38,7 +38,6 @@
             }
 
             function failSearch(data) {
-
             }
             //appUserId, organizationId, teamEventId, searchName,
             FileItService.getTeamEventsByCoach($scope.data.currentUser.ID, null, successSearch, failSearch);

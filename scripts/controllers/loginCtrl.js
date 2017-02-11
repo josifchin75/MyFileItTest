@@ -26,8 +26,8 @@
         //$scope.data.username = 'johndemo@gmail.com';
         // $scope.data.password = 'demo12';
 
-        //$scope.data.username = 'Mike.Army@myoata.com';
-        //$scope.data.password = 'marmy12';
+        //$scope.data.username = 'sbutcher1@gmail.com';
+        //$scope.data.password = 'sandy9451';
     }
 
     $scope.$on('$ionicView.beforeEnter', function () {
