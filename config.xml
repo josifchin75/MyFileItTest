@@ -5,8 +5,8 @@
         version="1.0.10"
         xmlns="http://www.w3.org/ns/widgets">
 
-  <name>MyFileIT Documents</name>
-  <description>MyFileIT document sharing and storage.</description>
+  <name>MyFileIT Events</name>
+  <description>MyFileIT event document sharing and storage.</description>
   <author href="http://cordova.io" email="dev@cordova.apache.org">J. Osifchin</author>
   <content src="index.html" />
 
