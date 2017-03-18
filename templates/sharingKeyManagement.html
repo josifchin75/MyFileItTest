@@ -22,6 +22,9 @@
                     <i class="medium-icon icon-left ion-key left">&nbsp;</i>
                 </div>
                 <div class="left">
+                    <div ng-show="showPromocode(sharekey)">
+                        <strong>{{sharekey.PROMOCODE}}</strong>
+                    </div>
                     {{sharekey.AppUserName}}
                     <a class="button button-stable button-block" ng-click="selectShareKeyUser({{sharekey.ID}})">
                         Select a Family Member

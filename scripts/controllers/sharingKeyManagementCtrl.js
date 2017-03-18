@@ -22,10 +22,15 @@
         }
 
         function onGetError() { }
-
+        //refresh the logged in user
+       
         var user = $scope.data.currentUser;
         var primaryAppUserId = user.PRIMARYAPPUSERID == null ? user.ID : user.PRIMARYAPPUSERID;
         FileItService.getFamilyUsers(primaryAppUserId, successGetFamily, onGetError);
+    };
+
+    $scope.showPromocode = function (sharekey) {
+        return sharekey.PROMOCODE != null && sharekey.PROMOCODE != '';
     };
 
     $scope.searchKeys = function () {
@@ -89,7 +94,7 @@
         }
 
         if (keysToPost.length > 0) {
-            function postSuccess() {
+            function postSuccess(data) {
                 var message = 'Your keys have been matched to your family members.';
 
                 var alertPopup = $ionicPopup.alert({
@@ -97,8 +102,23 @@
                     template: message
                 });
                 alertPopup.then(function () {
-                    $scope.init();
+                    function initCallback() {
+                        $scope.init();
+                    }
+
+                    function refreshUser(callback) {
+                        var currentUser = $scope.data.currentUser;
+                        function refreshCallback(data) {
+                            FileItService.setCurrentUser(data.AppUsers[0]);
+                            callback();
+                        }
+
+                        FileItService.loginUser(currentUser.USERNAME, currentUser.PASSWORD, refreshCallback, function () { });
+                    };
+
+                    refreshUser(initCallback);
                 });
+
             }
 
             //post them to service recursively

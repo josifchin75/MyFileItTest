@@ -10,7 +10,7 @@
         //insure that it refreshes!
         $scope.$on('$ionicView.beforeEnter', function () {
             $scope.data.familyUsers = FamilyUsers.getObject();
-            currentUser = FileItService.currentUser();
+            $scope.data.currentUser = FileItService.currentUser();
         });
 
         //occurs when leaving
