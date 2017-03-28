@@ -24,7 +24,7 @@
 
         function failRef(data) {
         }
-        FileItService.getDocumentTypes(currentUser.ID, successRef, failRef);
+        FileItService.getDocumentTypes($scope.data.currentUser.ID, successRef, failRef);
         //FileItService.getReferenceData('DocumentType', successRef, failRef);
     };
 
