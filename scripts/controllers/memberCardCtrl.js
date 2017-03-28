@@ -26,7 +26,7 @@
                     });
                 }
             }
-            FileItService.getDocumentTypes(currentUser.ID, successGetDocumentTypes, null);
+            FileItService.getDocumentTypes($scope.data.currentUser.ID, successGetDocumentTypes, null);
             //FileItService.getReferenceData('DocumentType', successGetDocumentTypes, null);
 
         };
