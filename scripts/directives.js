@@ -89,6 +89,7 @@ angular.module('app.directives', [])
             }
         };
     })
+    
     /*This directive can be used for when ng-repeat ends - see associate images*/
     .directive('repeatDone', function () {
         return function (scope, element, attrs) {

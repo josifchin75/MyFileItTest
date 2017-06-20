@@ -3,6 +3,7 @@
     $scope.init = function () {
         $scope.data = ScanDocument.getObject();
         $scope.data.currentUser = FileItService.currentUser();
+        $scope.data.amount = 0;
        
 
         function successRef(data) {

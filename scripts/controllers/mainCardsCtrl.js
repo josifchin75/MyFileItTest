@@ -31,7 +31,17 @@
         };
 
         $scope.showPromoImage = function () {
-            return $scope.data.currentUser.PromoCodeImage != null;
+            return $scope.data.currentUser.PromoCodeImage != null && !$scope.showPromoImageUrl();
+        };
+
+        $scope.showPromoImageUrl = function () {
+            return $scope.data.currentUser.PromoCodeUrl != null && $scope.data.currentUser.PromoCodeImage != null;
+        };
+
+        $scope.openPromoCodeUrl = function () {
+            var url = $scope.data.currentUser.PromoCodeUrl;
+            window.open(url, '_system', 'location=yes');
+            return false;
         };
 
         $scope.selectUser = function (obj) {

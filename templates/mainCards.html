@@ -67,5 +67,10 @@
         <div ng-show="showPromoImage()">
             <img ng-src="{{data.currentUser.PromoCodeImage}}" class="promo-image">
         </div>
-    </ion-content>
+        <div ng-show="showPromoImageUrl()">
+            <a ng-click="openPromoCodeUrl()">
+                <img ng-src="{{data.currentUser.PromoCodeImage}}" class="promo-image">
+            </a>    
+        </div>
+</ion-content>
 </ion-view>
