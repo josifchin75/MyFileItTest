@@ -24,7 +24,7 @@
             };
 
             var failRef = function () { };
-
+            var currentUser = FileItService.currentUser();
             FileItService.getDocumentTypes(currentUser.ID, successRef, failRef);
         };
 
