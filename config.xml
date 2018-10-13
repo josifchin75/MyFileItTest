@@ -23,12 +23,14 @@
 
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
-	<vs:plugin name="cordova-plugin-camera" spec="3.0.0" source="npm" />
+	
 
-  <!-- <vs:plugin name="org.apache.cordova.camera" > -->
+	<vs:plugin name="org.apache.cordova.camera" spec="3.0.0" source="npm" >
       <variable name="CAMERA_USAGE_DESCRIPTION" value="App would like to access the camera." />
 	  <variable name="MICROPHONE_USAGE_DESCRIPTION" value="App would like to access the microphone." />
 	  <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="App would like to access the library." />
+</vs:plugin>
+
 
   <vs:plugin name="cc.fovea.cordova.purchase" source="npm" version="6.0.0" >
 	<param name="BILLING_KEY" value=""/>
