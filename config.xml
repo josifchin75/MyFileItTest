@@ -25,7 +25,7 @@
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
 	
 
-	<vs:plugin name="org.apache.cordova.camera" spec="https://github.com/apache/cordova-plugin-camera.git#3.0.0" source="git" >
+	<vs:plugin name="org.apache.cordova.camera" spec="https://github.com/apache/cordova-plugin-camera.git#2.4.1" source="git" >
       <variable name="CAMERA_USAGE_DESCRIPTION" value="App would like to access the camera." />
 	  <variable name="MICROPHONE_USAGE_DESCRIPTION" value="App would like to access the microphone." />
 	  <variable name="PHOTOLIBRARY_USAGE_DESCRIPTION" value="App would like to access the library." />
