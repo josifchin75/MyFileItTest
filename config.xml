@@ -23,7 +23,7 @@
 
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
-	<vs:plugin name="cordova-plugin-camera" spec="3.0.0" />
+	<!--<vs:plugin name="cordova-plugin-camera" spec="3.0.0" />-->
 
   <!-- <vs:plugin name="org.apache.cordova.camera" > -->
       <variable name="CAMERA_USAGE_DESCRIPTION" value="App would like to access the camera." />
