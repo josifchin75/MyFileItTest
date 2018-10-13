@@ -23,7 +23,7 @@
 
   <plugin name="cordova-plugin-whitelist" version="1"/>
   <vs:plugin name="cordova-plugin-inappbrowser" source="npm" />
-    <vs:plugin name="name="cordova-plugin-camera"name="cordova-plugin-camera"" spec="~3.0.0" source="npm"> 
+    <vs:plugin name="name="cordova-plugin-camera"name="cordova-plugin-camera"" spec="~3.0.0" source="npm"/> 
 	<!--<vs:plugin name="cordova-plugin-camera" spec="https://github.com/apache/cordova-plugin-camera.git" source="git" />-->
 	
   <!-- <vs:plugin name="org.apache.cordova.camera" > -->
