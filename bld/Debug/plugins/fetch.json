@@ -1,0 +1,8 @@
+{
+    "org.apache.cordova.camera": {
+        "source": {
+            "type": "local",
+            "path": "C:\\Development\\Repo\\MyFileItTest\\plugins\\org.apache.cordova.camera"
+        }
+    }
+}
